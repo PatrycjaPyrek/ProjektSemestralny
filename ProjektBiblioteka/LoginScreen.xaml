@@ -1,0 +1,32 @@
+﻿<Window x:Class="ProjektBiblioteka.LoginScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektBiblioteka"
+        mc:Ignorable="d"
+        Title="Login" Height="500" Width="500" Background=" Gray">
+    <Grid>
+        <Border Background="#FF171819" CornerRadius="10" Margin="10">
+            <StackPanel>
+                <Label Content="Login " Foreground="White" HorizontalAlignment="Center"  Margin="194,20,174,20" FontSize="30" Width="104" RenderTransformOrigin="0.941,1.378" Height="45" FontFamily="Arial"/>
+
+                <Border Background="#FF2F343A" CornerRadius="30" Width="400" Height="300" Margin="10" BorderBrush="#FF131313" BorderThickness="2">
+                    <StackPanel>
+                        <Label Content="Podaj login" Foreground="White" HorizontalAlignment="Left" Margin="20,20,0,2" FontSize="18" FontFamily="Cambria" Height="34"/>
+                        <TextBox x:Name="username" Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9FA2AA" Background="#FF5F6D76"/>
+                        <Label Content="Podaj hasło" Foreground="White" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="18" FontFamily="Cambria" Height="34"/>
+                        <TextBox x:Name="password" Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9DA0A8" Background="#FF5F6D76"/>
+                        <Border CornerRadius="10" Margin="10" Background="#FF1B1C1F" BorderBrush="Black" HorizontalAlignment="Center">
+                        <Button x:Name="buttonSubmit" Click="buttonSubmit_Click"  Width="130" Height="40" Content="Zaloguj" FontSize="20" Foreground="#FFD8CCCC" BorderBrush="{x:Null}" Background="{x:Null}" />
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+
+        </Border>
+
+    </Grid>
+</Window>
