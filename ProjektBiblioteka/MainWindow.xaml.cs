@@ -23,6 +23,8 @@ namespace ProjektBiblioteka
         public MainWindow()
         {
             InitializeComponent();
+            var dataSet = new libraryEntitiesDataSet();
+
         }
     }
 }
