@@ -28,40 +28,43 @@ namespace ProjektBiblioteka
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=.\DESKTOP-TEBB0TS\SQLCOURSE2017;Initial Catalog=loginPass; Integrated Security = True;");
+           // SqlConnection sqlCon = new SqlConnection(@"Data Source=.\DESKTOP-TEBB0TS\SQLCOURSE2017;Initial Catalog=loginPass; Integrated Security = True;");
           // var result = from c in sqlCon.GetTable<>
-            try
-            {
-                if (sqlCon.State == ConnectionState.Closed)
-                    sqlCon.Open();
-                string query = "SELECT COUNT(*) FROM LoginPass where username=@username and password=@password";
-                SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
-                sqlCommand.CommandType = CommandType.Text;
-                sqlCommand.Parameters.AddWithValue("@username", username.Text);
-                sqlCommand.Parameters.AddWithValue("@password", password.Text);
-                int count = Convert.ToInt32(sqlCommand.ExecuteScalar());
-                    if (count == 1)
-                    {
-                        MainWindow dashboard = new MainWindow();
-                        dashboard.Show();
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("login lub hasło jest niepoprawne");
-                    }
+            //try
+            //{
+            //    if (sqlCon.State == ConnectionState.Closed)
+            //        sqlCon.Open();
+            //    string query = "SELECT COUNT(*) FROM LoginPass where username=@username and password=@password";
+            //    SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+            //    sqlCommand.CommandType = CommandType.Text;
+            //    sqlCommand.Parameters.AddWithValue("@username", username.Text);
+            //    sqlCommand.Parameters.AddWithValue("@password", password.Text);
+            //    int count = Convert.ToInt32(sqlCommand.ExecuteScalar());
+            //        if (count == 1)
+            //        {
+            //            MainWindow dashboard = new MainWindow();
+            //            dashboard.Show();
+            //            this.Close();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("login lub hasło jest niepoprawne");
+            //        }
                 
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
                
-            }
-            finally
-            {
-                sqlCon.Close();
-            }
+            //}
+            //finally
+            //{
+            //    sqlCon.Close();
+            //}
+
+
+
         }
     }
 }
