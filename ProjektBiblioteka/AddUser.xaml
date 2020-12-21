@@ -20,7 +20,7 @@
                         <Label Content="USERNAME" Foreground="#FF13306E" HorizontalAlignment="Left" Margin="20,20,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
                         <TextBox x:Name="usernametxt" BorderThickness="2"  Foreground="#FF111111" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9FA2AA" Background="White"  SelectionTextBrush="#FF0A0808"/>
                         <Label Content="PASSWORD" Foreground="#FF13306E" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
-                        <PasswordBox x:Name="passwordtxt" BorderThickness="2" Foreground="#FF0C0B0B" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FFC0C3C9" Background="White" SelectionTextBrush="Black" PasswordChar="*" />
+                        <TextBox x:Name="passwordtxt" BorderThickness="2" Foreground="#FF0C0B0B" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FFC0C3C9" Background="White" SelectionTextBrush="Black"  />
                         <Border CornerRadius="10" Margin="10" Background="#FF0B102C" BorderBrush="#FFA49494" HorizontalAlignment="Center" BorderThickness="1">
                             <Button x:Name="addBtn" Click="buttonSubmit_Click"  Width="170" Height="40" Content="Add" FontSize="20" Foreground="#FFECEDF0" BorderBrush="{x:Null}" Background="{x:Null}" FontWeight="Bold" />
                         </Border>

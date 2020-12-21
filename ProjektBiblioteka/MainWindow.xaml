@@ -20,7 +20,7 @@
                 <TextBlock Text="LIBRARY APP " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Grid.Column="1" Margin="93,0,100,25" Width="157" Height="30"/>
                 <Button Content="Close" Margin="250,18,-140,0" VerticalAlignment="Top" Height="27" Background="#FF1A2161" BorderBrush="#FFE2DDDD" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Agency FB" Click="Button_Click" Grid.Column="3" HorizontalAlignment="Left" Width="74"/>
             </Grid>
-            <Grid Width="730" HorizontalAlignment="Right" Background="White" Height="530" VerticalAlignment="Top" Margin="0,75,0,-5">
+            <Grid Width="730" HorizontalAlignment="Right" Background="White" Height="525" VerticalAlignment="Top" Margin="0,75,0,0">
 
                 <Image HorizontalAlignment="Left" Height="226" VerticalAlignment="Top" Width="230"  Canvas.Left="241" RenderTransformOrigin="0.548,0.162" Canvas.Top="28" Source="pics/libBooks.png" Margin="240,132,0,0"/>
 
@@ -48,7 +48,16 @@
 
                     </Grid>
                     <Button Content="Create New User" Foreground="White" HorizontalAlignment="Center" Margin="96,-200,96,0" FontSize="16" FontFamily="Arial" Height="34" Background="{x:Null}" BorderBrush="{x:Null}" FontStyle="Italic" Click="Button_Click_2" />
-                    <Separator Margin="96,-191,96,-10" Height="78"/>
+                    <Separator Margin="96,-191,96,-10" Height="78" RenderTransformOrigin="0.5,0.5">
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-5.711"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-3.9"/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
                     <Button Content="Rent" HorizontalAlignment="Left" Height="69" Margin="10,-280,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Check" HorizontalAlignment="Left" Height="69" Margin="10,-355,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Return" HorizontalAlignment="Left" Height="69" Margin="10,-200,0,0" VerticalAlignment="Top" Width="286" Click="zwrot" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>

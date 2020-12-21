@@ -30,11 +30,11 @@ namespace ProjektBiblioteka
             var account = new loginPass()
             {
                 username = usernametxt.Text,
-                password = passwordtxt.Password
+                password = passwordtxt.Text
             };
             context.loginPass.Add(account);
             context.SaveChanges();
-            MessageBox.Show( $"New user was added. Login:{usernametxt.Text},password+{passwordtxt.Password.ToString()}");
+            MessageBox.Show( $"New user was added. Login:{usernametxt.Text},password: {passwordtxt.Text}");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
