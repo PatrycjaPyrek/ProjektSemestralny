@@ -4,9 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektBiblioteka"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="NOWE">     </Label>  
-    </Grid>
+        mc:Ignorable="d" Height="600" Width="1080" WindowStartupLocation="Manual" Visibility="Visible" WindowStyle="None" Foreground="White" BorderBrush="#FFF7F7F7" ResizeMode="NoResize">
+
+    <Border Background="#FF232020" >
+        <Grid AllowDrop="True" Height="600" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="1080" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="730"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+            <Grid Height="70" VerticalAlignment="Top" Background="#FF13306E" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="730"/>
+                    <ColumnDefinition Width="350*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="LIBRARY APP " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Grid.Column="1" Margin="93,0,100,25" Width="157" Height="30"/>
+                <Button Content="Close" Margin="250,18,-140,0" VerticalAlignment="Top" Height="27" Background="#FF1A2161" BorderBrush="#FFE2DDDD" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Agency FB" Click="Button_Click" Grid.Column="3" HorizontalAlignment="Left" Width="74"/>
+            </Grid>
+            <Grid Width="730" HorizontalAlignment="Right" Background="White" Height="530" VerticalAlignment="Top" Margin="0,75,0,-5">
+                <Canvas Margin="10,107,10,141">
+                    <Image HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="266" Source="pics/libBooks.png" Canvas.Left="219" RenderTransformOrigin="0.548,0.162" Canvas.Top="10"/>
+                </Canvas>
+                <Grid Margin="67,10,67,428">
+                    <Label Content="LIBRARY APPLICATION" HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="555" Foreground="#FF0F2257" FontSize="44" RenderTransformOrigin="0.494,0.52" FontWeight="ExtraBold"/>
+                    <Separator Margin="0,55,430,0" Foreground="#FFBD5656" Background="#FF182253" FontWeight="ExtraBlack"></Separator>
+
+                    <TextBlock x:Name="wprowadzenie" HorizontalAlignment="Left" Margin="0,389,0,-403" TextWrapping="Wrap" VerticalAlignment="Top" Height="106" Width="593" TextAlignment="Center" Foreground="#FF46494F" FontSize="20"><Run Text="This is a simple application for library. "/><LineBreak/><Run Text="Choose desired action from menu in the right portion of the grid to start."/></TextBlock>
+                    <Separator Margin="10,38,430,144" Foreground="#FFBD5656" Background="#FF182253" FontWeight="ExtraBlack"></Separator>
+
+
+                </Grid>
+
+            </Grid>
+            <Border Background="#FF134E89" CornerRadius="10" Margin="10,80,10,10" Grid.Column="1">
+                <StackPanel x:Name="panel" Grid.Column="1" HorizontalAlignment="Center" Height="455" Margin="14,15,-4,5" VerticalAlignment="Center" Width="320">
+                    <Grid Width="305" HorizontalAlignment="Right" Height="530" VerticalAlignment="Top" Margin="0,0,15,0">
+
+                        <Grid Margin="67,10,67,352">
+
+                            <Ellipse Fill="White" Margin="0,0,0,8" Stroke="#FF12427C" StrokeThickness="4"/>
+                            <Label Content="図&#xA;書&#xA;館" HorizontalAlignment="Left" Height="160" Margin="61,8,0,0" VerticalAlignment="Top" Width="81" FontFamily="UD Digi Kyokasho N-B" Foreground="#FF182B61" FontSize="40" RenderTransformOrigin="0.494,0.52"/>
+
+                        </Grid>
+
+                    </Grid>
+                    <Button Content="Check" HorizontalAlignment="Left" Height="69" Margin="10,-350,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
+
+                    <Button Content="Rent" HorizontalAlignment="Left" Height="69" Margin="10,-250,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
+                    <Button Content="Return" HorizontalAlignment="Left" Height="69" Margin="10,-150,0,0" VerticalAlignment="Top" Width="286" Click="zwrot" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+
 </Window>

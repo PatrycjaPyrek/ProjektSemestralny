@@ -24,6 +24,27 @@ namespace ProjektBiblioteka
         {
             InitializeComponent();
             var dataSet = new libraryEntitiesDataSet();
+            
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void zwrot(object sender, RoutedEventArgs e)
+        {
 
         }
     }
