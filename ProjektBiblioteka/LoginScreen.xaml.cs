@@ -28,7 +28,9 @@ namespace ProjektBiblioteka
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
-           // SqlConnection sqlCon = new SqlConnection(@"Data Source=.\DESKTOP-TEBB0TS\SQLCOURSE2017;Initial Catalog=loginPass; Integrated Security = True;");
+           
+            
+            // SqlConnection sqlCon = new SqlConnection(@"Data Source=.\DESKTOP-TEBB0TS\SQLCOURSE2017;Initial Catalog=loginPass; Integrated Security = True;");
           // var result = from c in sqlCon.GetTable<>
             //try
             //{
@@ -65,6 +67,11 @@ namespace ProjektBiblioteka
 
 
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

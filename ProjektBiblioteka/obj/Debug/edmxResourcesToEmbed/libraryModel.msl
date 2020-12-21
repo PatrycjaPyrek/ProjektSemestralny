@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="libraryModel1StoreContainer" CdmEntityContainer="libraryEntitiesDataSet">
+    <EntitySetMapping Name="Cennik">
+      <EntityTypeMapping TypeName="libraryModel1.Cennik">
+        <MappingFragment StoreEntitySet="Cennik">
+          <ScalarProperty Name="rodzajKsiazki" ColumnName="rodzajKsiazki" />
+          <ScalarProperty Name="oplataZa7Dni" ColumnName="oplataZa7Dni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doplaty">
+      <EntityTypeMapping TypeName="libraryModel1.Doplaty">
+        <MappingFragment StoreEntitySet="Doplaty">
+          <ScalarProperty Name="idWypozyczenia" ColumnName="idWypozyczenia" />
+          <ScalarProperty Name="doplata" ColumnName="doplata" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Egzemplarze">
+      <EntityTypeMapping TypeName="libraryModel1.Egzemplarze">
+        <MappingFragment StoreEntitySet="Egzemplarze">
+          <ScalarProperty Name="idEgzemplarza" ColumnName="idEgzemplarza" />
+          <ScalarProperty Name="idKsiazki" ColumnName="idKsiazki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="gatunki">
+      <EntityTypeMapping TypeName="libraryModel1.gatunki">
+        <MappingFragment StoreEntitySet="gatunki">
+          <ScalarProperty Name="gatunek" ColumnName="gatunek" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Klienci">
+      <EntityTypeMapping TypeName="libraryModel1.Klienci">
+        <MappingFragment StoreEntitySet="Klienci">
+          <ScalarProperty Name="idKlienta" ColumnName="idKlienta" />
+          <ScalarProperty Name="NrDowodu" ColumnName="NrDowodu" />
+          <ScalarProperty Name="nazwiskoKlienta" ColumnName="nazwiskoKlienta" />
+          <ScalarProperty Name="imieKlienta" ColumnName="imieKlienta" />
+          <ScalarProperty Name="plec" ColumnName="plec" />
+          <ScalarProperty Name="dataUrodzenia" ColumnName="dataUrodzenia" />
+          <ScalarProperty Name="ulica" ColumnName="ulica" />
+          <ScalarProperty Name="kodPocztowy" ColumnName="kodPocztowy" />
+          <ScalarProperty Name="Miejscowosc" ColumnName="Miejscowosc" />
+          <ScalarProperty Name="dataWprowadzenia" ColumnName="dataWprowadzenia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ksiazki">
+      <EntityTypeMapping TypeName="libraryModel1.Ksiazki">
+        <MappingFragment StoreEntitySet="Ksiazki">
+          <ScalarProperty Name="idKsiazki" ColumnName="idKsiazki" />
+          <ScalarProperty Name="tytulKsiazki" ColumnName="tytulKsiazki" />
+          <ScalarProperty Name="rokWydania" ColumnName="rokWydania" />
+          <ScalarProperty Name="rodzajKsiazki" ColumnName="rodzajKsiazki" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tworcy">
+      <EntityTypeMapping TypeName="libraryModel1.Tworcy">
+        <MappingFragment StoreEntitySet="Tworcy">
+          <ScalarProperty Name="idTworcy" ColumnName="idTworcy" />
+          <ScalarProperty Name="nazwiskoTworcy" ColumnName="nazwiskoTworcy" />
+          <ScalarProperty Name="imieTworcy" ColumnName="imieTworcy" />
+          <ScalarProperty Name="rokUrodzenia" ColumnName="rokUrodzenia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wypozyczenia">
+      <EntityTypeMapping TypeName="libraryModel1.Wypozyczenia">
+        <MappingFragment StoreEntitySet="Wypozyczenia">
+          <ScalarProperty Name="idWypozyczenia" ColumnName="idWypozyczenia" />
+          <ScalarProperty Name="idEgzemplarza" ColumnName="idEgzemplarza" />
+          <ScalarProperty Name="idKlienta" ColumnName="idKlienta" />
+          <ScalarProperty Name="dataWypozyczenia" ColumnName="dataWypozyczenia" />
+          <ScalarProperty Name="oplataZa7Dni" ColumnName="oplataZa7Dni" />
+          <ScalarProperty Name="dataZwrotu" ColumnName="dataZwrotu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="KsiazkiGatunki" TypeName="libraryModel1.KsiazkiGatunki" StoreEntitySet="KsiazkiGatunki">
+      <EndProperty Name="gatunki">
+        <ScalarProperty Name="gatunek" ColumnName="gatunek" />
+      </EndProperty>
+      <EndProperty Name="Ksiazki">
+        <ScalarProperty Name="idKsiazki" ColumnName="idKsiazki" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="KsiazkiTworcy" TypeName="libraryModel1.KsiazkiTworcy" StoreEntitySet="KsiazkiTworcy">
+      <EndProperty Name="Ksiazki">
+        <ScalarProperty Name="idKsiazki" ColumnName="idKsiazki" />
+      </EndProperty>
+      <EndProperty Name="Tworcy">
+        <ScalarProperty Name="idTworcy" ColumnName="idTworcy" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

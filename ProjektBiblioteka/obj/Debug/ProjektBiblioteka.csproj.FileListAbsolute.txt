@@ -20,3 +20,4 @@ C:\Users\Patrycja\source\repos\ProjektBiblioteka\ProjektBiblioteka\bin\Debug\Ent
 C:\Users\Patrycja\source\repos\ProjektBiblioteka\ProjektBiblioteka\bin\Debug\EntityFramework.xml
 C:\Users\Patrycja\source\repos\ProjektBiblioteka\ProjektBiblioteka\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Patrycja\source\repos\ProjektBiblioteka\ProjektBiblioteka\obj\Debug\ProjektBiblioteka.csproj.CopyComplete
+C:\Users\Patrycja\source\repos\ProjektBiblioteka\ProjektBiblioteka\obj\Debug\ProjektBiblioteka_Content.g.cs

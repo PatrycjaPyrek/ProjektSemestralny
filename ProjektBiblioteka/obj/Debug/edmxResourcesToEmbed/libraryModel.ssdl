@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="libraryModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cennik">
+    <Key>
+      <PropertyRef Name="rodzajKsiazki" />
+    </Key>
+    <Property Name="rodzajKsiazki" Type="char" MaxLength="20" Nullable="false" />
+    <Property Name="oplataZa7Dni" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doplaty">
+    <Key>
+      <PropertyRef Name="idWypozyczenia" />
+    </Key>
+    <Property Name="idWypozyczenia" Type="int" Nullable="false" />
+    <Property Name="doplata" Type="money" />
+  </EntityType>
+  <EntityType Name="Egzemplarze">
+    <Key>
+      <PropertyRef Name="idEgzemplarza" />
+    </Key>
+    <Property Name="idEgzemplarza" Type="int" Nullable="false" />
+    <Property Name="idKsiazki" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="gatunki">
+    <Key>
+      <PropertyRef Name="gatunek" />
+    </Key>
+    <Property Name="gatunek" Type="char" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Klienci">
+    <Key>
+      <PropertyRef Name="idKlienta" />
+    </Key>
+    <Property Name="idKlienta" Type="int" Nullable="false" />
+    <Property Name="NrDowodu" Type="char" MaxLength="9" Nullable="false" />
+    <Property Name="nazwiskoKlienta" Type="nvarchar" MaxLength="30" />
+    <Property Name="imieKlienta" Type="nvarchar" MaxLength="30" />
+    <Property Name="plec" Type="char" MaxLength="1" />
+    <Property Name="dataUrodzenia" Type="int" />
+    <Property Name="ulica" Type="nvarchar" MaxLength="50" />
+    <Property Name="kodPocztowy" Type="varchar" MaxLength="10" />
+    <Property Name="Miejscowosc" Type="nvarchar" MaxLength="100" />
+    <Property Name="dataWprowadzenia" Type="date" />
+  </EntityType>
+  <EntityType Name="Ksiazki">
+    <Key>
+      <PropertyRef Name="idKsiazki" />
+    </Key>
+    <Property Name="idKsiazki" Type="int" Nullable="false" />
+    <Property Name="tytulKsiazki" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="rokWydania" Type="int" Nullable="false" />
+    <Property Name="rodzajKsiazki" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="KsiazkiGatunki">
+    <Key>
+      <PropertyRef Name="idKsiazki" />
+      <PropertyRef Name="gatunek" />
+    </Key>
+    <Property Name="idKsiazki" Type="int" Nullable="false" />
+    <Property Name="gatunek" Type="char" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KsiazkiTworcy">
+    <Key>
+      <PropertyRef Name="idKsiazki" />
+      <PropertyRef Name="idTworcy" />
+    </Key>
+    <Property Name="idKsiazki" Type="int" Nullable="false" />
+    <Property Name="idTworcy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tworcy">
+    <Key>
+      <PropertyRef Name="idTworcy" />
+    </Key>
+    <Property Name="idTworcy" Type="int" Nullable="false" />
+    <Property Name="nazwiskoTworcy" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="imieTworcy" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="rokUrodzenia" Type="int" />
+  </EntityType>
+  <EntityType Name="Wypozyczenia">
+    <Key>
+      <PropertyRef Name="idWypozyczenia" />
+    </Key>
+    <Property Name="idWypozyczenia" Type="int" Nullable="false" />
+    <Property Name="idEgzemplarza" Type="int" Nullable="false" />
+    <Property Name="idKlienta" Type="int" Nullable="false" />
+    <Property Name="dataWypozyczenia" Type="date" Nullable="false" />
+    <Property Name="oplataZa7Dni" Type="money" />
+    <Property Name="dataZwrotu" Type="date" />
+  </EntityType>
+  <Association Name="FK__Ksiazki__rodzajK__3B75D760">
+    <End Role="Cennik" Type="Self.Cennik" Multiplicity="0..1" />
+    <End Role="Ksiazki" Type="Self.Ksiazki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cennik">
+        <PropertyRef Name="rodzajKsiazki" />
+      </Principal>
+      <Dependent Role="Ksiazki">
+        <PropertyRef Name="rodzajKsiazki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KsiazkiGa__gatun__3E52440B">
+    <End Role="gatunki" Type="Self.gatunki" Multiplicity="1" />
+    <End Role="KsiazkiGatunki" Type="Self.KsiazkiGatunki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="gatunki">
+        <PropertyRef Name="gatunek" />
+      </Principal>
+      <Dependent Role="KsiazkiGatunki">
+        <PropertyRef Name="gatunek" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KsiazkiGa__idKsi__3F466844">
+    <End Role="Ksiazki" Type="Self.Ksiazki" Multiplicity="1" />
+    <End Role="KsiazkiGatunki" Type="Self.KsiazkiGatunki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ksiazki">
+        <PropertyRef Name="idKsiazki" />
+      </Principal>
+      <Dependent Role="KsiazkiGatunki">
+        <PropertyRef Name="idKsiazki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KsiazkiTw__idKsi__44FF419A">
+    <End Role="Ksiazki" Type="Self.Ksiazki" Multiplicity="1" />
+    <End Role="KsiazkiTworcy" Type="Self.KsiazkiTworcy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ksiazki">
+        <PropertyRef Name="idKsiazki" />
+      </Principal>
+      <Dependent Role="KsiazkiTworcy">
+        <PropertyRef Name="idKsiazki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KsiazkiTw__idTwo__440B1D61">
+    <End Role="Tworcy" Type="Self.Tworcy" Multiplicity="1" />
+    <End Role="KsiazkiTworcy" Type="Self.KsiazkiTworcy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tworcy">
+        <PropertyRef Name="idTworcy" />
+      </Principal>
+      <Dependent Role="KsiazkiTworcy">
+        <PropertyRef Name="idTworcy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wypozycze__idEgz__4D94879B">
+    <End Role="Egzemplarze" Type="Self.Egzemplarze" Multiplicity="1" />
+    <End Role="Wypozyczenia" Type="Self.Wypozyczenia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Egzemplarze">
+        <PropertyRef Name="idEgzemplarza" />
+      </Principal>
+      <Dependent Role="Wypozyczenia">
+        <PropertyRef Name="idEgzemplarza" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wypozycze__idKli__4E88ABD4">
+    <End Role="Klienci" Type="Self.Klienci" Multiplicity="1" />
+    <End Role="Wypozyczenia" Type="Self.Wypozyczenia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klienci">
+        <PropertyRef Name="idKlienta" />
+      </Principal>
+      <Dependent Role="Wypozyczenia">
+        <PropertyRef Name="idKlienta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="polaczenieKsiazkaEgzemplarz">
+    <End Role="Ksiazki" Type="Self.Ksiazki" Multiplicity="1" />
+    <End Role="Egzemplarze" Type="Self.Egzemplarze" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ksiazki">
+        <PropertyRef Name="idKsiazki" />
+      </Principal>
+      <Dependent Role="Egzemplarze">
+        <PropertyRef Name="idKsiazki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="polaczenieWypozDoplata">
+    <End Role="Wypozyczenia" Type="Self.Wypozyczenia" Multiplicity="1" />
+    <End Role="Doplaty" Type="Self.Doplaty" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Wypozyczenia">
+        <PropertyRef Name="idWypozyczenia" />
+      </Principal>
+      <Dependent Role="Doplaty">
+        <PropertyRef Name="idWypozyczenia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="libraryModel1StoreContainer">
+    <EntitySet Name="Cennik" EntityType="Self.Cennik" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doplaty" EntityType="Self.Doplaty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Egzemplarze" EntityType="Self.Egzemplarze" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="gatunki" EntityType="Self.gatunki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Klienci" EntityType="Self.Klienci" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ksiazki" EntityType="Self.Ksiazki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KsiazkiGatunki" EntityType="Self.KsiazkiGatunki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KsiazkiTworcy" EntityType="Self.KsiazkiTworcy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tworcy" EntityType="Self.Tworcy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wypozyczenia" EntityType="Self.Wypozyczenia" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Ksiazki__rodzajK__3B75D760" Association="Self.FK__Ksiazki__rodzajK__3B75D760">
+      <End Role="Cennik" EntitySet="Cennik" />
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KsiazkiGa__gatun__3E52440B" Association="Self.FK__KsiazkiGa__gatun__3E52440B">
+      <End Role="gatunki" EntitySet="gatunki" />
+      <End Role="KsiazkiGatunki" EntitySet="KsiazkiGatunki" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KsiazkiGa__idKsi__3F466844" Association="Self.FK__KsiazkiGa__idKsi__3F466844">
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+      <End Role="KsiazkiGatunki" EntitySet="KsiazkiGatunki" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KsiazkiTw__idKsi__44FF419A" Association="Self.FK__KsiazkiTw__idKsi__44FF419A">
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+      <End Role="KsiazkiTworcy" EntitySet="KsiazkiTworcy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KsiazkiTw__idTwo__440B1D61" Association="Self.FK__KsiazkiTw__idTwo__440B1D61">
+      <End Role="Tworcy" EntitySet="Tworcy" />
+      <End Role="KsiazkiTworcy" EntitySet="KsiazkiTworcy" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wypozycze__idEgz__4D94879B" Association="Self.FK__Wypozycze__idEgz__4D94879B">
+      <End Role="Egzemplarze" EntitySet="Egzemplarze" />
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wypozycze__idKli__4E88ABD4" Association="Self.FK__Wypozycze__idKli__4E88ABD4">
+      <End Role="Klienci" EntitySet="Klienci" />
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+    </AssociationSet>
+    <AssociationSet Name="polaczenieKsiazkaEgzemplarz" Association="Self.polaczenieKsiazkaEgzemplarz">
+      <End Role="Ksiazki" EntitySet="Ksiazki" />
+      <End Role="Egzemplarze" EntitySet="Egzemplarze" />
+    </AssociationSet>
+    <AssociationSet Name="polaczenieWypozDoplata" Association="Self.polaczenieWypozDoplata">
+      <End Role="Wypozyczenia" EntitySet="Wypozyczenia" />
+      <End Role="Doplaty" EntitySet="Doplaty" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -4,29 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektBiblioteka"
-        mc:Ignorable="d"
-        Title="Login" Height="500" Width="500" Background=" Gray">
-    <Grid>
-        <Border Background="#FF171819" CornerRadius="10" Margin="10">
-            <StackPanel>
-                <Label Content="Login " Foreground="White" HorizontalAlignment="Center"  Margin="194,20,174,20" FontSize="30" Width="104" RenderTransformOrigin="0.941,1.378" Height="45" FontFamily="Arial"/>
+        mc:Ignorable="d" Height="600" Width="1080" WindowStartupLocation="Manual" Visibility="Visible" WindowStyle="None" Foreground="White" BorderBrush="#FFF7F7F7" ResizeMode="NoResize">
 
-                <Border Background="#FF2F343A" CornerRadius="30" Width="400" Height="300" Margin="10" BorderBrush="#FF131313" BorderThickness="2">
-                    <StackPanel>
-                        <Label Content="Podaj login" Foreground="White" HorizontalAlignment="Left" Margin="20,20,0,2" FontSize="18" FontFamily="Cambria" Height="34"/>
-                        <TextBox x:Name="username" Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9FA2AA" Background="#FF5F6D76"/>
-                        <Label Content="Podaj hasło" Foreground="White" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="18" FontFamily="Cambria" Height="34"/>
-                        <TextBox x:Name="password" Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9DA0A8" Background="#FF5F6D76"/>
-                        <Border CornerRadius="10" Margin="10" Background="#FF1B1C1F" BorderBrush="Black" HorizontalAlignment="Center">
-                        <Button x:Name="buttonSubmit" Click="buttonSubmit_Click"  Width="130" Height="40" Content="Zaloguj" FontSize="20" Foreground="#FFD8CCCC" BorderBrush="{x:Null}" Background="{x:Null}" />
-                        </Border>
-                    </StackPanel>
+
+    <Grid AllowDrop="True" Height="600" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="1080" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="730"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Grid Height="70" VerticalAlignment="Top" Background="#FF13306E" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="730"/>
+                <ColumnDefinition Width="350*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="LIBRARY APP " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Grid.Column="1" Margin="93,0,100,25" Width="157" Height="30"/>
+            <Button Content="Close" Margin="250,18,-140,0" VerticalAlignment="Top" Height="27" Background="#FF1A2161" BorderBrush="#FFE2DDDD" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Agency FB" Click="Button_Click" Grid.Column="3" HorizontalAlignment="Left" Width="74"/>
+        </Grid>
+        <Grid Width="730" HorizontalAlignment="Right" Background="White" Height="530" VerticalAlignment="Top" Margin="0,70,0,0">
+            <Canvas Margin="10,204,10,103"/>
+            <Grid Margin="67,10,67,352">
+
+
+                <Label Content="WELCOME TO" HorizontalAlignment="Left" Height="50" Margin="0,206,0,-88" VerticalAlignment="Top" Width="336" Foreground="#FF1B2951" FontSize="36" RenderTransformOrigin="0.494,0.52" FontWeight="SemiBold"/>
+                <Label Content="LIBRARY APPLICATION" HorizontalAlignment="Left" Height="84" Margin="0,250,0,-166" VerticalAlignment="Top" Width="555" Foreground="#FF0F2257" FontSize="44" RenderTransformOrigin="0.494,0.52" FontWeight="ExtraBold"/>
+                <Label Content="Use log in form in the right portion of the grid to start" HorizontalAlignment="Left" Height="47" Margin="0,307,0,-186" VerticalAlignment="Top" Width="555" Foreground="#FF46494F" FontSize="20" RenderTransformOrigin="0.494,0.52"/>
+                <Separator Margin="0,314,440,-228" Foreground="#FFBD5656" Background="#FF182253" FontWeight="ExtraBlack"></Separator>
+
+
+            </Grid>
+
+        </Grid>
+        <Border Background="#FF134E89" CornerRadius="10" Margin="10,80,10,10" Grid.Column="1">
+            <StackPanel x:Name="panel" Grid.Column="1" HorizontalAlignment="Center" Height="455" Margin="14,15,-4,5" VerticalAlignment="Center" Width="320">
+                <Ellipse Fill="White" Height="158" Stroke="#FF12427C" StrokeThickness="4" Margin="74,0"/>
+                <Label Content="図&#xA;書&#xA;館" HorizontalAlignment="Left" Height="149" Margin="132,-150,0,0" VerticalAlignment="Top" Width="64" FontFamily="UD Digi Kyokasho N-B" Foreground="#FF182253" FontSize="40" RenderTransformOrigin="0.494,0.52"/>
+                <Label Content="USERNAME" Foreground="#FFFBFBFB" HorizontalAlignment="Left" Margin="20,20,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
+                <TextBox x:Name="username" BorderThickness="2"  Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FF9FA2AA" Background="White"/>
+                <Label Content="PASSWORD" Foreground="White" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
+                <TextBox x:Name="password" BorderThickness="2" Foreground="#FFF9F9F9" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FFC0C3C9" Background="White"/>
+                <Border CornerRadius="10" Margin="10" Background="#FF0B102C" BorderBrush="#FFA49494" HorizontalAlignment="Center" BorderThickness="1">
+                    <Button x:Name="buttonSubmit" Click="buttonSubmit_Click"  Width="170" Height="40" Content="Log In" FontSize="20" Foreground="#FFECEDF0" BorderBrush="{x:Null}" Background="{x:Null}" FontWeight="Bold" />
                 </Border>
-
             </StackPanel>
-
-
         </Border>
-
     </Grid>
+
 </Window>
