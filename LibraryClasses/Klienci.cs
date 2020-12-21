@@ -2,7 +2,8 @@
 
 namespace LibraryClasses
 {
-    public class Class1
+    public class Klienci
     {
+
     }
 }
