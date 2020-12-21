@@ -23,15 +23,36 @@ namespace ProjektBiblioteka
     {
         public LoginScreen()
         {
+            var context = new libraryEntitiesDataSet();
+           
+           // context2.loginPass.Find();
             InitializeComponent();
         }
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            var context2 = new LoginBaseEntities();
+            foreach (var item in context2.loginPass)
+            {
+                if (usernametxt.Text == item.username && item.password==passwordtxt.Text)
+                {
+                    
+                        MainWindow dashboard = new MainWindow();
+                        dashboard.Show();
+                        this.Close();
+                    
+                }
+            }
+            //if (usernametxt.Text=="admin" && passwordtxt.Text=="admin")
+            //{
+
+            //    MainWindow dashboard = new MainWindow();
+            //    dashboard.Show();
+            //    this.Close();
+            //}
+
             // SqlConnection sqlCon = new SqlConnection(@"Data Source=.\DESKTOP-TEBB0TS\SQLCOURSE2017;Initial Catalog=loginPass; Integrated Security = True;");
-          // var result = from c in sqlCon.GetTable<>
+            // var result = from c in sqlCon.GetTable<>
             //try
             //{
             //    if (sqlCon.State == ConnectionState.Closed)
@@ -52,13 +73,13 @@ namespace ProjektBiblioteka
             //        {
             //            MessageBox.Show("login lub hasło jest niepoprawne");
             //        }
-                
+
 
             //}
             //catch (Exception ex)
             //{
             //    MessageBox.Show(ex.Message);
-               
+
             //}
             //finally
             //{
@@ -72,6 +93,11 @@ namespace ProjektBiblioteka
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void usernametxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

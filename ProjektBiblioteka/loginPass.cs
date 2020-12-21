@@ -11,10 +11,13 @@ namespace ProjektBiblioteka
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class loginPass
     {
+        [Required(AllowEmptyStrings = false, ErrorMessage ="Username is required!")]
         public string username { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required!")]
         public string password { get; set; }
     }
 }
