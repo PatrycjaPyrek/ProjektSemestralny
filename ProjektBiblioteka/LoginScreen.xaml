@@ -45,7 +45,9 @@
                 <Border CornerRadius="10" Margin="10" Background="#FF0B102C" BorderBrush="#FFA49494" HorizontalAlignment="Center" BorderThickness="1">
                     <Button x:Name="buttonSubmit" Click="buttonSubmit_Click"  Width="170" Height="40" Content="Log In" FontSize="20" Foreground="#FFECEDF0" BorderBrush="{x:Null}" Background="{x:Null}" FontWeight="Bold" />
                 </Border>
-            </StackPanel>
+                  
+                  
+                </StackPanel>
         </Border>
     </Grid>
     </Border>

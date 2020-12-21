@@ -14,7 +14,7 @@ namespace ProjektBiblioteka
     using System.ComponentModel.DataAnnotations;
 
     public partial class loginPass
-    {
+    { 
         [Required(AllowEmptyStrings = false, ErrorMessage ="Username is required!")]
         public string username { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required!")]

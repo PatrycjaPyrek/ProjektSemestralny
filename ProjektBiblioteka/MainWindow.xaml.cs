@@ -47,5 +47,12 @@ namespace ProjektBiblioteka
         {
 
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            AddUser dashboard = new AddUser();
+            dashboard.Show();
+           
+        }
     }
 }
