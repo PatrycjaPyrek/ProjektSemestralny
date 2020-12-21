@@ -28,13 +28,18 @@ namespace ProjektBiblioteka
            // context2.loginPass.Find();
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Przycisk LogIn umożliwiający logowaniu. Po poprawnym podaniu 
+        /// loginu i hasła (odpowiadające rekordy w bazie danych) uruchamia się nowe okno aplikacji
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             var context2 = new LoginBaseEntities();
             foreach (var item in context2.loginPass)
             {
-                if (usernametxt.Text == item.username && item.password==passwordtxt.Text)
+                if (usernametxt.Text == item.username && item.password==passwordtxt.Password)
                 {
                     
                         MainWindow dashboard = new MainWindow();
@@ -89,7 +94,11 @@ namespace ProjektBiblioteka
 
 
         }
-
+        /// <summary>
+        /// Przycisk zamykający aplikację po naciśnięciu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
