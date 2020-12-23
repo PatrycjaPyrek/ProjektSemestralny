@@ -60,13 +60,15 @@ namespace ProjektBiblioteka
 
             //var q = from k in context.Ksiazki from t in Tworcy ;
 
-            List<int> l = new List<int>();
+            List<string> l = new List<string>();
+            
             wynik = Authors.SelectedItem.ToString();
             var autor = wynik;
-            
 
-            var AuthorIdQuery = context.Tworcy.Where(x=>x.imieTworcy+x.nazwiskoTworcy==autor).Select(x => x.idTworcy);
-            var query2 = context.Tworcy.SelectMany(x=>x.Ksiazki, (x,ksiazki)=>new { x.idTworcy, ksiazki=ksiazki.idKsiazki}).Where(x=>x.idTworcy==AuthorIdQuery.FirstOrDefault()).ToList();
+            int idTworcy = 1;
+            int idKsiazki = 1;
+            var AuthorIdQuery = context.Tworcy.Where(x => x.imieTworcy + x.nazwiskoTworcy == autor).Select(x => x.idTworcy);
+            var query2 = context.Tworcy.SelectMany(x => x.Ksiazki, (x, ksiazki) => new { x.idTworcy, ksiazki = ksiazki.idKsiazki }).Where(x => x.idTworcy == AuthorIdQuery.FirstOrDefault()).ToList();
             var query1 = context.Tworcy;
             var query = from k in context.Ksiazki select k.Tworcy;
             string s = "";
@@ -75,11 +77,26 @@ namespace ProjektBiblioteka
                 Console.WriteLine(item);
                 s += item.ToString();
             }
+
             foreach (var item in query2)
             {
-                bookList.Add(item.idTworcy.ToString()+item.ksiazki);
+
+                idTworcy = item.idTworcy;
+                idKsiazki = item.ksiazki;
+              
             }
-            booksList.ItemsSource = query2;
+
+           // var result = context.Ksiazki.Where(x => x.idKsiazki == idKsiazki).ToList();
+            var c = from e in context.Ksiazki where e.idKsiazki==idKsiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
+            c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
+            foreach (var item in c.GroupBy(x => new { x.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
+            {
+                l.Add($"\nTitle: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
+            }
+            
+
+            
+            booksList.ItemsSource = l;
            
             //var query = from ks in context.Ksiazki join tw in context.Tworcy on new { ks.idKsiazki, ks.Tworcy. } equals new { tw.Ksiazki, tw.idTworcy } select x => x;
 
