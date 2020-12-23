@@ -38,7 +38,7 @@
 
                 <ListBox x:Name="booksList" HorizontalAlignment="Left" Height="250" Margin="67,197,0,0" VerticalAlignment="Top" Width="596" FontSize="14" FontWeight="Bold"  />
                 <Button x:Name="checkByAuthor" Content="Check by Author" HorizontalAlignment="Left" Margin="67,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="checkByAuthor_Click"/>
-                <ListBox x:Name="Authors" HorizontalAlignment="Left" Height="24" Margin="208,472,0,0" VerticalAlignment="Top" Width="196"/>
+                <ListBox x:Name="Authors" HorizontalAlignment="Left" Height="24" Margin="208,472,0,0" VerticalAlignment="Top" Width="196" />
                 <Button x:Name="AllTitles" Content="Check all titles" HorizontalAlignment="Left" Margin="544,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="AllTitles_Click" />
 
             </Grid>

@@ -19,6 +19,8 @@ namespace ProjektBiblioteka
     /// </summary>
     public partial class CheckBooks : Window
     {
+        string wynik = "";
+        
         List<string> bookList = new List<string>();
         List<string> authors = new List<string>();
         libraryEntitiesDataSet context = new libraryEntitiesDataSet();
@@ -28,7 +30,7 @@ namespace ProjektBiblioteka
             InitializeComponent();
             //libraryEntitiesDataSet context = new libraryEntitiesDataSet();
             ShowAllTitles();
-            ShowTitlesFromAuthors();
+           
 
 
             foreach (var item in context.Tworcy.Select(x=>x.imieTworcy+x.nazwiskoTworcy))
@@ -47,7 +49,25 @@ namespace ProjektBiblioteka
 
         private void ShowTitlesFromAuthors()
         {
+            //var qpc = (from res in
+            //          (from c in context.Ksiazki
+            //           join u in context.Ksiazki.GetTworcy()
+            //           on c equals u.idKsiazki
+            //           select u.PersonCompanyId)
+            //           join u in GetUser()
+            //          on res equals u.UserId
+            //           select u).AsQueryable();
+
+            //var q = from k in context.Ksiazki from t in Tworcy ;
+
             List<int> l = new List<int>();
+            wynik = Authors.SelectedItem.ToString();
+            var autor = wynik;
+            
+
+            var AuthorIdQuery = context.Tworcy.Where(x=>x.imieTworcy+x.nazwiskoTworcy==autor).Select(x => x.idTworcy);
+            var query2 = context.Tworcy.SelectMany(x=>x.Ksiazki, (x,ksiazki)=>new { x.idTworcy, ksiazki=ksiazki.idKsiazki}).Where(x=>x.idTworcy==AuthorIdQuery.FirstOrDefault()).ToList();
+            var query1 = context.Tworcy;
             var query = from k in context.Ksiazki select k.Tworcy;
             string s = "";
             foreach (var item in query)
@@ -55,7 +75,12 @@ namespace ProjektBiblioteka
                 Console.WriteLine(item);
                 s += item.ToString();
             }
-            MessageBox.Show(s);
+            foreach (var item in query2)
+            {
+                bookList.Add(item.idTworcy.ToString()+item.ksiazki);
+            }
+            booksList.ItemsSource = query2;
+           
             //var query = from ks in context.Ksiazki join tw in context.Tworcy on new { ks.idKsiazki, ks.Tworcy. } equals new { tw.Ksiazki, tw.idTworcy } select x => x;
 
             // var x = from ks in context.Ksiazki join tw in context.Tworcy on ks.Tworcy.Select(x=>new { ks.idKsiazki)}) equals tw select x => x;
@@ -95,7 +120,7 @@ namespace ProjektBiblioteka
 
         private void checkByAuthor_Click(object sender, RoutedEventArgs e)
         {
-
+            ShowTitlesFromAuthors();
         }
         /// <summary>
         /// Zwraca tytuły wszystkich książek w bibliotece
@@ -108,6 +133,8 @@ namespace ProjektBiblioteka
             ShowAllTitles();
             
         }
+
+   
     }
     
 }
