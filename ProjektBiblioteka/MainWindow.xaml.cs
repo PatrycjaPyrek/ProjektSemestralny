@@ -40,7 +40,8 @@ namespace ProjektBiblioteka
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            CheckBooks dashboard = new CheckBooks();
+            dashboard.Show();
         }
 
         private void zwrot(object sender, RoutedEventArgs e)

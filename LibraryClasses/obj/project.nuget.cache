@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SExu5NSzOv111aOmTlkujM/9SG5nSQ7ZLfPSHEP+p0L+6McvUaittIwyyI/bFiBwyOxMloN+c2xrSoZSb0w01g==",
+  "dgSpecHash": "In/Qk+k05PwPSSv56sa8qC3bGQBqHJSATmtxMZijFxMeXUhoqaJW/WG43hQOUlhceZBp3lGz76NVbIXpaV1j/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Patrycja\\source\\repos\\ProjektBiblioteka\\LibraryClasses\\LibraryClasses.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Patrycja\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Patrycja\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Patrycja\\Desktop\\ProjektSemestralny-main\\ProjektSemestralny\\LibraryClasses\\LibraryClasses.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
