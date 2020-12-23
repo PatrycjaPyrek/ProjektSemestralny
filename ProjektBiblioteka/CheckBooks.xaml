@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ProjektBiblioteka"
         mc:Ignorable="d" Height="600" Width="1080" WindowStartupLocation="Manual" Visibility="Visible" WindowStyle="None" Foreground="White" BorderBrush="#FFF7F7F7" ResizeMode="NoResize">
 
+
     <Border Background="#FF232020" >
         <Grid AllowDrop="True" Height="600" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="1080" Background="White">
             <Grid.ColumnDefinitions>
@@ -33,7 +34,12 @@
 
 
                 </Grid>
-                <ListBox x:Name="booksList" HorizontalAlignment="Left" Height="281" Margin="67,197,0,0" VerticalAlignment="Top" Width="596" />
+
+
+                <ListBox x:Name="booksList" HorizontalAlignment="Left" Height="250" Margin="67,197,0,0" VerticalAlignment="Top" Width="596" FontSize="14" FontWeight="Bold"  />
+                <Button x:Name="checkByAuthor" Content="Check by Author" HorizontalAlignment="Left" Margin="67,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="checkByAuthor_Click"/>
+                <ListBox x:Name="Authors" HorizontalAlignment="Left" Height="24" Margin="208,472,0,0" VerticalAlignment="Top" Width="196"/>
+                <Button x:Name="AllTitles" Content="Check all titles" HorizontalAlignment="Left" Margin="544,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="AllTitles_Click" />
 
             </Grid>
             <Border Background="#FF134E89" CornerRadius="10" Margin="10,80,10,10" Grid.Column="1">
@@ -48,9 +54,9 @@
                         </Grid>
 
                     </Grid>
-                    
-                    
-                       
+
+
+
                     <Button Content="Rent" HorizontalAlignment="Left" Height="69" Margin="10,-280,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Check" HorizontalAlignment="Left" Height="69" Margin="10,-355,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Return" HorizontalAlignment="Left" Height="69" Margin="10,-200,0,0" VerticalAlignment="Top" Width="286" Click="zwrot" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>

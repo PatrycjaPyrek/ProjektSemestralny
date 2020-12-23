@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5e8102181f2e4e5bba93db24c49446e8" Name="Diagram1">
+      <Diagram DiagramId="5e8102181f2e4e5bba93db24c49446e8" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="libraryModel1.Cennik" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.Doplaty" Width="1.5" PointX="9.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.Egzemplarze" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.gatunki" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="libraryModel1.Klienci" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="libraryModel1.Klienci" Width="1.5" PointX="8.625" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.Ksiazki" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.Tworcy" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="libraryModel1.Wypozyczenia" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
