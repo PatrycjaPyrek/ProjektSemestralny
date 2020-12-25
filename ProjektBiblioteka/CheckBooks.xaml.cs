@@ -98,7 +98,7 @@ namespace ProjektBiblioteka
             
             booksList.ItemsSource = l;
            
-            //var query = from ks in context.Ksiazki join tw in context.Tworcy on new { ks.idKsiazki, ks.Tworcy. } equals new { tw.Ksiazki, tw.idTworcy } select x => x;
+            //var query = from ks in context.Ksgitiazki join tw in context.Tworcy on new { ks.idKsiazki, ks.Tworcy. } equals new { tw.Ksiazki, tw.idTworcy } select x => x;
 
             // var x = from ks in context.Ksiazki join tw in context.Tworcy on ks.Tworcy.Select(x=>new { ks.idKsiazki)}) equals tw select x => x;
             // var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki join a in context.Tworcy on e.Tworcy equals KsiazkiTworcy orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
