@@ -36,10 +36,12 @@
                 </Grid>
 
 
-                <ListBox x:Name="booksList" HorizontalAlignment="Left" Height="250" Margin="67,197,0,0" VerticalAlignment="Top" Width="596" FontSize="14" FontWeight="Bold"  />
-                <Button x:Name="checkByAuthor" Content="Check by Author" HorizontalAlignment="Left" Margin="67,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="checkByAuthor_Click"/>
-                <ListBox x:Name="Authors" HorizontalAlignment="Left" Height="24" Margin="208,472,0,0" VerticalAlignment="Top" Width="196" />
-                <Button x:Name="AllTitles" Content="Check all titles" HorizontalAlignment="Left" Margin="544,472,0,0" VerticalAlignment="Top" Width="119" Height="24" Click="AllTitles_Click" />
+                <ListBox x:Name="booksList" HorizontalAlignment="Left" Height="250" Margin="67,197,0,0" VerticalAlignment="Top" Width="596" FontSize="14" FontWeight="Bold" MouseDoubleClick="booksList_Click" />
+                <Button x:Name="checkByAuthor" Content="Check by Author" HorizontalAlignment="Left" Margin="24,472,0,0" VerticalAlignment="Top" Width="118" Height="24" Click="checkByAuthor_Click"/>
+                <ListBox x:Name="Authors" HorizontalAlignment="Left" Height="24" Margin="147,472,0,0" VerticalAlignment="Top" Width="196" />
+                <Button x:Name="AllTitles" Content="Check all titles" HorizontalAlignment="Left" Margin="568,168,0,0" VerticalAlignment="Top" Width="95" Height="24" Click="AllTitles_Click" />
+                <Button x:Name="checkByGenre" Content="Check by Genre" HorizontalAlignment="Left" Margin="366,472,0,0" VerticalAlignment="Top" Width="118" Height="24" Click="checkByGenre_Click" />
+                <ListBox x:Name="Genres" HorizontalAlignment="Left" Height="24" Margin="494,472,0,0" VerticalAlignment="Top" Width="196" />
 
             </Grid>
             <Border Background="#FF134E89" CornerRadius="10" Margin="10,80,10,10" Grid.Column="1">
