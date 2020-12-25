@@ -52,19 +52,14 @@
                 <Label Content="Library id" HorizontalAlignment="Left" Height="25" Margin="101,393,0,0" VerticalAlignment="Top" Width="66" Foreground="#FF213B74"/>
                 <Label x:Name="LibraryIdBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,393,0,0" VerticalAlignment="Top" Width="62"/>
                 <Label Content="Name" HorizontalAlignment="Left" Height="25" Margin="251,393,0,0" VerticalAlignment="Top" Width="60" Foreground="#FF213B74"/>
-                <Label x:Name="NameBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="337,393,0,0" VerticalAlignment="Top" Width="326"/>
+                <Label x:Name="NameBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="316,393,0,0" VerticalAlignment="Top" Width="347"/>
                 <Label Content="Book id" HorizontalAlignment="Left" Height="25" Margin="101,423,0,0" VerticalAlignment="Top" Width="66" Foreground="#FF213B74"/>
                 <Label x:Name="BookIdBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,423,0,0" VerticalAlignment="Top" Width="62"/>
                 <Label Content="Title" HorizontalAlignment="Left" Height="25" Margin="251,423,0,0" VerticalAlignment="Top" Width="60" Foreground="#FF213B74"/>
-                <Label x:Name="TitleBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="337,423,0,0" VerticalAlignment="Top" Width="326"/>
+                <Label x:Name="TitleBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="316,423,0,0" VerticalAlignment="Top" Width="345"/>
                 <Label Content="Type" HorizontalAlignment="Left" Height="25" Margin="101,448,0,0" VerticalAlignment="Top" Width="66" Foreground="#FF213B74"/>
-                <Label x:Name="TypeBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,448,0,0" VerticalAlignment="Top" Width="62"/>
-                <Label Content="Author" HorizontalAlignment="Left" Height="25" Margin="251,448,0,0" VerticalAlignment="Top" Width="60" Foreground="#FF213B74"/>
-                <Label x:Name="AuthorBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="337,448,0,0" VerticalAlignment="Top" Width="326"/>
+                <Label x:Name="TypeBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,453,0,0" VerticalAlignment="Top" Width="247"/>
                 <Label Content="Date" HorizontalAlignment="Left" Height="25" Margin="101,478,0,0" VerticalAlignment="Top" Width="66" Foreground="#FF213B74"/>
-                <Label x:Name="DateBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,478,0,0" VerticalAlignment="Top" Width="62"/>
-                <Label Content="Genre" HorizontalAlignment="Left" Height="25" Margin="251,478,0,0" VerticalAlignment="Top" Width="60" Foreground="#FF213B74"/>
-                <Label x:Name="GenreBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="337,478,0,0" VerticalAlignment="Top" Width="326"/>
                 <Label x:Name="dateAndTime_label" Content="" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Height="48" Margin="207,149,0,0" VerticalAlignment="Top" Width="314" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold">
                     <Label.RenderTransform>
                         <TransformGroup>
@@ -75,6 +70,7 @@
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
+                <Label x:Name="DateBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,478,0,0" VerticalAlignment="Top" Width="247"/>
 
             </Grid>
             <Border Background="#FF134E89" CornerRadius="10" Margin="10,80,10,10" Grid.Column="1">

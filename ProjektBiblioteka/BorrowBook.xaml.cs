@@ -114,6 +114,9 @@ namespace ProjektBiblioteka
             if (wypozyczono == true)
             {
                 List<string> klientInfo = new List<string>();
+                List<string> ksiazkaInfo = new List<string>();
+               
+                //==================================Klienci info===========================================
                 var klientInformacje = from k in context.Klienci where k.idKlienta == idKlientaWybranego join w in context.Wypozyczenia on k.idKlienta equals w.idKlienta select new { k.idKlienta, k.imieKlienta, k.nazwiskoKlienta };
                 klientInformacje.ToList();
                 foreach (var item in klientInformacje)
@@ -123,8 +126,30 @@ namespace ProjektBiblioteka
                     klientInfo.Add(item.nazwiskoKlienta.ToString());
                 }
                 LibraryIdBorrowed.Content = klientInfo[0];
-                NameBorrowed.Content = klientInfo[1] + " " + klientInfo[2];
-                klientInfo.Clear();
+                NameBorrowed.Content =  klientInfo[1] + " " + klientInfo[2];
+                //==================================Ksiazki Info===========================================
+                var ksiazkaInformacje = from ks in context.Ksiazki
+                                        join eg in context.Egzemplarze on ks.idKsiazki equals eg.idKsiazki
+                                        where eg.idEgzemplarza==idEgzemplarzaWybranego
+                                        join wyp in context.Wypozyczenia on eg.idEgzemplarza equals wyp.idEgzemplarza
+                                        select new { ks.idKsiazki, ks.rodzajKsiazki,ks.tytulKsiazki };
+                ksiazkaInformacje.ToList();
+                foreach (var item in ksiazkaInformacje)
+                {
+                    ksiazkaInfo.Add(item.idKsiazki.ToString());
+                    ksiazkaInfo.Add(item.tytulKsiazki.ToString());
+                    ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
+                }
+                BookIdBorrowed.Content = ksiazkaInfo[0];
+                TitleBorrowed.Content = ksiazkaInfo[1];
+                TypeBorrowed.Content = ksiazkaInfo[2];
+
+                DateBorrowed.Content = wypozyczenie.dataWypozyczenia;
+
+                ksiazkaInfo.Clear();
+                
+
+
             }
             
             //foreach (var item in context.Egzemplarze.Where(x => x.idEgzemplarza == idEgzemplarzaWybranego))
