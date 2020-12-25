@@ -4,7 +4,11 @@ using System.Text;
 
 namespace LibraryClasses
 {
-    class Clock
+    class DateConv
     {
+        public DateConv()
+        {
+
+        }
     }
 }

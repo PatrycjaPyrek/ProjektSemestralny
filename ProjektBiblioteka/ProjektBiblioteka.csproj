@@ -94,6 +94,7 @@
     <Compile Include="CheckBooks.xaml.cs">
       <DependentUpon>CheckBooks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DateConv.cs" />
     <Compile Include="Doplaty.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -151,6 +152,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelLoginBase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ReturnBook.xaml.cs">
+      <DependentUpon>ReturnBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tworcy.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -198,6 +202,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ReturnBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model1.Context.cs">

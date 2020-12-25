@@ -57,7 +57,9 @@ namespace ProjektBiblioteka
 
         private void zwrot(object sender, RoutedEventArgs e)
         {
-
+            ReturnBook returnBook = new ReturnBook();
+            returnBook.Show();
+            this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -75,6 +77,36 @@ namespace ProjektBiblioteka
                     i++;
                 }
             }
+            bool wypozyczono = true;
+            int idEgzemplarzaWybranego = Convert.ToInt32(BookId.Text);
+            int idKlientaWybranego = Convert.ToInt32(LibraryId.Text);
+            List<string> klientInfo = new List<string>();
+            List<string> ksiazkaInfo = new List<string>();
+
+            var klientInformacje = from k in context.Klienci where k.idKlienta == idKlientaWybranego join w in context.Wypozyczenia on k.idKlienta equals w.idKlienta select new { k.idKlienta, k.imieKlienta, k.nazwiskoKlienta };
+            klientInformacje.ToList();
+            foreach (var item in klientInformacje)
+            {
+                klientInfo.Add(item.idKlienta.ToString());
+                klientInfo.Add(item.imieKlienta.ToString());
+                klientInfo.Add(item.nazwiskoKlienta.ToString());
+            }
+
+            var ksiazkaInformacje = from ks in context.Ksiazki
+                                    join eg in context.Egzemplarze on ks.idKsiazki equals eg.idKsiazki
+                                    where eg.idEgzemplarza == idEgzemplarzaWybranego
+                                    join wyp in context.Wypozyczenia on eg.idEgzemplarza equals wyp.idEgzemplarza
+                                    join c in context.Cennik on ks.rodzajKsiazki equals c.rodzajKsiazki
+                                   
+                                    select new { ks.idKsiazki, ks.rodzajKsiazki, ks.tytulKsiazki,c.oplataZa7Dni };
+            ksiazkaInformacje.ToList();
+            foreach (var item in ksiazkaInformacje)
+            {
+                ksiazkaInfo.Add(item.idKsiazki.ToString());
+                ksiazkaInfo.Add(item.tytulKsiazki.ToString());
+                ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
+                ksiazkaInfo.Add(item.oplataZa7Dni.ToString());
+            }
 
 
             var wypozyczenie = new Wypozyczenia()
@@ -82,13 +114,13 @@ namespace ProjektBiblioteka
                 idWypozyczenia = i,
                 idEgzemplarza = Convert.ToInt32(BookId.Text),
                 idKlienta = Convert.ToInt32(LibraryId.Text),
-                dataWypozyczenia = DateTime.Now.Date
+                dataWypozyczenia = DateTime.Now.Date,
+                oplataZa7Dni = Convert.ToDecimal(ksiazkaInfo[3])
+                
                 
 
             };
-            bool wypozyczono = true;
-            int idEgzemplarzaWybranego = Convert.ToInt32(BookId.Text);
-            int idKlientaWybranego = Convert.ToInt32(LibraryId.Text);
+            
             foreach (var item in context.Egzemplarze.Where(x=>x.idEgzemplarza==idEgzemplarzaWybranego))
             {
                 foreach (var wypozyczenieZ in context.Wypozyczenia.Select(x=>new { x.idEgzemplarza, x.dataZwrotu }))
@@ -113,33 +145,14 @@ namespace ProjektBiblioteka
             context.SaveChanges();
             if (wypozyczono == true)
             {
-                List<string> klientInfo = new List<string>();
-                List<string> ksiazkaInfo = new List<string>();
+                
                
                 //==================================Klienci info===========================================
-                var klientInformacje = from k in context.Klienci where k.idKlienta == idKlientaWybranego join w in context.Wypozyczenia on k.idKlienta equals w.idKlienta select new { k.idKlienta, k.imieKlienta, k.nazwiskoKlienta };
-                klientInformacje.ToList();
-                foreach (var item in klientInformacje)
-                {
-                    klientInfo.Add(item.idKlienta.ToString());
-                    klientInfo.Add(item.imieKlienta.ToString());
-                    klientInfo.Add(item.nazwiskoKlienta.ToString());
-                }
+              
                 LibraryIdBorrowed.Content = klientInfo[0];
                 NameBorrowed.Content =  klientInfo[1] + " " + klientInfo[2];
                 //==================================Ksiazki Info===========================================
-                var ksiazkaInformacje = from ks in context.Ksiazki
-                                        join eg in context.Egzemplarze on ks.idKsiazki equals eg.idKsiazki
-                                        where eg.idEgzemplarza==idEgzemplarzaWybranego
-                                        join wyp in context.Wypozyczenia on eg.idEgzemplarza equals wyp.idEgzemplarza
-                                        select new { ks.idKsiazki, ks.rodzajKsiazki,ks.tytulKsiazki };
-                ksiazkaInformacje.ToList();
-                foreach (var item in ksiazkaInformacje)
-                {
-                    ksiazkaInfo.Add(item.idKsiazki.ToString());
-                    ksiazkaInfo.Add(item.tytulKsiazki.ToString());
-                    ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
-                }
+                
                 BookIdBorrowed.Content = ksiazkaInfo[0];
                 TitleBorrowed.Content = ksiazkaInfo[1];
                 TypeBorrowed.Content = ksiazkaInfo[2];
