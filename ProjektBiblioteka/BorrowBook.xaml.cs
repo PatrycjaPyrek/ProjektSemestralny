@@ -86,28 +86,47 @@ namespace ProjektBiblioteka
                 
 
             };
+            bool wypozyczono = true;
             int idEgzemplarzaWybranego = Convert.ToInt32(BookId.Text);
-      
+            int idKlientaWybranego = Convert.ToInt32(LibraryId.Text);
             foreach (var item in context.Egzemplarze.Where(x=>x.idEgzemplarza==idEgzemplarzaWybranego))
             {
                 foreach (var wypozyczenieZ in context.Wypozyczenia.Select(x=>new { x.idEgzemplarza, x.dataZwrotu }))
                     {
                     if (wypozyczenieZ.dataZwrotu == null && wypozyczenieZ.idEgzemplarza==idEgzemplarzaWybranego)
                     {
+                        wypozyczono = false;
                         MessageBox.Show("Ten egzemplarz jest obecnie niedostępny!");
                         break;
                     }
-                    else
-                    {
-                        context.Wypozyczenia.Add(wypozyczenie);
-                        MessageBox.Show("Wypożyczono");
-                        break;
-                        
-                    }
+                 
+                }
+                if (wypozyczono == true)
+                {
+                   
+                    context.Wypozyczenia.Add(wypozyczenie);
+                    wypozyczono = true;
+                    MessageBox.Show("Wypożyczono");
                 }
                 
             }
             context.SaveChanges();
+            if (wypozyczono == true)
+            {
+                List<string> klientInfo = new List<string>();
+                var klientInformacje = from k in context.Klienci where k.idKlienta == idKlientaWybranego join w in context.Wypozyczenia on k.idKlienta equals w.idKlienta select new { k.idKlienta, k.imieKlienta, k.nazwiskoKlienta };
+                klientInformacje.ToList();
+                foreach (var item in klientInformacje)
+                {
+                    klientInfo.Add(item.idKlienta.ToString());
+                    klientInfo.Add(item.imieKlienta.ToString());
+                    klientInfo.Add(item.nazwiskoKlienta.ToString());
+                }
+                LibraryIdBorrowed.Content = klientInfo[0];
+                NameBorrowed.Content = klientInfo[1] + " " + klientInfo[2];
+                klientInfo.Clear();
+            }
+            
             //foreach (var item in context.Egzemplarze.Where(x => x.idEgzemplarza == idEgzemplarzaWybranego))
             //{
             //    MessageBox.Show(item.GetState().ToString());
