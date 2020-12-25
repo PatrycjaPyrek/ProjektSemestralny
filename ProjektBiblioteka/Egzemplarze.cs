@@ -12,7 +12,7 @@ namespace ProjektBiblioteka
     using System;
     using System.Collections.Generic;
     
-    public partial class Egzemplarze
+    public partial class Egzemplarze : IAvailable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Egzemplarze()
@@ -26,5 +26,22 @@ namespace ProjektBiblioteka
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenia> Wypozyczenia { get; set; }
         public virtual Ksiazki Ksiazki { get; set; }
+
+        public int Counter { get; set; } = 0;
+
+        Available state = Available.available;
+
+        public Available GetState() => state;
+
+        public void Borrowed()
+        {
+            state = Available.not_available;
+            string text = $"Wypozyczono egzemplarz{idEgzemplarza}";
+        }
+
+        public void Returned()
+        {
+            state = Available.available;
+        }
     }
 }

@@ -86,9 +86,53 @@ namespace ProjektBiblioteka
                 
 
             };
-            context.Wypozyczenia.Add(wypozyczenie);
+            int idEgzemplarzaWybranego = Convert.ToInt32(BookId.Text);
+      
+            foreach (var item in context.Egzemplarze.Where(x=>x.idEgzemplarza==idEgzemplarzaWybranego))
+            {
+                foreach (var wypozyczenieZ in context.Wypozyczenia.Select(x=>new { x.idEgzemplarza, x.dataZwrotu }))
+                    {
+                    if (wypozyczenieZ.dataZwrotu == null && wypozyczenieZ.idEgzemplarza==idEgzemplarzaWybranego)
+                    {
+                        MessageBox.Show("Ten egzemplarz jest obecnie niedostępny!");
+                        break;
+                    }
+                    else
+                    {
+                        context.Wypozyczenia.Add(wypozyczenie);
+                        MessageBox.Show("Wypożyczono");
+                        break;
+                        
+                    }
+                }
+                
+            }
             context.SaveChanges();
-            MessageBox.Show($"Borrowed");
+            //foreach (var item in context.Egzemplarze.Where(x => x.idEgzemplarza == idEgzemplarzaWybranego))
+            //{
+            //    MessageBox.Show(item.GetState().ToString());
+            //    if (item.GetState() == Available.not_available)
+            //    {
+            //        MessageBox.Show("Ten egzemplarz jest obecnie niedostępny!");
+            //    }
+            //    else
+            //    {
+            //        context.Wypozyczenia.Add(wypozyczenie);
+
+            //        MessageBox.Show($"Borrowed");
+            //        foreach (var wypozyczonyEgzemplarz in context.Egzemplarze.Where(x => x.idEgzemplarza == idEgzemplarzaWybranego))
+            //        {
+            //            wypozyczonyEgzemplarz.Counter += 1;
+            //            wypozyczonyEgzemplarz.Borrowed();
+            //            MessageBox.Show(wypozyczonyEgzemplarz.GetState().ToString());
+            //        }
+            //    }
+
+            //}
+            //context.SaveChanges();
+
+
+
 
         }
     }

@@ -103,6 +103,7 @@
     <Compile Include="gatunki.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IAvailable.cs" />
     <Compile Include="Klienci.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
