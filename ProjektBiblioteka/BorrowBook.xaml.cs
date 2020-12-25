@@ -20,7 +20,8 @@ namespace ProjektBiblioteka
     /// </summary>
     public partial class BorrowBook : Window
     {
-       
+        libraryEntitiesDataSet context = new libraryEntitiesDataSet();
+
         public BorrowBook()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace ProjektBiblioteka
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+          
 
 
         }
@@ -63,6 +65,31 @@ namespace ProjektBiblioteka
             this.Close();
         }
 
-       
+        private void submitBorrow_Click(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
+            foreach (var item in context.Wypozyczenia.Select(x=>x.idWypozyczenia))
+            {
+                if (i == item)
+                {
+                    i++;
+                }
+            }
+
+
+            var wypozyczenie = new Wypozyczenia()
+            {
+                idWypozyczenia = i,
+                idEgzemplarza = Convert.ToInt32(BookId.Text),
+                idKlienta = Convert.ToInt32(LibraryId.Text),
+                dataWypozyczenia = DateTime.Now.Date
+                
+
+            };
+            context.Wypozyczenia.Add(wypozyczenie);
+            context.SaveChanges();
+            MessageBox.Show($"Borrowed");
+
+        }
     }
 }

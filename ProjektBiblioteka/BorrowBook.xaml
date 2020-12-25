@@ -42,13 +42,13 @@
                 <Label Content="Library id" HorizontalAlignment="Left" Height="25" Margin="103,238,0,0" VerticalAlignment="Top" Width="109"/>
                 <TextBox x:Name="BookId" HorizontalAlignment="Left" Height="25" Margin="220,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204"/>
                 <Label Content="Book id" HorizontalAlignment="Left" Height="25" Margin="103,282,0,0" VerticalAlignment="Top" Width="109"/>
-                <Button x:Name="submitBorrow" Content="Submit" HorizontalAlignment="Left" Height="30" Margin="478,262,0,0" VerticalAlignment="Top" Width="109" Background="#FF0F2257" Foreground="White" FontWeight="Bold"/>
+                <Button x:Name="submitBorrow" Content="Submit" HorizontalAlignment="Left" Height="30" Margin="478,262,0,0" VerticalAlignment="Top" Width="109" Background="#FF0F2257" Foreground="White" FontWeight="Bold" Click="submitBorrow_Click"/>
                 <Label Content="Borrow:" HorizontalAlignment="Left" Height="38" Margin="98,199,0,0" VerticalAlignment="Top" Width="95" FontSize="22" Foreground="#FF0F2257" FontWeight="Bold"/>
 
-                <Border Background="#FFA5C6E2" OpacityMask="#FF5074B4" CornerRadius="10" Margin="67,351,69,10" >
+                <Border x:Name="borderBorrowed" Background="#FFA5C6E2" OpacityMask="#FF5074B4" CornerRadius="10" Margin="67,351,69,10" >
                     <Rectangle  HorizontalAlignment="Left" Height="153" Margin="67,350,0,0" VerticalAlignment="Top" Width="596"/>
                 </Border>
-                <Label Content="Borrowed:" HorizontalAlignment="Left" Height="38" Margin="96,350,0,0" VerticalAlignment="Top" Width="248" FontSize="22" Foreground="#FF0F2257" FontWeight="Bold"/>
+                <Label x:Name="BorrowedLabel" Content="Borrowed:" HorizontalAlignment="Left" Height="38" Margin="96,350,0,0" VerticalAlignment="Top" Width="248" FontSize="22" Foreground="#FF0F2257" FontWeight="Bold"/>
                 <Label Content="Library id" HorizontalAlignment="Left" Height="25" Margin="101,393,0,0" VerticalAlignment="Top" Width="66" Foreground="#FF213B74"/>
                 <Label x:Name="LibraryIdBorrowed" Content="" HorizontalAlignment="Left" Height="25" Margin="172,393,0,0" VerticalAlignment="Top" Width="62"/>
                 <Label Content="Name" HorizontalAlignment="Left" Height="25" Margin="251,393,0,0" VerticalAlignment="Top" Width="60" Foreground="#FF213B74"/>
