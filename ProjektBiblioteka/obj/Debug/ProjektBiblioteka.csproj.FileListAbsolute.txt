@@ -50,3 +50,5 @@ C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBibl
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\ProjektBiblioteka.pdb
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\CheckBooks.g.cs
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\CheckBooks.baml
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BorrowBook.g.cs
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BorrowBook.baml

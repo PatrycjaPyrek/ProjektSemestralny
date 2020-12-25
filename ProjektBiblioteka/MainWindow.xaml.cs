@@ -55,5 +55,12 @@ namespace ProjektBiblioteka
             dashboard.Show();
            
         }
+
+        private void Borrow_Click(object sender, RoutedEventArgs e)
+        {
+            BorrowBook dashboard = new BorrowBook();
+            dashboard.Show();
+           
+        }
     }
 }

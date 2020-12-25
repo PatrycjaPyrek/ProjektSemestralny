@@ -85,6 +85,9 @@
     <Compile Include="AddUser.xaml.cs">
       <DependentUpon>AddUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BorrowBook.xaml.cs">
+      <DependentUpon>BorrowBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cennik.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
     <Page Include="AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BorrowBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

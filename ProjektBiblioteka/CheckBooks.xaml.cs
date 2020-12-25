@@ -229,6 +229,7 @@ namespace ProjektBiblioteka
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
+           
         }
 
         private void zwrot(object sender, RoutedEventArgs e)
@@ -316,7 +317,12 @@ namespace ProjektBiblioteka
 
         }
 
-     
+        private void BorrowClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            BorrowBook dashboard = new BorrowBook();
+            dashboard.Show();
+        }
     }
 
 }

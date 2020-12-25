@@ -59,7 +59,7 @@
 
 
 
-                    <Button Content="Rent" HorizontalAlignment="Left" Height="69" Margin="10,-280,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
+                    <Button Content="Borrow" HorizontalAlignment="Left" Height="69" Margin="10,-280,0,0" VerticalAlignment="Top" Width="286" Click="BorrowClick" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Check" HorizontalAlignment="Left" Height="69" Margin="10,-355,0,0" VerticalAlignment="Top" Width="286" Click="Button_Click_1" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                     <Button Content="Return" HorizontalAlignment="Left" Height="69" Margin="10,-200,0,0" VerticalAlignment="Top" Width="286" Click="zwrot" BorderBrush="#FF12427C" Background="#FF12427C" Foreground="#FFFDFDFD" FontSize="24" FontFamily="Yu Gothic Light"/>
                 </StackPanel>
