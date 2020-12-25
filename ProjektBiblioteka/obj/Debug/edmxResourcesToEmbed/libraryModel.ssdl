@@ -67,6 +67,16 @@
     <Property Name="idKsiazki" Type="int" Nullable="false" />
     <Property Name="idTworcy" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="Tworcy">
     <Key>
       <PropertyRef Name="idTworcy" />
@@ -204,6 +214,7 @@
     <EntitySet Name="Ksiazki" EntityType="Self.Ksiazki" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KsiazkiGatunki" EntityType="Self.KsiazkiGatunki" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KsiazkiTworcy" EntityType="Self.KsiazkiTworcy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tworcy" EntityType="Self.Tworcy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Wypozyczenia" EntityType="Self.Wypozyczenia" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Ksiazki__rodzajK__3B75D760" Association="Self.FK__Ksiazki__rodzajK__3B75D760">

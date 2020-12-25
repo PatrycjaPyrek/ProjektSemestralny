@@ -6,21 +6,18 @@ namespace ProjektBiblioteka
     {
         private DateTime dataWypozyczenia;
         private DateTime dataZwrotu;
-        public DateTime DataWypozyczenia { get; set; }
-        public DateTime DataZwrotu { get; set; }
-        int ileDni;
-        public int IleDni => Zwroc(dataWypozyczenia-DataZwrotu);
+        public DateTime DataWypozyczenia => dataWypozyczenia;
+        public DateTime DataZwrotu => dataZwrotu;
+       // int ileDni;
+        public int IleDni => Zwroc(dataZwrotu-DataWypozyczenia);
 
         public DateConv(DateTime dataWypozyczenia, DateTime dataZwrotu)
         {
-           DataWypozyczenia = dataWypozyczenia;
-           DataZwrotu = dataZwrotu;
-           Zwroc(dataZwrotu - dataWypozyczenia);
+           this.dataWypozyczenia = dataWypozyczenia;
+           this.dataZwrotu = dataZwrotu;
+           Zwroc(this.dataZwrotu - this.dataWypozyczenia);
         }
 
-        private int Zwroc(TimeSpan timeSpan)
-        {
-            return timeSpan.Days;
-        }
+        private int Zwroc(TimeSpan timeSpan) => (int)timeSpan.TotalDays;
     }
 }

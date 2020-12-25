@@ -20,6 +20,7 @@
         <AssociationConnector Association="libraryModel1.FK__Wypozycze__idKli__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="libraryModel1.KsiazkiGatunki" ManuallyRouted="false" />
         <AssociationConnector Association="libraryModel1.KsiazkiTworcy" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="libraryModel1.sysdiagrams" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

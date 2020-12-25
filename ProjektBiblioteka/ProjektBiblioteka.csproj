@@ -155,6 +155,9 @@
     <Compile Include="ReturnBook.xaml.cs">
       <DependentUpon>ReturnBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>libraryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tworcy.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>

@@ -113,7 +113,7 @@ namespace ProjektBiblioteka
                 ksiazkaInfo.Add(item.tytulKsiazki.ToString());
                 ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
                 ksiazkaInfo.Add(item.dataWypozyczenia.Date.ToString());
-                ksiazkaInfo.Add(item.dataZwrotu.Value.Date.ToString());
+                ksiazkaInfo.Add(DateTime.Now.Date.ToString());
          
                 idWypozyczeniaWybranego = item.idWypozyczenia;
             }
@@ -122,37 +122,37 @@ namespace ProjektBiblioteka
             TypeBorrowed.Content = ksiazkaInfo[2];
 
             DateBorrowed.Content = ksiazkaInfo[3].Replace("00:00:00","") + " - " + ksiazkaInfo[4].Replace("00:00:00","");
-
+            int ile = 0;
             //=======================Doplaty====================================
-            foreach (var item in ksiazkaInformacje.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.rodzajKsiazki }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) >= 7))
+            //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
+            foreach (var item in ksiazkaInformacje.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.rodzajKsiazki }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
             {
-                DateConv dateC = new DateConv(item.dataWypozyczenia, (DateTime)item.dataZwrotu);
-                int ile=dateC.IleDni;
+                DateConv dateC = new DateConv(item.dataWypozyczenia, DateTime.Now);
+                 ile=dateC.IleDni-30;
+                
                 var doplataZaRodzaj = context.Cennik.Where(x => x.rodzajKsiazki == item.rodzajKsiazki).Select(x => x.oplataZa7Dni).FirstOrDefault();
                 decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ile;
                 //tworze nowa doplate na podstawie wyzej obliczonych danych
                 var doplataNowa = new Doplaty()
                 {
-                    idWypozyczenia = item.idWypozyczenia,
-                    doplata = doplataZaRodzaj
+                    idWypozyczenia = idWypozyczeniaWybranego,
+                    doplata = doZaplatyObliczone
 
                 };
                 context.Doplaty.Add(doplataNowa);
-                context.SaveChanges();
+               
 
             }
+            context.SaveChanges();
 
-            var czyJestDoplata = context.Doplaty.Where(x => x.Wypozyczenia.idWypozyczenia == idWypozyczeniaWybranego).Select(x => x.doplata);
-            if (czyJestDoplata != null)
+            var czyJestDoplata = context.Doplaty.Where(x => x.idWypozyczenia == idWypozyczeniaWybranego).Select(x => x.doplata.Value);
+            foreach (var item in context.Doplaty.Where(x=>x.idWypozyczenia==idWypozyczeniaWybranego).Select(x=>x.doplata))
             {
-                ToPay.Content = czyJestDoplata.ToString();
-              
+               
+                ToPay.Content = item.Value.ToString();
             }
-            else {
-                ToPay.Content = "Nie ma dopłaty";
-            }
-
-
+           
+           
 
             ksiazkaInfo.Clear();
 

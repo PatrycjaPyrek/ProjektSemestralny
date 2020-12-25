@@ -70,19 +70,13 @@ namespace ProjektBiblioteka
         private void submitBorrow_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
-            foreach (var item in context.Wypozyczenia.Select(x=>x.idWypozyczenia))
-            {
-                if (i == item)
-                {
-                    i++;
-                }
-            }
+           
             bool wypozyczono = true;
             int idEgzemplarzaWybranego = Convert.ToInt32(BookId.Text);
             int idKlientaWybranego = Convert.ToInt32(LibraryId.Text);
             List<string> klientInfo = new List<string>();
             List<string> ksiazkaInfo = new List<string>();
-
+            //=============o kliencie ==============//
             var klientInformacje = from k in context.Klienci where k.idKlienta == idKlientaWybranego join w in context.Wypozyczenia on k.idKlienta equals w.idKlienta select new { k.idKlienta, k.imieKlienta, k.nazwiskoKlienta };
             klientInformacje.ToList();
             foreach (var item in klientInformacje)
@@ -97,30 +91,34 @@ namespace ProjektBiblioteka
                                     where eg.idEgzemplarza == idEgzemplarzaWybranego
                                     join wyp in context.Wypozyczenia on eg.idEgzemplarza equals wyp.idEgzemplarza
                                     join c in context.Cennik on ks.rodzajKsiazki equals c.rodzajKsiazki
-                                   
                                     select new { ks.idKsiazki, ks.rodzajKsiazki, ks.tytulKsiazki,c.oplataZa7Dni };
             ksiazkaInformacje.ToList();
+            decimal oplataZa7Dni = 0;
             foreach (var item in ksiazkaInformacje)
             {
                 ksiazkaInfo.Add(item.idKsiazki.ToString());
                 ksiazkaInfo.Add(item.tytulKsiazki.ToString());
                 ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
                 ksiazkaInfo.Add(item.oplataZa7Dni.ToString());
+                oplataZa7Dni = item.oplataZa7Dni;
             }
-
+            foreach (var item in context.Wypozyczenia.Select(x => x.idWypozyczenia))
+            {
+                if (i == item)
+                {
+                    i=item+1;
+                }
+            }
 
             var wypozyczenie = new Wypozyczenia()
             {
                 idWypozyczenia = i,
-                idEgzemplarza = Convert.ToInt32(BookId.Text),
-                idKlienta = Convert.ToInt32(LibraryId.Text),
+                idEgzemplarza = idEgzemplarzaWybranego,
+                idKlienta = idKlientaWybranego,
                 dataWypozyczenia = DateTime.Now.Date,
-                oplataZa7Dni = Convert.ToDecimal(ksiazkaInfo[3])
-                
-                
+                oplataZa7Dni = oplataZa7Dni
+            }; 
 
-            };
-            
             foreach (var item in context.Egzemplarze.Where(x=>x.idEgzemplarza==idEgzemplarzaWybranego))
             {
                 foreach (var wypozyczenieZ in context.Wypozyczenia.Select(x=>new { x.idEgzemplarza, x.dataZwrotu }))
@@ -135,7 +133,8 @@ namespace ProjektBiblioteka
                 }
                 if (wypozyczono == true)
                 {
-                   
+
+                  
                     context.Wypozyczenia.Add(wypozyczenie);
                     wypozyczono = true;
                     MessageBox.Show("Wypożyczono");

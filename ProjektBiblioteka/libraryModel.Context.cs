@@ -33,5 +33,6 @@ namespace ProjektBiblioteka
         public virtual DbSet<Ksiazki> Ksiazki { get; set; }
         public virtual DbSet<Tworcy> Tworcy { get; set; }
         public virtual DbSet<Wypozyczenia> Wypozyczenia { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
