@@ -61,6 +61,7 @@ namespace ProjektBiblioteka
             //var q = from k in context.Ksiazki from t in Tworcy ;
 
             List<string> l = new List<string>();
+            List<int> idKsiazek = new List<int>();
             
             wynik = Authors.SelectedItem.ToString();
             var autor = wynik;
@@ -83,20 +84,20 @@ namespace ProjektBiblioteka
 
                 idTworcy = item.idTworcy;
                 idKsiazki = item.ksiazki;
+                idKsiazek.Add(idKsiazki);
               
             }
+            var ksiazkiAutorow = context.Ksiazki.Where(t => idKsiazek.Contains(t.idKsiazki)).Select(x => new { x.tytulKsiazki,x.idKsiazki }).ToList();
 
-           // var result = context.Ksiazki.Where(x => x.idKsiazki == idKsiazki).ToList();
-            var c = from e in context.Ksiazki where e.idKsiazki==idKsiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
-            c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
-            foreach (var item in c.GroupBy(x => new { x.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
+            foreach (var item in ksiazkiAutorow)
             {
-                l.Add($"\nTitle: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
-            }
-            
+                foreach (var i in context.Egzemplarze.Where(x=>x.idKsiazki==item.idKsiazki).GroupBy(x=>new { item.tytulKsiazki}).Select(g=>new { g.Key.tytulKsiazki,MyCount=g.Count()}))
+                {
+                    l.Add($"\nTitle: \"{ item.tytulKsiazki}\" \nWe have: {i.MyCount} examples\n");
+                }
+            }   
 
-            
-            booksList.ItemsSource = l;
+            booksList.ItemsSource = l ;
            
             //var query = from ks in context.Ksgitiazki join tw in context.Tworcy on new { ks.idKsiazki, ks.Tworcy. } equals new { tw.Ksiazki, tw.idTworcy } select x => x;
 
