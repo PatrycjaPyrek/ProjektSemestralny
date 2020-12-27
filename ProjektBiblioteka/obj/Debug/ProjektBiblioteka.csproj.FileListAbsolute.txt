@@ -54,3 +54,5 @@ C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBibl
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BorrowBook.baml
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\ReturnBook.g.cs
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\ReturnBook.baml
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\Management.g.cs
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\Management.baml

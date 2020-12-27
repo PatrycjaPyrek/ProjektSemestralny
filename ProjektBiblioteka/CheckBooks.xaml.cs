@@ -145,13 +145,13 @@ namespace ProjektBiblioteka
             }
             Genres.ItemsSource = genres;
 
-            
 
-            //for (int i = 0; i < booksList.Items.Count; i++)
-            //{
-               
 
-            //}
+            for (int i = 0; i < booksList.Items.Count; i++)
+            {
+
+
+            }
         }
 
 
@@ -234,7 +234,9 @@ namespace ProjektBiblioteka
 
         private void zwrot(object sender, RoutedEventArgs e)
         {
-
+            ReturnBook returnBook = new ReturnBook();
+            returnBook.Show();
+            this.Close();
         }
         //Przycisk zamknij, zamyka okno
         private void Button_Click(object sender, RoutedEventArgs e)

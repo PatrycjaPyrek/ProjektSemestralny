@@ -94,6 +94,7 @@
     <Compile Include="CheckBooks.xaml.cs">
       <DependentUpon>CheckBooks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComboBoxViewModel.cs" />
     <Compile Include="DateConv.cs" />
     <Compile Include="Doplaty.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
@@ -131,6 +132,9 @@
     </Compile>
     <Compile Include="loginPass.cs">
       <DependentUpon>ModelLoginBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Management.xaml.cs">
+      <DependentUpon>Management.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model1.cs">
       <AutoGen>True</AutoGen>
@@ -205,6 +209,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Management.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReturnBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

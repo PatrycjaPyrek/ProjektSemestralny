@@ -46,12 +46,14 @@ namespace ProjektBiblioteka
 
         private void zwrot(object sender, RoutedEventArgs e)
         {
-
+            ReturnBook returnBook = new ReturnBook();
+            returnBook.Show();
+          
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            AddUser dashboard = new AddUser();
+            Management dashboard = new Management();
             dashboard.Show();
            
         }
