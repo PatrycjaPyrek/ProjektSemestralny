@@ -41,7 +41,7 @@
           <Property Name="nazwiskoKlienta" Type="nvarchar" MaxLength="30" />
           <Property Name="imieKlienta" Type="nvarchar" MaxLength="30" />
           <Property Name="plec" Type="char" MaxLength="1" />
-          <Property Name="dataUrodzenia" Type="int" />
+          <Property Name="dataUrodzenia" Type="datetime" />
           <Property Name="ulica" Type="nvarchar" MaxLength="50" />
           <Property Name="kodPocztowy" Type="varchar" MaxLength="10" />
           <Property Name="Miejscowosc" Type="nvarchar" MaxLength="100" />
@@ -304,7 +304,7 @@
           <Property Name="nazwiskoKlienta" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="imieKlienta" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="plec" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="dataUrodzenia" Type="Int32" />
+          <Property Name="dataUrodzenia" Type="DateTime" Precision="3" />
           <Property Name="ulica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="kodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Miejscowosc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />

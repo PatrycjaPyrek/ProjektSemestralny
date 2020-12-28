@@ -36,7 +36,7 @@
     <Property Name="nazwiskoKlienta" Type="nvarchar" MaxLength="30" />
     <Property Name="imieKlienta" Type="nvarchar" MaxLength="30" />
     <Property Name="plec" Type="char" MaxLength="1" />
-    <Property Name="dataUrodzenia" Type="int" />
+    <Property Name="dataUrodzenia" Type="datetime" />
     <Property Name="ulica" Type="nvarchar" MaxLength="50" />
     <Property Name="kodPocztowy" Type="varchar" MaxLength="10" />
     <Property Name="Miejscowosc" Type="nvarchar" MaxLength="100" />

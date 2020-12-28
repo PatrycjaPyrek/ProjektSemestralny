@@ -25,7 +25,7 @@ namespace ProjektBiblioteka
         public string nazwiskoKlienta { get; set; }
         public string imieKlienta { get; set; }
         public string plec { get; set; }
-        public Nullable<int> dataUrodzenia { get; set; }
+        public Nullable<System.DateTime> dataUrodzenia { get; set; }
         public string ulica { get; set; }
         public string kodPocztowy { get; set; }
         public string Miejscowosc { get; set; }

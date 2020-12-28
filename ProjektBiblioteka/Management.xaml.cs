@@ -202,38 +202,39 @@ namespace ProjektBiblioteka
                 panel1.Children.Add(miejscowosc);
                 //submit
                 Button submit2 = new Button();
-                submit2.Click += Submit;
+              
                 submit2.Width = 80;
                 submit2.Height = 20;
                 submit2.Content = "Submit";
                 panel1.Children.Add(submit2);
-                submit2.Click += Submit;
              
 
+                DateTime data = dataUr.SelectedDate.GetValueOrDefault();
+              
+                submit2.Click += Submit;
 
-                
                 // NEW ==============================================
                 void Submit(object f, RoutedEventArgs g)
                 {
                     Klienci klient = new Klienci()
                     {
                         idKlienta = Convert.ToInt32(id.Text),
-                        imieKlienta = imie.Text,
                         NrDowodu = dowod.Text,
                         nazwiskoKlienta = nazwisko.Text,
+                        imieKlienta = imie.Text,
                         plec = plec,
-                        //poprawa bazy=>zmiana typu na date dataUrodzenia=.dataUr.SelectedDate,
+                        dataUrodzenia = data.Date,
+                        ulica=ulica.Text,
                         kodPocztowy = kod.Text,
                         Miejscowosc = miejscowosc.Text,
-                        dataWprowadzenia = DateTime.Now
-                       
-                  
-                        
-
+                        dataWprowadzenia = DateTime.Now.Date
                     };
-                    string wynik = "";
-                    wynik = klient.idKlienta + klient.imieKlienta + klient.nazwiskoKlienta + klient.NrDowodu;
-                    MessageBox.Show(wynik);
+                    MessageBox.Show(data.ToString());
+                    context.Klienci.Add(klient);
+                    context.SaveChanges();
+                    // string wynik = "";
+                    // wynik = klient.idKlienta + klient.imieKlienta + klient.nazwiskoKlienta + klient.NrDowodu;
+                    MessageBox.Show("Dodano klienta");
                  
                     
                 }
