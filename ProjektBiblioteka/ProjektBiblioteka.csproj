@@ -96,6 +96,9 @@
     </Compile>
     <Compile Include="ComboBoxViewModel.cs" />
     <Compile Include="DateConv.cs" />
+    <Compile Include="DeleteUser.xaml.cs">
+      <DependentUpon>DeleteUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Doplaty.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CheckBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

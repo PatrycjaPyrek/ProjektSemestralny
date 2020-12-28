@@ -24,6 +24,8 @@ namespace ProjektBiblioteka
     {
         libraryEntitiesDataSet context = new libraryEntitiesDataSet(); //dane z bazy
         int index = 0;
+        int idKsiazki = 0;
+        string idEgzemplarz = "";
 
         // bool dateChanged = false;
 
@@ -86,6 +88,10 @@ namespace ProjektBiblioteka
                     break;
                 case 4:
                     DodawanieKsiazki();
+                    break;
+                case 6:
+                    DeleteUser deleteUser = new DeleteUser();
+                    deleteUser.Show();
                     break;
 
             }
@@ -187,25 +193,48 @@ namespace ProjektBiblioteka
                 {
                     Label label = new Label();
                     TextBox idEgzemplarza = new TextBox();
+                    label.Content = "Insert id";
+                    idEgzemplarza.Width = 50;
+                    idEgzemplarza.Height = 25;
                     panel1.Children.Add(label);
                     panel1.Children.Add(idEgzemplarza);
 
-                    Button submit = new Button();
-                    panel1.Children.Add(submit);
-                    submit.Click += Submit_Click;
-                     void Submit_Click(object sender, RoutedEventArgs e)
-                    {
-                        Egzemplarze egzemplarz = new Egzemplarze()
-                        {
-                            idKsiazki = index,
-                            idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text)
-                        };
-                        context.Egzemplarze.Add(egzemplarz);
-                        context.SaveChanges();
-          
-                    }
+                    idEgzemplarz = idEgzemplarza.Text;
+
 
                 };
+                Button submit = new Button();
+                submit.Width = 50;
+                submit.Height = 30;
+                submit.Content = "Submit";
+                panel1.Children.Add(submit);
+                submit.Click += Submit_Click;
+                void Submit_Click(object sender, RoutedEventArgs e)
+                {
+
+                    //for (int i = 0; i < length; i++)
+                    //{
+
+
+                        Egzemplarze egzemplarz = new Egzemplarze()
+                        {
+                            idEgzemplarza = Convert.ToInt32(idEgzemplarz),
+                            idKsiazki = index,
+
+                        };
+                    //}
+                    var query = context.Egzemplarze.Select(x => x.idEgzemplarza).FirstOrDefault();
+                    if (Convert.ToInt32(idEgzemplarz) == query)
+                    {
+                        MessageBox.Show("Same id already exists");
+                    }
+                    else
+                    {
+                        context.Egzemplarze.Add(egzemplarz);
+                        context.SaveChanges();
+                    }
+
+                }
 
 
                 var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
