@@ -33,5 +33,10 @@ namespace ProjektBiblioteka
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenia> Wypozyczenia { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {idKlienta} \n Name: {imieKlienta} {nazwiskoKlienta}";
+        }
     }
 }

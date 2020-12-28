@@ -26,15 +26,30 @@ namespace ProjektBiblioteka
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
+            bool isFree = true;
             var context = new LoginBaseEntities();
             var account = new loginPass()
             {
                 username = usernametxt.Text,
                 password = passwordtxt.Text
             };
-            context.loginPass.Add(account);
-            context.SaveChanges();
-            MessageBox.Show( $"New user was added. Login:{usernametxt.Text},password: {passwordtxt.Text}");
+            foreach (var item in context.loginPass.Select(x=>x.username))
+            {
+                if (item == usernametxt.Text)
+                {
+                    isFree = false;
+                }
+            }
+            if (isFree == true)
+            {
+                context.loginPass.Add(account);
+                context.SaveChanges();
+                MessageBox.Show($"New user was added. Login:{usernametxt.Text},password: {passwordtxt.Text}");
+            }
+            else
+            {
+                MessageBox.Show("User with the same username already exists. Please try different name.");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -330,6 +330,8 @@
       <DependentUpon>ModelLoginBase.edmx</DependentUpon>
       <LastGenOutput>ModelLoginBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="pics\logoCzl.png" />
+    <Resource Include="pics\logo.png" />
     <Resource Include="pics\libBooks.png" />
   </ItemGroup>
   <ItemGroup>
