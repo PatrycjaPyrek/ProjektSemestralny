@@ -36,7 +36,7 @@ namespace ProjektBiblioteka
 
         public override string ToString()
         {
-            return $"Id: {idKlienta} \n Name: {imieKlienta} {nazwiskoKlienta}";
+            return $"Id: {idKlienta} \n Name: {imieKlienta} {nazwiskoKlienta} Id card: {NrDowodu} City: {Miejscowosc}";
         }
     }
 }

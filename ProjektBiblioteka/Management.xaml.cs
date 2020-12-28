@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace ProjektBiblioteka
 {
-   
+
 
 
     /// <summary>
@@ -23,9 +23,9 @@ namespace ProjektBiblioteka
     public partial class Management : Window
     {
         libraryEntitiesDataSet context = new libraryEntitiesDataSet(); //dane z bazy
-        
-        
-        bool dateChanged = false;
+        int index = 0;
+
+        // bool dateChanged = false;
 
 
         public Management()
@@ -84,14 +84,156 @@ namespace ProjektBiblioteka
                 case 3:
                     UsuwanieKlientowFormularz();
                     break;
+                case 4:
+                    DodawanieKsiazki();
+                    break;
 
             }
-            
-           
+
+
+        }
+
+        private void DodawanieKsiazki()
+        {
+            panel1.Children.Clear();
+
+            //id
+            Label nowyEgzemplarz = new Label();
+            nowyEgzemplarz.Content = "Input id";
+            nowyEgzemplarz.FontSize = 15;
+            panel1.Children.Add(nowyEgzemplarz);
+            TextBox id = new TextBox();
+            Thickness m = id.Margin;
+            m.Top = -30;
+            m.Left = -70;
+            id.Margin = m;
+            id.Width = 200;
+            id.Height = 25;
+            panel1.Children.Add(id);
+
+            //dowod
+            Label tytulLabel = new Label();
+            tytulLabel.Content = "Input title";
+            tytulLabel.FontSize = 15;
+            panel1.Children.Add(tytulLabel);
+            TextBox tytul = new TextBox();
+            tytul.Margin = m;
+            tytul.Width = 200;
+            tytul.Height = 25;
+            panel1.Children.Add(tytul);
+
+            //rok wydania
+            Label rokwydaniaLabel = new Label();
+            rokwydaniaLabel.Content = "Input year";
+            rokwydaniaLabel.FontSize = 15;
+            panel1.Children.Add(rokwydaniaLabel);
+            TextBox rokwydania = new TextBox();
+            rokwydania.Width = 200;
+            rokwydania.Height = 25;
+            rokwydania.Margin = m;
+            panel1.Children.Add(rokwydania);
+
+            //rodzaj
+            Label rodzajKsiazkiLabel = new Label();
+            rodzajKsiazkiLabel.Content = "Choose type";
+            rokwydaniaLabel.FontSize = 15;
+            panel1.Children.Add(rodzajKsiazkiLabel);
+            ComboBox rodzajKsiazki = new ComboBox();
+            rodzajKsiazki.Margin = m;
+            rodzajKsiazki.Width = 100;
+            rodzajKsiazki.Height = 25;
+            var queryRodzaje = context.Cennik.Select(x => x.rodzajKsiazki).ToList();
+            rodzajKsiazki.ItemsSource = queryRodzaje;
+
+
+            panel1.Children.Add(rodzajKsiazki);
+
+            //ile egzemplarzy
+            Label LiczbaEgzemplarzyLabel = new Label();
+            LiczbaEgzemplarzyLabel.Content = "Input number of examples";
+            LiczbaEgzemplarzyLabel.FontSize = 15;
+            panel1.Children.Add(LiczbaEgzemplarzyLabel);
+            TextBox LiczbaEgzemplarzy = new TextBox();
+            LiczbaEgzemplarzy.Width = 25;
+            LiczbaEgzemplarzy.Height = 25;
+            LiczbaEgzemplarzy.Margin = m;
+            panel1.Children.Add(LiczbaEgzemplarzy);
+
+
+
+            //submit
+            Button submit2 = new Button();
+
+            submit2.Width = 80;
+            submit2.Height = 20;
+            submit2.Content = "Submit";
+            panel1.Children.Add(submit2);
+
+
+
+
+
+            submit2.Click += Submit;
+
+
+            // NEW ==============================================
+            void Submit(object f, RoutedEventArgs g)
+            {
+                string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
+
+                int liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
+                index = Convert.ToInt32(id.Text);
+                for (int i = 0; i < liczbaEgzemplarzyZ; i++)
+                {
+                    Label label = new Label();
+                    TextBox idEgzemplarza = new TextBox();
+                    panel1.Children.Add(label);
+                    panel1.Children.Add(idEgzemplarza);
+
+                    Button submit = new Button();
+                    panel1.Children.Add(submit);
+                    submit.Click += Submit_Click;
+                     void Submit_Click(object sender, RoutedEventArgs e)
+                    {
+                        Egzemplarze egzemplarz = new Egzemplarze()
+                        {
+                            idKsiazki = index,
+                            idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text)
+                        };
+                        context.Egzemplarze.Add(egzemplarz);
+                        context.SaveChanges();
+          
+                    }
+
+                };
+
+
+                var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
+                int rokWydania = Convert.ToInt32(rokwydania.Text);
+                if (index == queryCzyJestId)
+                {
+                    MessageBox.Show("Book with the same id already exists");
+                }
+                else {
+                    Ksiazki ksiazka = new Ksiazki()
+                    {
+                        idKsiazki = index,
+                        tytulKsiazki = tytul.Text,
+                        rokWydania = Convert.ToInt32(rokwydania.Text),
+                        rodzajKsiazki = rodzajWybrany
+                    };
+                    context.Ksiazki.Add(ksiazka);
+                    context.SaveChanges();
+                    MessageBox.Show("Added");
+                }
+
+
+            }
+
         }
 
 
-
+    
         private void EdytowanieUzytkownikaFormularz()
         {
             panel1.Children.Clear();
@@ -226,8 +368,11 @@ namespace ProjektBiblioteka
             miejscowosc.Margin = m;
             panel1.Children.Add(miejscowosc);
             //submit
+            Thickness t2 = new Thickness();
+            t2.Right = -300;
+            t2.Top = -20;
             Button submit2 = new Button();
-
+            submit2.Margin = t2;
             submit2.Width = 80;
             submit2.Height = 20;
             submit2.Content = "Submit";
@@ -258,8 +403,7 @@ namespace ProjektBiblioteka
                 string idKlientaWybranego = listaCombo.SelectedItem.ToString();
                 string[] temp = idKlientaWybranego.Split(' ');
                 int index = Convert.ToInt32(temp[1]);
-                MessageBox.Show(idKlientaWybranego);
-
+            
                 foreach (var item in context.Klienci.Where(x => x.idKlienta == index))
                 {
                     if (dowod.Text.Trim() != "")
@@ -310,10 +454,10 @@ namespace ProjektBiblioteka
 
 
 
-                void changedData(object sender, EventArgs e)
-                {
-                    dateChanged = true; //sprawdza czy data zosdtała zmieniona
-                }
+                //void changedData(object sender, EventArgs e)
+                //{
+                //    dateChanged = true; //sprawdza czy data zosdtała zmieniona
+                //}
                 context.SaveChanges();
                 // string wynik = "";
                 // wynik = klient.idKlienta + klient.imieKlienta + klient.nazwiskoKlienta + klient.NrDowodu;
@@ -326,6 +470,7 @@ namespace ProjektBiblioteka
 
         private void UsuwanieKlientowFormularz()
         {
+        
             panel1.Children.Clear();
             Label nowyKlient = new Label();
             nowyKlient.Content = "Input id";
@@ -339,8 +484,8 @@ namespace ProjektBiblioteka
             id.Width = 200;
             id.Height = 25;
             panel1.Children.Add(id);
-            
 
+            
             Button submit2 = new Button();
 
             submit2.Width = 80;
@@ -391,9 +536,9 @@ namespace ProjektBiblioteka
 /// </summary>
 private void DodawanieUzytkownikowFormularz()
 {
-
-    //id
-    Label nowyKlient = new Label();
+            panel1.Children.Clear();
+            //id
+            Label nowyKlient = new Label();
     nowyKlient.Content = "Input id";
     nowyKlient.FontSize = 15;
     panel1.Children.Add(nowyKlient);
@@ -561,7 +706,7 @@ private void DodawanieUzytkownikowFormularz()
             Miejscowosc = miejscowosc.Text,
             dataWprowadzenia = DateTime.Now.Date
         };
-        MessageBox.Show(data.Date.ToString());
+  
                 bool isFree = true;
                 foreach (var item in context.Klienci.Select(x => x.idKlienta))
                 {
@@ -583,27 +728,13 @@ private void DodawanieUzytkownikowFormularz()
 
                 }
 
-    }
+            }
 
 
 
 
-}
-       
+        }
 
-
-
-
-
-        //Klienci klient = new Klienci()
-        //{
-        //    idKlienta = Convert.ToInt32(id.Text),
-        //    imieKlienta = imie.Text,
-        //    nazwiskoKlienta = nazwisko.Text
-
-
-        //};
-        // MessageBox.Show(id.Text+ imie.Text + nazwisko.Text);
 
     }
 }
