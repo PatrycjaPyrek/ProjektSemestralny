@@ -34,5 +34,10 @@ namespace ProjektBiblioteka
         public virtual ICollection<gatunki> gatunki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tworcy> Tworcy { get; set; }
+        public override string ToString()
+        {
+            return $"TYTU£: {tytulKsiazki} \nWYDANA: {rokWydania} \nRODZAJ: {rodzajKsiazki}";
+        }
+
     }
 }
