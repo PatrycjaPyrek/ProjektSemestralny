@@ -106,24 +106,39 @@ namespace ProjektBiblioteka
             submit2.Click += Submit;
             void Submit(object f, RoutedEventArgs g)
             {
-                int idKlientaDoUsuniecia = Convert.ToInt32(id.Text);
-                var query = context.Klienci.Where(x => x.idKlienta == idKlientaDoUsuniecia).Select(x => x).FirstOrDefault();
-                MessageBoxResult result = MessageBox.Show($"You want to delete client with id = {query.idKlienta}, name ={query.imieKlienta + ' ' + query.nazwiskoKlienta} Please confirm to proceed.", "Confirm deletion", MessageBoxButton.YesNo);
-                switch (result)
+               
+
+                try
                 {
-                    case MessageBoxResult.Yes:
-                        context.Klienci.Remove(query);
-                        context.SaveChanges();
-                        break;
-                    case MessageBoxResult.No:
-                        break;
+                    int idKlientaDoUsuniecia = Convert.ToInt32(id.Text);
+                    var query = context.Klienci.Where(x => x.idKlienta == idKlientaDoUsuniecia).Select(x => x).FirstOrDefault();
+                    if (query != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show($"You want to delete client with id = {query.idKlienta}, name ={query.imieKlienta + ' ' + query.nazwiskoKlienta} Please confirm to proceed.", "Confirm deletion", MessageBoxButton.YesNo);
+
+                        switch (result)
+                        {
+                            case MessageBoxResult.Yes:
+                                context.Klienci.Remove(query);
+                                context.SaveChanges();
+                                break;
+                            case MessageBoxResult.No:
+                                break;
+                        }
+                    }
+                    else { MessageBox.Show("Nie ma takiego użytkownika"); };
                 }
-                // string wynik = "";
-                // wynik = klient.idKlienta + klient.imieKlienta + klient.nazwiskoKlienta + klient.NrDowodu;
-                
+                catch (Exception e) {
+                    MessageBox.Show("Nie ma takiego użytkownika"+e.Message.ToString());
+
+                   // throw new OwnException("nie ma takiego użytkownika");
+                }
+            // string wynik = "";
+            // wynik = klient.idKlienta + klient.imieKlienta + klient.nazwiskoKlienta + klient.NrDowodu;
 
 
-            }
+
+        }
         }
 
 

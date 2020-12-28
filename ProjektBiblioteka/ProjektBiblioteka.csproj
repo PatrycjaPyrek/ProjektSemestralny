@@ -156,6 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelLoginBase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="OwnException.cs" />
     <Compile Include="ReturnBook.xaml.cs">
       <DependentUpon>ReturnBook.xaml</DependentUpon>
     </Compile>
