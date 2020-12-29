@@ -32,9 +32,9 @@ namespace ProjektBiblioteka
         {
             if (rokUrodzenia == null)
             {
-                return $"{imieTworcy} {nazwiskoTworcy} (rok urodzenia nieznany)";
+                return $"{idTworcy} {imieTworcy} {nazwiskoTworcy} (rok urodzenia nieznany)";
             }
-            return $"{imieTworcy} {nazwiskoTworcy} (urodzony {rokUrodzenia})";
+            return $"{idTworcy} {imieTworcy} {nazwiskoTworcy} (urodzony {rokUrodzenia})";
         }
 
     }

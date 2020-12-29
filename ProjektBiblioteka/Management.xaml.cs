@@ -170,25 +170,33 @@ namespace ProjektBiblioteka
         //    panel1.Children.Add(DodajEgzemplarz);
 
             string autorzyWpisani = "";
+            int idTworcyZComboBoxu = 0;
+            Thickness n = new Thickness();
 
+            n.Top = -2;
+            n.Left = -70;
+            ComboBox listaTworcowWBibliotece = new ComboBox();
+            listaTworcowWBibliotece.Width = 300;
+            listaTworcowWBibliotece.Height = 25;
+            listaTworcowWBibliotece.Margin = n;
+            listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
+            temp.Children.Add(listaTworcowWBibliotece);
+            
             //Wybor czy chcemy wybrac istniejacego tworce czy dodac nowego
             CheckBox checkYes = new CheckBox();
             checkYes.Click += checkBox1_Click;
             checkYes.Content = "New author";
             panel1.Children.Add(checkYes);
             panel1.Children.Add(temp);
-
+            
             void checkBox1_Click(object sender, System.EventArgs e)
             {
-                Thickness n = new Thickness();
-
-                n.Top = -2;
-                n.Left = -70;
+                
                 // The CheckBox control's Text property is changed each time the
                 // control is clicked, indicating a checked or unchecked state.  
                 if (checkYes.IsChecked == true)
                 {
-
+                    temp.Children.Remove(listaTworcowWBibliotece);
                     // state = Checked.check;
                     // Check();
                     temp.Children.Clear();
@@ -207,6 +215,7 @@ namespace ProjektBiblioteka
                     autorzyWpisani += autor.Text;
                     temp.Children.Add(autor);
                     //checkBox1_Click;
+                    
 
                 }
                 else if (checkYes.IsChecked == false)
@@ -222,21 +231,23 @@ namespace ProjektBiblioteka
                     autorLabel.FontSize = 15;
                     temp.Children.Add(autorLabel);
 
+
                     CheckBox check2 = new CheckBox();
                     check2.Content = "2";
 
                     temp.Children.Add(check2);
-
-
-                    ComboBox listaTworcowWBibliotece = new ComboBox();
-                    listaTworcowWBibliotece.Width = 300;
-                    listaTworcowWBibliotece.Height = 25;
-                    listaTworcowWBibliotece.Margin = n;
-                    listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
                     temp.Children.Add(listaTworcowWBibliotece);
+
+
+                   
+                 
                 }
+              
+                
+                
 
             }
+       
 
 
 
@@ -270,9 +281,16 @@ namespace ProjektBiblioteka
             // NEW ==============================================
             void Submit(object f, RoutedEventArgs g)
             {
-             
-
-                int liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
+                string wybrany = listaTworcowWBibliotece.SelectedItem.ToString();
+                string[] pomocnicza = wybrany.Split(' ');
+                int idTworcy = Convert.ToInt32(pomocnicza[0]);
+                idTworcyZComboBoxu = idTworcy;
+                int liczbaEgzemplarzyZ = 0;
+                if (LiczbaEgzemplarzy.Text == "")
+                {
+                    liczbaEgzemplarzyZ = 0;
+                }
+               liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
                 index = Convert.ToInt32(id.Text);
                     panel1.Children.Clear();
                 for (int i = 0; i < liczbaEgzemplarzyZ; i++)
@@ -305,6 +323,7 @@ namespace ProjektBiblioteka
                 string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
                 var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
                 int rokWydania = Convert.ToInt32(rokwydania.Text);
+                var query = context.Tworcy.Where(x => x.idTworcy == idTworcyZComboBoxu).Select(x => x).ToList();
                 if (index == queryCzyJestId)
                 {
                     MessageBox.Show("Book with the same id already exists");
@@ -316,10 +335,24 @@ namespace ProjektBiblioteka
                         idKsiazki = index,
                         tytulKsiazki = tytul.Text,
                         rokWydania = Convert.ToInt32(rokwydania.Text),
-                        rodzajKsiazki = rodzajWybrany
+                        rodzajKsiazki = rodzajWybrany,
+                        Tworcy = query
                     };
+                   // ksiazka.Tworcy.Add(new Tworcy { idTworcy = idTworcyZComboBoxu });
                     context.Ksiazki.Add(ksiazka);
                     context.SaveChanges();
+
+                    //var query = context.Tworcy.Where(c => c.Category_ID == cat_id).SelectMany(c => Articles);
+
+                    //var queryResult = context.Tworcy.GroupJoin(context.Ksiazki,
+                    //                                           tworcy => tworcy.Ksiazki,
+                    //                                           ksiazki => ksiazki.Tworcy,
+                    //                                           (tworcy, ksiazki) => new { tworcy, ksiazki });   
+                        
+                        //from b in context.Ksiazki
+                        //        join p in context.Tworcy
+                        //            on b.idKsiazki equals p.idTworcy into grouping
+                        //        select new { b, Posts = grouping.Where(p => p.Contains("EF")).ToList() };
                     MessageBox.Show("Added");
 
 
