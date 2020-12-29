@@ -154,6 +154,20 @@ namespace ProjektBiblioteka
 
 
 
+            //gatunki
+            ////multiselect!!!!
+            ListBox list = new ListBox();
+            list.SelectionMode = SelectionMode.Multiple;
+            list.ItemsSource = context.gatunki.Select(x=>x.gatunek).ToList();
+            panel1.Children.Add(list);
+            //foreach (var item in list.items)
+            //{
+            //    If(list.Contains(item.ToString()))
+            //  {
+            //        list.SelectedValue = item.ToString();
+            //    }
+            //}
+
             StackPanel temp = new StackPanel();
            
             int idTworcyZComboBoxu = 0;
@@ -167,11 +181,18 @@ namespace ProjektBiblioteka
             listaTworcowWBibliotece.Margin = n;
             listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
             temp.Children.Add(listaTworcowWBibliotece);
-
+            Label wiecejAutorowLabel = new Label();
+            wiecejAutorowLabel.Content = "Write id of extra authors. If none - leave field empty.";
+            temp.Children.Add(wiecejAutorowLabel);
             TextBox wiecejAutorow = new TextBox();
+            wiecejAutorow.Width = 200;
+            wiecejAutorow.Height = 25;
             temp.Children.Add(wiecejAutorow);
-           
-          
+
+
+
+
+
 
 
 
@@ -204,7 +225,7 @@ namespace ProjektBiblioteka
                     dodajAutora.Click += DodajAutora_Click;
                     dodajAutora.Content = "Add new author";
                     temp.Children.Add(dodajAutora);
-                 
+                   
                 }
                
                 else if (checkYes.IsChecked == false)
@@ -213,9 +234,9 @@ namespace ProjektBiblioteka
                     temp.Children.Clear();
                     temp.Height = 80;
                     temp.Children.Add(listaTworcowWBibliotece);
-                   
-                   
-                   
+                    temp.Children.Add(wiecejAutorowLabel);
+                    temp.Children.Add(wiecejAutorow);
+
                 }
                 
 
@@ -324,12 +345,28 @@ namespace ProjektBiblioteka
                 {
                     query.AddRange(listaTworcowDoDodania);
                 }
-                   
-                    
-                    if (index == queryCzyJestId)
+                List<gatunki> gatunkiwybrane = new List<gatunki>();
+                
+                foreach (string item in list.SelectedItems)
+                {
+                    string itemGatunek = item.ToString();
+                    foreach (var gatunek in context.gatunki.Select(x=>x))
                     {
-                        MessageBox.Show("Book with the same id already exists");
+                        string gatunekString = gatunek.ToString();
+                        if (gatunekString == itemGatunek)
+                        {
+                            gatunkiwybrane.Add(gatunek);
+                        }
                     }
+                   
+                }
+
+
+
+                if (index == queryCzyJestId)
+                {
+                    MessageBox.Show("Book with the same id already exists");
+                }
                 else
                 {
                     Ksiazki ksiazka = new Ksiazki()
@@ -338,7 +375,8 @@ namespace ProjektBiblioteka
                         tytulKsiazki = tytul.Text,
                         rokWydania = Convert.ToInt32(rokwydania.Text),
                         rodzajKsiazki = rodzajWybrany,
-                        Tworcy = query
+                        Tworcy = query,
+                        gatunki=gatunkiwybrane
                     };
                     // ksiazka.Tworcy.Add(new Tworcy { idTworcy = idTworcyZComboBoxu });
                     context.Ksiazki.Add(ksiazka);
