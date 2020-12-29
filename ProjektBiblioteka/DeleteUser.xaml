@@ -9,7 +9,7 @@
     <Grid>
 
         <Grid Height="70" VerticalAlignment="Top" Background="#FF13306E">
-            <TextBlock Text="Add User " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Margin="169,0,137,25" Width="136" Height="30"/>
+            <TextBlock Text="Delete User " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Margin="153,0,137,25" Width="152" Height="30"/>
             <Button Content="Close" Margin="350,18,-140,0" VerticalAlignment="Top" Height="27" Background="#FF1A2161" BorderBrush="#FFE2DDDD" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Agency FB" Click="Button_Click" Grid.Column="3" HorizontalAlignment="Left" Width="74"/>
         </Grid>
 

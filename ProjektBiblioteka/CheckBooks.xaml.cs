@@ -103,11 +103,11 @@ namespace ProjektBiblioteka
             {
                 if (listaTworcow.Count >= 2)
                 {
-                    listaTworcowString += $"{item}, ";
+                    listaTworcowString += $"{item.imieTworcy} {item.nazwiskoTworcy}, ";
                 }
                 else
                 {
-                    listaTworcowString += item;
+                    listaTworcowString += item.imieTworcy+item.nazwiskoTworcy;
                 }
             }
             if (listaTworcowString[listaTworcowString.Length-2] == ',')
