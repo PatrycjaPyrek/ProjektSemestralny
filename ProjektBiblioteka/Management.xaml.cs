@@ -24,10 +24,7 @@ namespace ProjektBiblioteka
     {
         libraryEntitiesDataSet context = new libraryEntitiesDataSet(); //dane z bazy
         int index = 0;
-        int idKsiazki = 0;
-        private bool isChecked = false;
-        string idEgzemplarz = "";
-
+        bool moreAuthors = false; 
 
 
         // bool dateChanged = false;
@@ -158,18 +155,7 @@ namespace ProjektBiblioteka
 
 
             StackPanel temp = new StackPanel();
-
-            //ile egzemplarzy
-
-            //Button DodajEgzemplarz = new Button();
-            //DodajEgzemplarz.Height = 30;
-            //DodajEgzemplarz.Width = 40;
-            //DodajEgzemplarz.Content = "Add book examples";
-           // DodajEgzemplarz.Click += DodajEgzemplarz_Click;
-
-        //    panel1.Children.Add(DodajEgzemplarz);
-
-            string autorzyWpisani = "";
+           
             int idTworcyZComboBoxu = 0;
             Thickness n = new Thickness();
 
@@ -181,14 +167,25 @@ namespace ProjektBiblioteka
             listaTworcowWBibliotece.Margin = n;
             listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
             temp.Children.Add(listaTworcowWBibliotece);
-            
+
+           
+          
+
+
+
             //Wybor czy chcemy wybrac istniejacego tworce czy dodac nowego
             CheckBox checkYes = new CheckBox();
             checkYes.Click += checkBox1_Click;
             checkYes.Content = "New author";
             panel1.Children.Add(checkYes);
             panel1.Children.Add(temp);
-            
+           
+           
+           
+           
+
+        
+
             void checkBox1_Click(object sender, System.EventArgs e)
             {
                 
@@ -196,61 +193,31 @@ namespace ProjektBiblioteka
                 // control is clicked, indicating a checked or unchecked state.  
                 if (checkYes.IsChecked == true)
                 {
-                    temp.Children.Remove(listaTworcowWBibliotece);
-                    // state = Checked.check;
-                    // Check();
-                    temp.Children.Clear();
-                    temp.Height = 80;
-
-                    Label autorLabel = new Label();
-                    autorLabel.Content = "Input author [firstname] [lastname] [birthdate/null] (if more than one separate names with comma)";
-                    autorLabel.FontSize = 15;
-                    temp.Children.Add(autorLabel);
-                    TextBox autor = new TextBox();
-
-
-                    autor.Width = 300;
-                    autor.Height = 25;
-                    autor.Margin = n;
-                    autorzyWpisani += autor.Text;
-                    temp.Children.Add(autor);
-                    //checkBox1_Click;
-                    
-
-                }
-                else if (checkYes.IsChecked == false)
-                {
-
-                    //NotCheck();
-                    // if(state==Checked.not_check)
-                    temp.Children.Clear();
-                    temp.Height = 80;
-                    //  state = Checked.not_check;
-                    Label autorLabel = new Label();
-                    autorLabel.Content = "Choose an author";
-                    autorLabel.FontSize = 15;
-                    temp.Children.Add(autorLabel);
-
-
-                    CheckBox check2 = new CheckBox();
-                    check2.Content = "2";
-
-                    temp.Children.Add(check2);
-                    temp.Children.Add(listaTworcowWBibliotece);
-
-
                    
+                    temp.Children.Clear();
+                    temp.Height = 80;
+                    Button dodajAutora = new Button();
+                    dodajAutora.Width = 100;
+                    dodajAutora.Height = 30;
+                    dodajAutora.Click += DodajAutora_Click;
+                    dodajAutora.Content = "Add new author";
+                    temp.Children.Add(dodajAutora);
                  
                 }
-              
+               
+                else if (checkYes.IsChecked == false)
+                {
+                    listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
+                    temp.Children.Clear();
+                    temp.Height = 80;
+                    temp.Children.Add(listaTworcowWBibliotece);
+                   
+                   
+                   
+                }
                 
-                
 
-            }
-       
-
-
-
+            } 
             Label LiczbaEgzemplarzyLabel = new Label();
             LiczbaEgzemplarzyLabel.Content = "Input number of examples";
             LiczbaEgzemplarzyLabel.FontSize = 15;
@@ -281,53 +248,62 @@ namespace ProjektBiblioteka
             // NEW ==============================================
             void Submit(object f, RoutedEventArgs g)
             {
-                string wybrany = listaTworcowWBibliotece.SelectedItem.ToString();
-                string[] pomocnicza = wybrany.Split(' ');
-                int idTworcy = Convert.ToInt32(pomocnicza[0]);
-                idTworcyZComboBoxu = idTworcy;
-                int liczbaEgzemplarzyZ = 0;
-                if (LiczbaEgzemplarzy.Text == "")
+                
+                if (checkYes.IsChecked == false)
                 {
-                    liczbaEgzemplarzyZ = 0;
-                }
-               liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
-                index = Convert.ToInt32(id.Text);
-                    panel1.Children.Clear();
-                for (int i = 0; i < liczbaEgzemplarzyZ; i++)
-                {
-           
-                    TextBox idEgzemplarza = new TextBox();
-                    idEgzemplarza.Width = 100;
-                    idEgzemplarza.Height = 30;
-                    panel1.Children.Add(idEgzemplarza);
+                    string wybrany = listaTworcowWBibliotece.SelectedItem.ToString();
+                    string[] pomocnicza = wybrany.Split(' ');
+                    int idTworcy = Convert.ToInt32(pomocnicza[0]);
 
-                    Button submit = new Button();
-                    submit.Height = 30;
-                    submit.Width = 50;
-                    submit.Content = "Submit";
-                    panel1.Children.Add(submit);
-                    submit.Click += Submit_Click;
-                    void Submit_Click(object sender, RoutedEventArgs e)
+                    idTworcyZComboBoxu = idTworcy;
+                }
+
+                    int liczbaEgzemplarzyZ = 0;
+                    if (LiczbaEgzemplarzy.Text == "")
                     {
-                        Egzemplarze egzemplarz = new Egzemplarze()
-                        {
-                            idKsiazki = index,
-                            idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text)
-                        };
-                        context.Egzemplarze.Add(egzemplarz);
-                        context.SaveChanges();
-
+                        liczbaEgzemplarzyZ = 0;
                     }
+                    liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
+                    index = Convert.ToInt32(id.Text);
+                    panel1.Children.Clear();
+          
 
-                };
-                string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
-                var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
-                int rokWydania = Convert.ToInt32(rokwydania.Text);
-                var query = context.Tworcy.Where(x => x.idTworcy == idTworcyZComboBoxu).Select(x => x).ToList();
-                if (index == queryCzyJestId)
-                {
-                    MessageBox.Show("Book with the same id already exists");
-                }
+                for (int i = 0; i < liczbaEgzemplarzyZ; i++)
+                    {
+
+                        TextBox idEgzemplarza = new TextBox();
+                        idEgzemplarza.Width = 100;
+                        idEgzemplarza.Height = 30;
+                        panel1.Children.Add(idEgzemplarza);
+
+                        Button submit = new Button();
+                        submit.Height = 30;
+                        submit.Width = 50;
+                        submit.Content = "Submit";
+                        panel1.Children.Add(submit);
+                        submit.Click += Submit_Click;
+                        void Submit_Click(object sender, RoutedEventArgs e)
+                        {
+                            Egzemplarze egzemplarz = new Egzemplarze()
+                            {
+                                idKsiazki = index,
+                                idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text)
+                            };
+                            context.Egzemplarze.Add(egzemplarz);
+                            context.SaveChanges();
+
+                        }
+                
+                    };
+                    string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
+                    var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
+                    int rokWydania = Convert.ToInt32(rokwydania.Text);
+                    var query = context.Tworcy.Where(x => x.idTworcy == idTworcyZComboBoxu).Select(x => x).ToList();
+                    
+                    if (index == queryCzyJestId)
+                    {
+                        MessageBox.Show("Book with the same id already exists");
+                    }
                 else
                 {
                     Ksiazki ksiazka = new Ksiazki()
@@ -338,128 +314,29 @@ namespace ProjektBiblioteka
                         rodzajKsiazki = rodzajWybrany,
                         Tworcy = query
                     };
-                   // ksiazka.Tworcy.Add(new Tworcy { idTworcy = idTworcyZComboBoxu });
+                    // ksiazka.Tworcy.Add(new Tworcy { idTworcy = idTworcyZComboBoxu });
                     context.Ksiazki.Add(ksiazka);
                     context.SaveChanges();
 
-                    //var query = context.Tworcy.Where(c => c.Category_ID == cat_id).SelectMany(c => Articles);
-
-                    //var queryResult = context.Tworcy.GroupJoin(context.Ksiazki,
-                    //                                           tworcy => tworcy.Ksiazki,
-                    //                                           ksiazki => ksiazki.Tworcy,
-                    //                                           (tworcy, ksiazki) => new { tworcy, ksiazki });   
-                        
-                        //from b in context.Ksiazki
-                        //        join p in context.Tworcy
-                        //            on b.idKsiazki equals p.idTworcy into grouping
-                        //        select new { b, Posts = grouping.Where(p => p.Contains("EF")).ToList() };
                     MessageBox.Show("Added");
-
-
                 }
-
-
-
-
-                // NEW ==============================================
-                //void Submit(object f, RoutedEventArgs g)
+                //if (check2.IsChecked == true)
                 //{
-                //    if (rodzajKsiazki.SelectedItem == null)
+                //    Label dodawanieautorow = new Label();
+                //    dodawanieautorow.Content = "Add more authors";
+                //    Button dodawanieParuAutorow = new Button();
+                //    dodawanieParuAutorow.Content = "Add more authors";
+                //    panel1.Children.Add(dodawanieautorow);
+                //    dodawanieautorow.MouseDoubleClick += DodajAutoraDoKsiazki;
+                //    void DodajAutoraDoKsiazki(object sender, RoutedEventArgs e)
                 //    {
-                //        MessageBox.Show("Please choose a type!");
+                //        BookAuthor dodajAutora = new BookAuthor();
+                //        dodajAutora.Show();
+
                 //    }
-                //    else
-                //    {
-                //        string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
-
-
-
-                //        var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
-                //        int rokWydania = Convert.ToInt32(rokwydania.Text);
-                //        if (index == queryCzyJestId)
-                //        {
-                //            MessageBox.Show("Book with the same id already exists");
-                //        }
-                //        else
-                //        {
-                //            Ksiazki ksiazka = new Ksiazki()
-                //            {
-                //                idKsiazki = index,
-                //                tytulKsiazki = tytul.Text,
-                //                rokWydania = Convert.ToInt32(rokwydania.Text),
-                //                rodzajKsiazki = rodzajWybrany,
-
-
-                //            };
-                //            context.Ksiazki.Add(ksiazka);
-
-                //            //int indexTworcy = (context.Tworcy.Select(x => x.idTworcy).OrderByDescending(x => x).First()) + 1;
-                //            //List<string> listaTworcowWpisanych = new List<string>();
-                //            //int indexTworcow = 0;
-
-
-
-                //            //if (autorzyWpisani.Contains(','))
-                //            //{
-                //            //    string[] tempAutorzy = autorzyWpisani.Split(',');
-                //            //    foreach (var item in tempAutorzy)
-                //            //    {
-
-                //            //        listaTworcowWpisanych.Add(item);
-
-                //            //    }
-                //            //    for (int i = 0; i < tempAutorzy.Length; i++)
-                //            //    {
-
-                //            //        Tworcy tworca = new Tworcy()
-                //            //        {
-                //            //            idTworcy = indexTworcy,
-                //            //            imieTworcy = listaTworcowWpisanych[indexTworcow],
-                //            //            nazwiskoTworcy = listaTworcowWpisanych[indexTworcow+1],
-                //            //            rokUrodzenia = Convert.ToInt32(listaTworcowWpisanych[indexTworcow+2])
-                //            //        };
-                //            //        indexTworcow += 3;
-
-                //            //    }
-                //            //}
-                //            //else
-                //            //{
-
-                //            //    string[] wpisani = autorzyWpisani.Split(' ');
-
-                //            //    foreach (var item in wpisani)
-                //            //    {
-                //            //        listaTworcowWpisanych.Add(item);
-
-                //            //    }
-                //            //    //Tworcy tworca = new Tworcy()
-                //            //    //{
-                //            //    //    idTworcy = indexTworcy,
-                //            //    //    imieTworcy = listaTworcowWpisanych[0],
-                //            //    //    nazwiskoTworcy = listaTworcowWpisanych[1],
-                //            //    //    rokUrodzenia = Convert.ToInt32(listaTworcowWpisanych[2])
-                //            //    //};
-                //            //    foreach (var item in context.Tworcy.Select(x => x))
-                //            //    {
-                //            //        if (item == tworca)
-                //            //        {
-                //            //        //dodanie polaczenia do tego tworcy
-                //            //        }
-                //            //        else
-                //            //        {
-                //            //            context.Tworcy.Add(tworca);
-                //            //        }
-                //            //    }
-
-                //            //    context.SaveChanges();
-                //            //}
-
-
-
+                //}
 
             }
-
-
 
 
             void DodajEgzemplarz_Click(object sender, RoutedEventArgs e)
@@ -469,7 +346,14 @@ namespace ProjektBiblioteka
             }
         }
 
+      
 
+        private void DodajAutora_Click(object sender, RoutedEventArgs e)
+        {
+            AddAuthor dodajAutora = new AddAuthor();
+            dodajAutora.Show();
+
+        }
 
         private void EdytowanieUzytkownikaFormularz()
         {

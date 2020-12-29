@@ -82,8 +82,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAuthor.xaml.cs">
+      <DependentUpon>AddAuthor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddUser.xaml.cs">
       <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BookAuthor.xaml.cs">
+      <DependentUpon>BookAuthor.xaml</DependentUpon>
     </Compile>
     <Compile Include="BorrowBook.xaml.cs">
       <DependentUpon>BorrowBook.xaml</DependentUpon>
@@ -175,7 +181,15 @@
     <Compile Include="Wypozyczenia.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
+    <Page Include="AddAuthor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookAuthor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
