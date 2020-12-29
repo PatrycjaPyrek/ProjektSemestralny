@@ -105,10 +105,13 @@
     <Compile Include="Egzemplarze.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExampleAdd.xaml.cs">
+      <DependentUpon>ExampleAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="gatunki.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IAvailable.cs" />
+    <Compile Include="IChecked.cs" />
     <Compile Include="Klienci.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeleteUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExampleAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

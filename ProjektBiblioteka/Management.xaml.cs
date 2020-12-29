@@ -20,12 +20,15 @@ namespace ProjektBiblioteka
     /// <summary>
     /// Interaction logic for Management.xaml
     /// </summary>
-    public partial class Management : Window
+    public partial class Management : Window, IChecked
     {
         libraryEntitiesDataSet context = new libraryEntitiesDataSet(); //dane z bazy
         int index = 0;
         int idKsiazki = 0;
+        private bool isChecked = false;
         string idEgzemplarz = "";
+
+
 
         // bool dateChanged = false;
 
@@ -150,11 +153,93 @@ namespace ProjektBiblioteka
             rodzajKsiazki.Height = 25;
             var queryRodzaje = context.Cennik.Select(x => x.rodzajKsiazki).ToList();
             rodzajKsiazki.ItemsSource = queryRodzaje;
-
-
             panel1.Children.Add(rodzajKsiazki);
 
+
+
+            StackPanel temp = new StackPanel();
+
             //ile egzemplarzy
+
+            //Button DodajEgzemplarz = new Button();
+            //DodajEgzemplarz.Height = 30;
+            //DodajEgzemplarz.Width = 40;
+            //DodajEgzemplarz.Content = "Add book examples";
+           // DodajEgzemplarz.Click += DodajEgzemplarz_Click;
+
+        //    panel1.Children.Add(DodajEgzemplarz);
+
+            string autorzyWpisani = "";
+
+            //Wybor czy chcemy wybrac istniejacego tworce czy dodac nowego
+            CheckBox checkYes = new CheckBox();
+            checkYes.Click += checkBox1_Click;
+            checkYes.Content = "New author";
+            panel1.Children.Add(checkYes);
+            panel1.Children.Add(temp);
+
+            void checkBox1_Click(object sender, System.EventArgs e)
+            {
+                Thickness n = new Thickness();
+
+                n.Top = -2;
+                n.Left = -70;
+                // The CheckBox control's Text property is changed each time the
+                // control is clicked, indicating a checked or unchecked state.  
+                if (checkYes.IsChecked == true)
+                {
+
+                    // state = Checked.check;
+                    // Check();
+                    temp.Children.Clear();
+                    temp.Height = 80;
+
+                    Label autorLabel = new Label();
+                    autorLabel.Content = "Input author [firstname] [lastname] [birthdate/null] (if more than one separate names with comma)";
+                    autorLabel.FontSize = 15;
+                    temp.Children.Add(autorLabel);
+                    TextBox autor = new TextBox();
+
+
+                    autor.Width = 300;
+                    autor.Height = 25;
+                    autor.Margin = n;
+                    autorzyWpisani += autor.Text;
+                    temp.Children.Add(autor);
+                    //checkBox1_Click;
+
+                }
+                else if (checkYes.IsChecked == false)
+                {
+
+                    //NotCheck();
+                    // if(state==Checked.not_check)
+                    temp.Children.Clear();
+                    temp.Height = 80;
+                    //  state = Checked.not_check;
+                    Label autorLabel = new Label();
+                    autorLabel.Content = "Choose an author";
+                    autorLabel.FontSize = 15;
+                    temp.Children.Add(autorLabel);
+
+                    CheckBox check2 = new CheckBox();
+                    check2.Content = "2";
+
+                    temp.Children.Add(check2);
+
+
+                    ComboBox listaTworcowWBibliotece = new ComboBox();
+                    listaTworcowWBibliotece.Width = 300;
+                    listaTworcowWBibliotece.Height = 25;
+                    listaTworcowWBibliotece.Margin = n;
+                    listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
+                    temp.Children.Add(listaTworcowWBibliotece);
+                }
+
+            }
+
+
+
             Label LiczbaEgzemplarzyLabel = new Label();
             LiczbaEgzemplarzyLabel.Content = "Input number of examples";
             LiczbaEgzemplarzyLabel.FontSize = 15;
@@ -185,65 +270,47 @@ namespace ProjektBiblioteka
             // NEW ==============================================
             void Submit(object f, RoutedEventArgs g)
             {
-                string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
+             
 
                 int liczbaEgzemplarzyZ = Convert.ToInt32(LiczbaEgzemplarzy.Text);
                 index = Convert.ToInt32(id.Text);
+                    panel1.Children.Clear();
                 for (int i = 0; i < liczbaEgzemplarzyZ; i++)
                 {
-                    Label label = new Label();
+           
                     TextBox idEgzemplarza = new TextBox();
-                    label.Content = "Insert id";
-                    idEgzemplarza.Width = 50;
-                    idEgzemplarza.Height = 25;
-                    panel1.Children.Add(label);
+                    idEgzemplarza.Width = 100;
+                    idEgzemplarza.Height = 30;
                     panel1.Children.Add(idEgzemplarza);
 
-                    idEgzemplarz = idEgzemplarza.Text;
-
-
-                };
-                Button submit = new Button();
-                submit.Width = 50;
-                submit.Height = 30;
-                submit.Content = "Submit";
-                panel1.Children.Add(submit);
-                submit.Click += Submit_Click;
-                void Submit_Click(object sender, RoutedEventArgs e)
-                {
-
-                    //for (int i = 0; i < length; i++)
-                    //{
-
-
+                    Button submit = new Button();
+                    submit.Height = 30;
+                    submit.Width = 50;
+                    submit.Content = "Submit";
+                    panel1.Children.Add(submit);
+                    submit.Click += Submit_Click;
+                    void Submit_Click(object sender, RoutedEventArgs e)
+                    {
                         Egzemplarze egzemplarz = new Egzemplarze()
                         {
-                            idEgzemplarza = Convert.ToInt32(idEgzemplarz),
                             idKsiazki = index,
-
+                            idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text)
                         };
-                    //}
-                    var query = context.Egzemplarze.Select(x => x.idEgzemplarza).FirstOrDefault();
-                    if (Convert.ToInt32(idEgzemplarz) == query)
-                    {
-                        MessageBox.Show("Same id already exists");
-                    }
-                    else
-                    {
                         context.Egzemplarze.Add(egzemplarz);
                         context.SaveChanges();
+
                     }
 
-                }
-
-
+                };
+                string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
                 var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
                 int rokWydania = Convert.ToInt32(rokwydania.Text);
                 if (index == queryCzyJestId)
                 {
                     MessageBox.Show("Book with the same id already exists");
                 }
-                else {
+                else
+                {
                     Ksiazki ksiazka = new Ksiazki()
                     {
                         idKsiazki = index,
@@ -254,15 +321,123 @@ namespace ProjektBiblioteka
                     context.Ksiazki.Add(ksiazka);
                     context.SaveChanges();
                     MessageBox.Show("Added");
+
+
                 }
+
+
+
+
+                // NEW ==============================================
+                //void Submit(object f, RoutedEventArgs g)
+                //{
+                //    if (rodzajKsiazki.SelectedItem == null)
+                //    {
+                //        MessageBox.Show("Please choose a type!");
+                //    }
+                //    else
+                //    {
+                //        string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
+
+
+
+                //        var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
+                //        int rokWydania = Convert.ToInt32(rokwydania.Text);
+                //        if (index == queryCzyJestId)
+                //        {
+                //            MessageBox.Show("Book with the same id already exists");
+                //        }
+                //        else
+                //        {
+                //            Ksiazki ksiazka = new Ksiazki()
+                //            {
+                //                idKsiazki = index,
+                //                tytulKsiazki = tytul.Text,
+                //                rokWydania = Convert.ToInt32(rokwydania.Text),
+                //                rodzajKsiazki = rodzajWybrany,
+
+
+                //            };
+                //            context.Ksiazki.Add(ksiazka);
+
+                //            //int indexTworcy = (context.Tworcy.Select(x => x.idTworcy).OrderByDescending(x => x).First()) + 1;
+                //            //List<string> listaTworcowWpisanych = new List<string>();
+                //            //int indexTworcow = 0;
+
+
+
+                //            //if (autorzyWpisani.Contains(','))
+                //            //{
+                //            //    string[] tempAutorzy = autorzyWpisani.Split(',');
+                //            //    foreach (var item in tempAutorzy)
+                //            //    {
+
+                //            //        listaTworcowWpisanych.Add(item);
+
+                //            //    }
+                //            //    for (int i = 0; i < tempAutorzy.Length; i++)
+                //            //    {
+
+                //            //        Tworcy tworca = new Tworcy()
+                //            //        {
+                //            //            idTworcy = indexTworcy,
+                //            //            imieTworcy = listaTworcowWpisanych[indexTworcow],
+                //            //            nazwiskoTworcy = listaTworcowWpisanych[indexTworcow+1],
+                //            //            rokUrodzenia = Convert.ToInt32(listaTworcowWpisanych[indexTworcow+2])
+                //            //        };
+                //            //        indexTworcow += 3;
+
+                //            //    }
+                //            //}
+                //            //else
+                //            //{
+
+                //            //    string[] wpisani = autorzyWpisani.Split(' ');
+
+                //            //    foreach (var item in wpisani)
+                //            //    {
+                //            //        listaTworcowWpisanych.Add(item);
+
+                //            //    }
+                //            //    //Tworcy tworca = new Tworcy()
+                //            //    //{
+                //            //    //    idTworcy = indexTworcy,
+                //            //    //    imieTworcy = listaTworcowWpisanych[0],
+                //            //    //    nazwiskoTworcy = listaTworcowWpisanych[1],
+                //            //    //    rokUrodzenia = Convert.ToInt32(listaTworcowWpisanych[2])
+                //            //    //};
+                //            //    foreach (var item in context.Tworcy.Select(x => x))
+                //            //    {
+                //            //        if (item == tworca)
+                //            //        {
+                //            //        //dodanie polaczenia do tego tworcy
+                //            //        }
+                //            //        else
+                //            //        {
+                //            //            context.Tworcy.Add(tworca);
+                //            //        }
+                //            //    }
+
+                //            //    context.SaveChanges();
+                //            //}
+
+
 
 
             }
 
+
+
+
+            void DodajEgzemplarz_Click(object sender, RoutedEventArgs e)
+            {
+                ExampleAdd dodajEgzemplarz = new ExampleAdd();
+                dodajEgzemplarz.Show();
+            }
         }
 
 
-    
+
         private void EdytowanieUzytkownikaFormularz()
         {
             panel1.Children.Clear();
@@ -278,7 +453,7 @@ namespace ProjektBiblioteka
             listaCombo.ItemsSource = klienci;
             panel1.Children.Add(listaCombo);
 
-        
+
 
             //dowod
             Thickness m = new Thickness();
@@ -432,7 +607,7 @@ namespace ProjektBiblioteka
                 string idKlientaWybranego = listaCombo.SelectedItem.ToString();
                 string[] temp = idKlientaWybranego.Split(' ');
                 int index = Convert.ToInt32(temp[1]);
-            
+
                 foreach (var item in context.Klienci.Where(x => x.idKlienta == index))
                 {
                     if (dowod.Text.Trim() != "")
@@ -494,12 +669,12 @@ namespace ProjektBiblioteka
 
             }
         }
-        
-        
+
+
 
         private void UsuwanieKlientowFormularz()
         {
-        
+
             panel1.Children.Clear();
             Label nowyKlient = new Label();
             nowyKlient.Content = "Input id";
@@ -514,7 +689,7 @@ namespace ProjektBiblioteka
             id.Height = 25;
             panel1.Children.Add(id);
 
-            
+
             Button submit2 = new Button();
 
             submit2.Width = 80;
@@ -527,8 +702,8 @@ namespace ProjektBiblioteka
             submit2.Click += Submit;
             void Submit(object f, RoutedEventArgs g)
             {
-               
-                
+
+
                 try
                 {
                     int idKlientaDoUsuniecia = Convert.ToInt32(id.Text);
@@ -549,168 +724,169 @@ namespace ProjektBiblioteka
                     }
                     else { MessageBox.Show("Nie ma takiego użytkownika"); };
                 }
-                catch (Exception e) {
-                    MessageBox.Show("Nie ma takiego użytkownika"+e.Message.ToString());
+                catch (Exception e)
+                {
+                    MessageBox.Show("Nie ma takiego użytkownika" + e.Message.ToString());
                 }
-     
 
 
 
+
+            }
         }
-        }
 
 
-/// <summary>
-/// Funkcja dodajaca klientow do bazy
-/// </summary>
-private void DodawanieUzytkownikowFormularz()
-{
+        /// <summary>
+        /// Funkcja dodajaca klientow do bazy
+        /// </summary>
+        private void DodawanieUzytkownikowFormularz()
+        {
             panel1.Children.Clear();
             //id
             Label nowyKlient = new Label();
-    nowyKlient.Content = "Input id";
-    nowyKlient.FontSize = 15;
-    panel1.Children.Add(nowyKlient);
-    TextBox id = new TextBox();
-    Thickness m = id.Margin;
-    m.Top = -30;
-    m.Left = -70;
-    id.Margin = m;
-    id.Width = 200;
-    id.Height = 25;
-    panel1.Children.Add(id);
+            nowyKlient.Content = "Input id";
+            nowyKlient.FontSize = 15;
+            panel1.Children.Add(nowyKlient);
+            TextBox id = new TextBox();
+            Thickness m = id.Margin;
+            m.Top = -30;
+            m.Left = -70;
+            id.Margin = m;
+            id.Width = 200;
+            id.Height = 25;
+            panel1.Children.Add(id);
 
-    //dowod
-    Label dowodLabel = new Label();
-    dowodLabel.Content = "Input id";
-    dowodLabel.FontSize = 15;
-    panel1.Children.Add(dowodLabel);
-    TextBox dowod = new TextBox();
-    dowod.Margin = m;
-    dowod.Width = 200;
-    dowod.Height = 25;
-    panel1.Children.Add(dowod);
+            //dowod
+            Label dowodLabel = new Label();
+            dowodLabel.Content = "Input id";
+            dowodLabel.FontSize = 15;
+            panel1.Children.Add(dowodLabel);
+            TextBox dowod = new TextBox();
+            dowod.Margin = m;
+            dowod.Width = 200;
+            dowod.Height = 25;
+            panel1.Children.Add(dowod);
 
-    //imie
-    Label imieLabel = new Label();
-    imieLabel.Content = "Input firstname";
-    imieLabel.FontSize = 15;
-    panel1.Children.Add(imieLabel);
-    TextBox imie = new TextBox();
-    imie.Width = 200;
-    imie.Height = 25;
-    imie.Margin = m;
-    panel1.Children.Add(imie);
+            //imie
+            Label imieLabel = new Label();
+            imieLabel.Content = "Input firstname";
+            imieLabel.FontSize = 15;
+            panel1.Children.Add(imieLabel);
+            TextBox imie = new TextBox();
+            imie.Width = 200;
+            imie.Height = 25;
+            imie.Margin = m;
+            panel1.Children.Add(imie);
 
-    //nazwisko
-    Label nazwiskoLabel = new Label();
-    nazwiskoLabel.Content = "Input surname";
-    nazwiskoLabel.FontSize = 15;
-    panel1.Children.Add(nazwiskoLabel);
-    TextBox nazwisko = new TextBox();
-    nazwisko.Width = 200;
-    nazwisko.Height = 25;
-    nazwisko.Margin = m;
-    panel1.Children.Add(nazwisko);
+            //nazwisko
+            Label nazwiskoLabel = new Label();
+            nazwiskoLabel.Content = "Input surname";
+            nazwiskoLabel.FontSize = 15;
+            panel1.Children.Add(nazwiskoLabel);
+            TextBox nazwisko = new TextBox();
+            nazwisko.Width = 200;
+            nazwisko.Height = 25;
+            nazwisko.Margin = m;
+            panel1.Children.Add(nazwisko);
 
-    //checkbox
-    Label checkboxLabel = new Label();
-    checkboxLabel.Content = "Choose a gender";
-    checkboxLabel.FontSize = 15;
-    panel1.Children.Add(checkboxLabel);
-    Thickness n = id.Margin;
-    n.Top = -20;
-    n.Left = 30;
-    Thickness n2 = id.Margin;
-    n2.Left = 200;
-    n2.Top = -20;
-    CheckBox checkW = new CheckBox();
-    checkW.Width = 300;
-    checkW.Margin = n;
-    checkW.Height = 20;
-    checkW.Name = "w";
-    checkW.Content = "Women";
+            //checkbox
+            Label checkboxLabel = new Label();
+            checkboxLabel.Content = "Choose a gender";
+            checkboxLabel.FontSize = 15;
+            panel1.Children.Add(checkboxLabel);
+            Thickness n = id.Margin;
+            n.Top = -20;
+            n.Left = 30;
+            Thickness n2 = id.Margin;
+            n2.Left = 200;
+            n2.Top = -20;
+            CheckBox checkW = new CheckBox();
+            checkW.Width = 300;
+            checkW.Margin = n;
+            checkW.Height = 20;
+            checkW.Name = "w";
+            checkW.Content = "Women";
 
-    CheckBox checkM = new CheckBox();
-    checkM.Width = 300;
-    checkM.Margin = n2;
-    checkM.Height = 20;
-    checkM.Name = "w";
-    checkM.Content = "Men";
+            CheckBox checkM = new CheckBox();
+            checkM.Width = 300;
+            checkM.Margin = n2;
+            checkM.Height = 20;
+            checkM.Name = "w";
+            checkM.Content = "Men";
 
-    panel1.Children.Add(checkW);
-    panel1.Children.Add(checkM);
-
-
-    //dataUr
-    Thickness t = new Thickness();
-    t.Left = -170;
-    t.Top = -20;
-    DateTime defaultDate = new DateTime(1999, 01, 01);
-    Label dataLabel = new Label();
-    dataLabel.Content = "Select birth date";
-    dataLabel.FontSize = 15;
-    panel1.Children.Add(dataLabel);
-    DatePicker dataUr = new DatePicker();
-    dataUr.SelectedDate = defaultDate;
-    dataUr.Text = "Choose";
-
-    dataUr.Width = 100;
-    dataUr.Height = 25;
-    dataUr.Margin = t;
-    panel1.Children.Add(dataUr);
-
-    //ulica
-    Label ulicaLabel = new Label();
-    ulicaLabel.Content = "Input adress";
-    ulicaLabel.FontSize = 15;
-    panel1.Children.Add(ulicaLabel);
-    TextBox ulica = new TextBox();
-    ulica.Width = 200;
-    ulica.Height = 25;
-    ulica.Margin = m;
-    panel1.Children.Add(ulica);
-    //kod pocztowy
-    Label kodLabel = new Label();
-    kodLabel.Content = "Postal code";
-    kodLabel.FontSize = 15;
-    panel1.Children.Add(kodLabel);
-    Thickness kodT = new Thickness();
-    kodT.Left = -210;
-    kodT.Top = -30;
-    TextBox kod = new TextBox();
-    kod.Margin = kodT;
-    kod.Width = 60;
-    kod.Height = 25;
-    panel1.Children.Add(kod);
-    //miejscowosc
-    Label miejscowoscL = new Label();
-    miejscowoscL.Content = "Input city";
-    miejscowoscL.FontSize = 15;
-    panel1.Children.Add(miejscowoscL);
-    TextBox miejscowosc = new TextBox();
-    miejscowosc.Width = 200;
-    miejscowosc.Height = 25;
-    miejscowosc.Margin = m;
-    panel1.Children.Add(miejscowosc);
-    //submit
-    Button submit2 = new Button();
-
-    submit2.Width = 80;
-    submit2.Height = 20;
-    submit2.Content = "Submit";
-    panel1.Children.Add(submit2);
+            panel1.Children.Add(checkW);
+            panel1.Children.Add(checkM);
 
 
-   
-          
+            //dataUr
+            Thickness t = new Thickness();
+            t.Left = -170;
+            t.Top = -20;
+            DateTime defaultDate = new DateTime(1999, 01, 01);
+            Label dataLabel = new Label();
+            dataLabel.Content = "Select birth date";
+            dataLabel.FontSize = 15;
+            panel1.Children.Add(dataLabel);
+            DatePicker dataUr = new DatePicker();
+            dataUr.SelectedDate = defaultDate;
+            dataUr.Text = "Choose";
 
-    submit2.Click += Submit;
-           
+            dataUr.Width = 100;
+            dataUr.Height = 25;
+            dataUr.Margin = t;
+            panel1.Children.Add(dataUr);
+
+            //ulica
+            Label ulicaLabel = new Label();
+            ulicaLabel.Content = "Input adress";
+            ulicaLabel.FontSize = 15;
+            panel1.Children.Add(ulicaLabel);
+            TextBox ulica = new TextBox();
+            ulica.Width = 200;
+            ulica.Height = 25;
+            ulica.Margin = m;
+            panel1.Children.Add(ulica);
+            //kod pocztowy
+            Label kodLabel = new Label();
+            kodLabel.Content = "Postal code";
+            kodLabel.FontSize = 15;
+            panel1.Children.Add(kodLabel);
+            Thickness kodT = new Thickness();
+            kodT.Left = -210;
+            kodT.Top = -30;
+            TextBox kod = new TextBox();
+            kod.Margin = kodT;
+            kod.Width = 60;
+            kod.Height = 25;
+            panel1.Children.Add(kod);
+            //miejscowosc
+            Label miejscowoscL = new Label();
+            miejscowoscL.Content = "Input city";
+            miejscowoscL.FontSize = 15;
+            panel1.Children.Add(miejscowoscL);
+            TextBox miejscowosc = new TextBox();
+            miejscowosc.Width = 200;
+            miejscowosc.Height = 25;
+            miejscowosc.Margin = m;
+            panel1.Children.Add(miejscowosc);
+            //submit
+            Button submit2 = new Button();
+
+            submit2.Width = 80;
+            submit2.Height = 20;
+            submit2.Content = "Submit";
+            panel1.Children.Add(submit2);
+
+
+
+
+
+            submit2.Click += Submit;
+
 
             // NEW ==============================================
             void Submit(object f, RoutedEventArgs g)
-    {
+            {
                 DateTime data = dataUr.SelectedDate.GetValueOrDefault();
                 string plec = "K";
                 if (checkM.IsChecked == true)
@@ -723,19 +899,19 @@ private void DodawanieUzytkownikowFormularz()
                 }
 
                 Klienci klient = new Klienci()
-        {
-            idKlienta = Convert.ToInt32(id.Text),
-            NrDowodu = dowod.Text,
-            nazwiskoKlienta = nazwisko.Text,
-            imieKlienta = imie.Text,
-            plec = plec,
-            dataUrodzenia = data,
-            ulica = ulica.Text,
-            kodPocztowy = kod.Text,
-            Miejscowosc = miejscowosc.Text,
-            dataWprowadzenia = DateTime.Now.Date
-        };
-  
+                {
+                    idKlienta = Convert.ToInt32(id.Text),
+                    NrDowodu = dowod.Text,
+                    nazwiskoKlienta = nazwisko.Text,
+                    imieKlienta = imie.Text,
+                    plec = plec,
+                    dataUrodzenia = data,
+                    ulica = ulica.Text,
+                    kodPocztowy = kod.Text,
+                    Miejscowosc = miejscowosc.Text,
+                    dataWprowadzenia = DateTime.Now.Date
+                };
+
                 bool isFree = true;
                 foreach (var item in context.Klienci.Select(x => x.idKlienta))
                 {
@@ -763,9 +939,26 @@ private void DodawanieUzytkownikowFormularz()
 
 
         }
+        protected Checked state = Checked.not_check;
+        public Checked GetState() => state;
 
+        public void NotCheck()
+        {
+            state = Checked.not_check;
 
+        }
+
+        public void Check()
+        {
+            state = Checked.check;
+        }
+
+        public void NoCheck()
+        {
+            state = Checked.not_check;
+        }
     }
 }
+
 
 

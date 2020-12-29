@@ -39,9 +39,11 @@ namespace ProjektBiblioteka
                 if (item.username == account.username && item.password==account.password)
                 {
                     context.loginPass.Remove(query);
-                   
-                    
+
+                    MessageBox.Show("User deleted.");
+                    break;
                 }
+                MessageBox.Show("Incorrect login or password. Try again");
             }
             context.SaveChanges();
 
