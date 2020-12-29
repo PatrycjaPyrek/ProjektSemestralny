@@ -168,6 +168,8 @@ namespace ProjektBiblioteka
             listaTworcowWBibliotece.ItemsSource = context.Tworcy.Select(x => x).ToList();
             temp.Children.Add(listaTworcowWBibliotece);
 
+            TextBox wiecejAutorow = new TextBox();
+            temp.Children.Add(wiecejAutorow);
            
           
 
@@ -298,7 +300,31 @@ namespace ProjektBiblioteka
                     string rodzajWybrany = rodzajKsiazki.SelectedItem.ToString();
                     var queryCzyJestId = context.Ksiazki.Where(x => x.idKsiazki == index).Select(x => x.idKsiazki).FirstOrDefault();
                     int rokWydania = Convert.ToInt32(rokwydania.Text);
-                    var query = context.Tworcy.Where(x => x.idTworcy == idTworcyZComboBoxu).Select(x => x).ToList();
+                var query = context.Tworcy.Where(x => x.idTworcy == idTworcyZComboBoxu).Select(x => x).ToList();
+                List<Tworcy> listaTworcowDoDodania = new List<Tworcy>();
+                if (wiecejAutorow.Text != "")
+                {
+                    string tekst = wiecejAutorow.Text;
+                    List<int> listaAutorowId = new List<int>();
+                    
+                    string[] lista = tekst.Split(',');
+                    foreach (var item in lista)
+                    {
+                        listaAutorowId.Add(Convert.ToInt32(item));
+                    }
+                    foreach (var item in listaAutorowId)
+                    {
+                        foreach (var tworca in context.Tworcy.Where(x=>x.idTworcy==item))
+                        {
+                            listaTworcowDoDodania.Add(tworca);
+                        }
+                    }
+                }
+                if (listaTworcowDoDodania.Count > 0)
+                {
+                    query.AddRange(listaTworcowDoDodania);
+                }
+                   
                     
                     if (index == queryCzyJestId)
                     {
