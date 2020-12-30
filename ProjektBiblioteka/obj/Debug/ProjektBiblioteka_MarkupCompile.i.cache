@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\App.xaml
 121579712908
 6-1326761119
-431572301823
-181872832446
+441831844496
+241681230285
 AddAuthor.xaml;AddUser.xaml;BookAuthor.xaml;BorrowBook.xaml;CheckBooks.xaml;DeleteUser.xaml;EditOrders.xaml;ExampleAdd.xaml;LoginScreen.xaml;MainWindow.xaml;Management.xaml;ReturnBook.xaml;
 
-True
+False
 
