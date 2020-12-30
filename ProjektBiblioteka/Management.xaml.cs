@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,9 @@ namespace ProjektBiblioteka
                 case 4:
                     DodawanieKsiazki();
                     break;
+                case 5:
+                    EditOrders();
+                    break;
                 case 6:
                     DeleteUser deleteUser = new DeleteUser();
                     deleteUser.Show();
@@ -98,6 +102,164 @@ namespace ProjektBiblioteka
 
 
         }
+        /// <summary>
+        /// Edytuje wypozyczenia. Możliwość 
+        /// </summary>
+        private void EditOrders()
+        {
+            panel1.Children.Clear();
+            //lista do wyboru wypozyczenia, ktore chcemy zedytowac
+            Label wypozyczenieIDLabel = new Label();
+            wypozyczenieIDLabel.Content = "Select order to edit";
+            wypozyczenieIDLabel.FontSize = 15;
+            panel1.Children.Add(wypozyczenieIDLabel);
+            ComboBox OrdersList = new ComboBox();
+            Thickness m = OrdersList.Margin;
+            m.Top = -30;
+            m.Left = -70;
+            OrdersList.Margin = m;
+            OrdersList.Width = 200;
+            OrdersList.Height = 25;
+            OrdersList.ItemsSource = context.Wypozyczenia.Select(x => x).ToList();
+            panel1.Children.Add(OrdersList);
+
+            //egzemplarz
+            Label idEgzemplarzaLabel = new Label();
+            idEgzemplarzaLabel.Content = "Input book(example) id";
+            idEgzemplarzaLabel.FontSize = 15;
+            panel1.Children.Add(idEgzemplarzaLabel);
+            TextBox idEgzemplarza = new TextBox();
+            idEgzemplarza.Margin = m;
+            idEgzemplarza.Width = 200;
+            idEgzemplarza.Height = 25;
+            panel1.Children.Add(idEgzemplarza);
+
+            //klient
+            Label KlientId = new Label();
+            KlientId.Content = "Choose client";
+            KlientId.FontSize = 15;
+            panel1.Children.Add(KlientId);
+            ComboBox ClientsList = new ComboBox();
+            ClientsList.Width = 200;
+            ClientsList.Height = 25;
+            ClientsList.Margin = m;
+            ClientsList.ItemsSource = context.Klienci.Select(x => x).ToList();
+            panel1.Children.Add(ClientsList);
+
+            //oplata
+            Label oplataZa7Dni = new Label();
+            oplataZa7Dni.Content = "Input price to pay";
+            oplataZa7Dni.FontSize = 15;
+            panel1.Children.Add(oplataZa7Dni);
+            TextBox nowaOplata = new TextBox();
+            nowaOplata.Margin = m;
+            nowaOplata.Width = 200;
+            nowaOplata.Height = 25;
+            panel1.Children.Add(nowaOplata);
+
+            //data wypozyczenia
+            DatePicker dataWypozyczenia = new DatePicker();
+         
+            dataWypozyczenia.Width = 100;
+            dataWypozyczenia.Height = 25;
+            
+            panel1.Children.Add(dataWypozyczenia);
+            //data zwrotu
+            DatePicker dataZwrotu = new DatePicker();
+ 
+            dataZwrotu.Width = 100;
+            dataZwrotu.Height = 25;
+            panel1.Children.Add(dataZwrotu);
+
+            //submit button
+            Button submit = new Button();
+            submit.Width = 100;
+            submit.Height = 50;
+            panel1.Children.Add(submit);
+            submit.Click += Submit_Click;
+
+            void Submit_Click(object sender, RoutedEventArgs e)
+            {
+                var query = OrdersList.SelectedItem.ToString();
+                int idWypozyczenia = (int)Char.GetNumericValue(query[10]);
+               
+
+                //id klienta z listy
+                 
+                
+
+                foreach (var item in context.Wypozyczenia.Where(x=>x.idWypozyczenia==idWypozyczenia))
+                {
+                    if (idEgzemplarza.Text != "")
+                    {
+                        item.idEgzemplarza  = Convert.ToInt32(idEgzemplarza.Text);
+                    }
+                    else
+                    {
+                        item.idEgzemplarza = item.idEgzemplarza;
+                    }
+                    if (ClientsList.SelectedItem == null)
+                    {
+                        item.idKlienta = item.idKlienta;
+                    }
+                    else
+                    {
+                        string wybranyKlient = ClientsList.SelectedItem.ToString();
+                        int wybranyKlientId = (int)Char.GetNumericValue(wybranyKlient[4]);
+                        int idKlienta = context.Klienci.Where(x => x.idKlienta == wybranyKlientId).Select(x => x.idKlienta).FirstOrDefault();
+                        item.idKlienta = idKlienta;
+                    }
+                    if (dataWypozyczenia.SelectedDate != null)
+                    {
+                        item.dataWypozyczenia = dataWypozyczenia.SelectedDate.Value;
+                    }
+                    if (dataZwrotu.SelectedDate != null)
+                    {
+                        item.dataZwrotu = dataZwrotu.SelectedDate.Value;
+                    }
+                  
+                }
+               
+                
+                context.SaveChanges();
+                int ile = 0;
+                //=======================Doplaty====================================
+                //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
+                foreach (var item in context.Wypozyczenia.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.oplataZa7Dni }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
+                {
+                    DateConv dateC = new DateConv(item.dataWypozyczenia, (DateTime)item.dataZwrotu);
+                    ile = dateC.IleDni - 30;
+
+                    var doplataZaRodzaj = (decimal)item.oplataZa7Dni;
+                    decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ile;
+                    //tworze nowa doplate na podstawie wyzej obliczonych danych
+                    foreach (var doplata in context.Doplaty.Where(x=>x.idWypozyczenia==idWypozyczenia))
+                    {
+                        if (doplata != null)
+                        {
+                            doplata.doplata = doZaplatyObliczone;
+                        }
+                        else
+                        {
+                            var doplataNowa = new Doplaty()
+                            {
+                                idWypozyczenia = item.idWypozyczenia,
+                                doplata = doZaplatyObliczone
+
+                            };
+                            context.Doplaty.Add(doplataNowa);
+                        }
+                    }
+                   
+           
+                }
+                context.SaveChanges();
+
+            }
+
+        }
+
+       
 
         private void DodawanieKsiazki()
         {
@@ -188,13 +350,6 @@ namespace ProjektBiblioteka
             wiecejAutorow.Width = 200;
             wiecejAutorow.Height = 25;
             temp.Children.Add(wiecejAutorow);
-
-
-
-
-
-
-
 
             //Wybor czy chcemy wybrac istniejacego tworce czy dodac nowego
             CheckBox checkYes = new CheckBox();

@@ -64,3 +64,5 @@ C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBibl
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\AddAuthor.baml
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BookAuthor.g.cs
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BookAuthor.baml
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\EditOrders.g.cs
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\EditOrders.baml
