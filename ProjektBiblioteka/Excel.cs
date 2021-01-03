@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,8 @@ namespace ProjektBiblioteka
         public int idEgzemplarza { get; set; }
         public string tytulKsiazki { get; set; }
         public int Count { get; set; }
+        public DateTime dataWypozyczenia { get; set; }
+        public DateTime dataZwrotu { get; set; }
 
         public override string ToString()
         {
@@ -54,35 +57,42 @@ namespace ProjektBiblioteka
 
             using (var package = new ExcelPackage(spreadsheetInfo))
             {
-                var bestBookWorksheet = package.Workbook.Worksheets.Add("BestBook");
+                var bestBookWorksheet = package.Workbook.Worksheets.Add("BestBook (ALL)");
+                var bestBookJanuary = package.Workbook.Worksheets.Add("January");
+                var bestBookFebruary = package.Workbook.Worksheets.Add("February");
+                var bestBookMarch = package.Workbook.Worksheets.Add("March");
+                var bestBookApril = package.Workbook.Worksheets.Add("April");
+                var bestBookMay = package.Workbook.Worksheets.Add("May");
+                var bestBookJune = package.Workbook.Worksheets.Add("June");
+                var bestBookJuly = package.Workbook.Worksheets.Add("July");
+                var bestBookAugust = package.Workbook.Worksheets.Add("August");
+                var bestBookSeptember = package.Workbook.Worksheets.Add("September");
+                var bestBookOctober = package.Workbook.Worksheets.Add("October");
+                var bestBookNovember = package.Workbook.Worksheets.Add("November");
+                var bestBookDecember = package.Workbook.Worksheets.Add("December");
                 bestBookWorksheet.Cells["A1"].Value = "Id";
                 bestBookWorksheet.Cells["B1"].Value = "OrderCount";
+                bestBookWorksheet.Cells["A1:B1"].Style.Font.Bold = true;
+                bestBookWorksheet.Cells["A1:B1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                bestBookWorksheet.Column(1).Width = 20;
+                bestBookWorksheet.Column(2).Width = 15;
+
                 //populate
                 int currentRow = 2;
                 foreach (var item in lists.OrderByDescending(x=>x.Count))
                 {
-                    bestBookWorksheet.Cells["A" + currentRow.ToString()].Value = item.idEgzemplarza;
+                    bestBookWorksheet.Cells["A" + currentRow.ToString()].Value = item.tytulKsiazki;
                     bestBookWorksheet.Cells["B" + currentRow.ToString()].Value = item.Count;
                     currentRow++;
                 }
-               
-                //var ksiazkaInformacje = from ks in context.Ksiazki
-                //                        join eg in context.Egzemplarze on ks.idKsiazki equals eg.idKsiazki
-                //                        join wyp in context.Wypozyczenia on eg.idEgzemplarza equals wyp.idEgzemplarza
-                //                        select new { ks.idKsiazki, ks.rodzajKsiazki, ks.tytulKsiazki, wyp.dataWypozyczenia, wyp.dataZwrotu, wyp.idWypozyczenia, count = wyp };
-                //ksiazkaInformacje.ToList();
-                //List<string> list = new List<string>();
-                //foreach (var item in ksiazkaInformacje)
-                //{
-                //    list.Add(item.ToString());
-                //}
-                //int row = 2;
-                //foreach (var item in lists)
-                //{
-                //    bestBookWorksheet.Cells["B" + row.ToString()].Value = list;
-                //    row++;
-                //}
-                //zapis
+                //Jan
+                currentRow = 2;
+                foreach (var item in lists.OrderByDescending(x => x.Count))
+                {
+                    bestBookWorksheet.Cells["A" + currentRow.ToString()].Value = item.tytulKsiazki;
+                    bestBookWorksheet.Cells["B" + currentRow.ToString()].Value = item.Count;
+                    currentRow++;
+                }
                 package.SaveAs(spreadsheetInfo);
             }
 
@@ -107,6 +117,7 @@ namespace ProjektBiblioteka
                 temp2.Add(line.Count);
             }
 
+
          
                
 
@@ -122,12 +133,27 @@ namespace ProjektBiblioteka
          
             foreach (var item in query)
             {
-               listaRaportu.Add(new Report() { idEgzemplarza = item.IdEgzemplarza, Count = item.Count });
+              // listaRaportu.Add(new Report() { idEgzemplarza = item.IdEgzemplarza, Count = item.Count });
             
             }
-            //
+            //  select ks.tytulKsiazki,Count(ks.idKsiazki) as Ile from Wypozyczenia w join Egzemplarze
+            // e on e.idEgzemplarza=w.idEgzemplarza join Ksiazki ks on ks.idKsiazki=e.idKsiazki  group by ks.idKsiazki,ks.tytulKsiazki;
 
 
+            var noweQuery = from k in context.Ksiazki
+                            join e in context.Egzemplarze on k.idKsiazki equals e.idKsiazki
+                            join w in context.Wypozyczenia on e.idEgzemplarza equals w.idEgzemplarza
+
+                            group k by k.tytulKsiazki into g
+                            select new
+                            {
+                                TytulKsiazki = g.Key,
+                                Count = g.Count(),
+                            };
+            foreach (var item in noweQuery)
+            {
+                listaRaportu.Add(new Report() { tytulKsiazki = item.TytulKsiazki, Count = item.Count });
+            }
             return listaRaportu;
 
 
