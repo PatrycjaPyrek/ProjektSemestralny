@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.Drawing.Chart;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,45 @@ namespace ProjektBiblioteka
                     bestBookWorksheet.Cells["B" + currentRow.ToString()].Value = item.Count;
                     currentRow++;
                 }
+
+
+                //create a new piechart of type Line
+                ExcelLineChart lineChart = bestBookWorksheet.Drawings.AddChart("lineChart", eChartType.Line) as ExcelLineChart;
+
+                //set the title
+                lineChart.Title.Text = "Best Book chart";
+
+                //create the ranges for the chart
+                var rangeLabel = bestBookWorksheet.Cells["A1:B1"];
+                for (int i = 2; i < lists.Count; i++)
+                {
+                    var range = bestBookWorksheet.Cells[$"A{i}:B{i}"];
+                    lineChart.Series.Add(range, rangeLabel);
+                    i++;
+                  
+                }
+
+              
+                //add the ranges to the chart
+               
+              
+
+                //set the names of the legend
+                lineChart.Series[0].Header = bestBookWorksheet.Cells["A2"].Value.ToString();
+                lineChart.Series[1].Header = bestBookWorksheet.Cells["A3"].Value.ToString();
+
+                //position of the legend
+                lineChart.Legend.Position = eLegendPosition.Right;
+
+                //size of the chart
+                lineChart.SetSize(600, 300);
+
+                //add the chart at cell B6
+                lineChart.SetPosition(5, 0, 1, 0);
+
+
+
+
                 package.SaveAs(spreadsheetInfo);
             }
 
