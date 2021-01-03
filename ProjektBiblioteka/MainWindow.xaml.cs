@@ -74,5 +74,10 @@ namespace ProjektBiblioteka
             this.Close();
            
         }
+
+        private void Raport_Click(object sender, RoutedEventArgs e)
+        {
+            Excel excel = new Excel(Excel.ReportType.TheMostPopularBook);
+        }
     }
 }

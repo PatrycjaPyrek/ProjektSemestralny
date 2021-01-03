@@ -1093,6 +1093,13 @@ namespace ProjektBiblioteka
         {
             state = Checked.not_check;
         }
+
+        private void UserButton_Checked(object sender, RoutedEventArgs e)
+        {
+            LoginScreen login = new LoginScreen();
+            login.Show();
+            this.Close();
+        }
     }
 }
 

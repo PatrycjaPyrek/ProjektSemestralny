@@ -326,6 +326,13 @@ namespace ProjektBiblioteka
             BorrowBook dashboard = new BorrowBook();
             dashboard.Show();
         }
+
+        private void UserButton_Checked(object sender, RoutedEventArgs e)
+        {
+            LoginScreen login = new LoginScreen();
+            login.Show();
+            this.Close();
+        }
     }
 
 }

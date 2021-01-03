@@ -18,6 +18,29 @@
                     <ColumnDefinition Width="730"/>
                     <ColumnDefinition Width="350*"/>
                 </Grid.ColumnDefinitions>
+
+                <ToggleButton x:Name="UserButton" Width="30" Height="30" BorderThickness="0" Margin="10,15,680,15" Checked="UserButton_Checked">
+                    <ToggleButton.ToolTip>
+
+                        <ToolTip Placement="Mouse" >Login using different account</ToolTip>
+                    </ToggleButton.ToolTip>
+                    <ToggleButton.Style>
+
+                        <Style>
+
+                            <Style.Triggers>
+                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                    <Setter Property="Button.Background" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                    <ToggleButton.Background>
+
+                        <ImageBrush ImageSource="pics/logoCzl.png" Stretch="Fill"/>
+                    </ToggleButton.Background>
+
+                </ToggleButton>
                 <TextBlock Text="LIBRARY APP " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Yu Gothic UI Semibold" Foreground="White" Grid.Column="1" Margin="93,0,100,25" Width="157" Height="30"/>
                 <Button Content="Close" Margin="250,18,-140,0" VerticalAlignment="Top" Height="27" Background="#FF1A2161" BorderBrush="#FFE2DDDD" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Agency FB" Click="Button_Click" Grid.Column="3" HorizontalAlignment="Left" Width="74"/>
             </Grid>

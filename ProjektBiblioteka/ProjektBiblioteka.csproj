@@ -120,9 +120,6 @@
     <Compile Include="Doplaty.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EditOrders.xaml.cs">
-      <DependentUpon>EditOrders.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Egzemplarze.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
@@ -218,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeleteUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

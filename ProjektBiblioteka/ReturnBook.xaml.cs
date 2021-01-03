@@ -152,20 +152,16 @@ namespace ProjektBiblioteka
                 ToPay.Content = item.Value.ToString();
             }
            
-           
-
             ksiazkaInfo.Clear();
 
+        }
 
-
-        
-
-            
-
-
-
-}
-
+        private void UserButton_Checked(object sender, RoutedEventArgs e)
+        {
+            LoginScreen login = new LoginScreen();
+            login.Show();
+            this.Close();
         }
     }
+}
 
