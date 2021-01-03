@@ -66,3 +66,8 @@ C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBibl
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\BookAuthor.baml
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\EditOrders.g.cs
 C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\obj\Debug\EditOrders.baml
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\bin\Debug\EPPlus.dll
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\bin\Debug\EPPlus.xml
+C:\Users\Patrycja\Desktop\ProjektSemestralny-main\ProjektSemestralny\ProjektBiblioteka\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml

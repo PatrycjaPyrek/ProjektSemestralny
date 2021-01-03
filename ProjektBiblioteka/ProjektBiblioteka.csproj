@@ -129,6 +129,7 @@
     <Compile Include="ExampleAdd.xaml.cs">
       <DependentUpon>ExampleAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Excel.cs" />
     <Compile Include="gatunki.cs">
       <DependentUpon>libraryModel.tt</DependentUpon>
     </Compile>
