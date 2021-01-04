@@ -108,7 +108,7 @@ namespace ProjektBiblioteka
                 }
                 else
                 {
-                    listaTworcowString += item.imieTworcy+item.nazwiskoTworcy;
+                    listaTworcowString += item.imieTworcy+" "+item.nazwiskoTworcy;
                 }
             }
             if (listaTworcowString[listaTworcowString.Length-2] == ',')

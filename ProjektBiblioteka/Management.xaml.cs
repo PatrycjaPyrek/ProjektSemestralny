@@ -21,7 +21,7 @@ namespace ProjektBiblioteka
     /// <summary>
     /// Interaction logic for Management.xaml
     /// </summary>
-    public partial class Management : Window, IChecked
+    public partial class Management : Window
     {
         libraryEntitiesDataSet context = new libraryEntitiesDataSet(); //dane z bazy
         int index = 0;
@@ -159,14 +159,14 @@ namespace ProjektBiblioteka
 
             //data wypozyczenia
             DatePicker dataWypozyczenia = new DatePicker();
-         
+
             dataWypozyczenia.Width = 100;
             dataWypozyczenia.Height = 25;
-            
+
             panel1.Children.Add(dataWypozyczenia);
             //data zwrotu
             DatePicker dataZwrotu = new DatePicker();
- 
+
             dataZwrotu.Width = 100;
             dataZwrotu.Height = 25;
             panel1.Children.Add(dataZwrotu);
@@ -180,19 +180,23 @@ namespace ProjektBiblioteka
 
             void Submit_Click(object sender, RoutedEventArgs e)
             {
-                var query = OrdersList.SelectedItem.ToString();
-                int idWypozyczenia = (int)Char.GetNumericValue(query[10]);
-               
+                string idWypozyczeniaCombox = OrdersList.SelectedItem.ToString();
+                string[] temp = idWypozyczeniaCombox.Split(' ');
+                int idWypozyczenia = Convert.ToInt32(temp[2]);
+
+
+
+
 
                 //id klienta z listy
-                 
-                
 
-                foreach (var item in context.Wypozyczenia.Where(x=>x.idWypozyczenia==idWypozyczenia))
+
+
+                foreach (var item in context.Wypozyczenia.Where(x => x.idWypozyczenia == idWypozyczenia))
                 {
                     if (idEgzemplarza.Text != "")
                     {
-                        item.idEgzemplarza  = Convert.ToInt32(idEgzemplarza.Text);
+                        item.idEgzemplarza = Convert.ToInt32(idEgzemplarza.Text);
                     }
                     else
                     {
@@ -205,7 +209,8 @@ namespace ProjektBiblioteka
                     else
                     {
                         string wybranyKlient = ClientsList.SelectedItem.ToString();
-                        int wybranyKlientId = (int)Char.GetNumericValue(wybranyKlient[4]);
+                        string[] temp2 = wybranyKlient.Split(' ');
+                        int wybranyKlientId = Convert.ToInt32(temp2[1]);
                         int idKlienta = context.Klienci.Where(x => x.idKlienta == wybranyKlientId).Select(x => x.idKlienta).FirstOrDefault();
                         item.idKlienta = idKlienta;
                     }
@@ -217,15 +222,14 @@ namespace ProjektBiblioteka
                     {
                         item.dataZwrotu = dataZwrotu.SelectedDate.Value;
                     }
-                  
+
                 }
-               
-                
+                MessageBox.Show("Zedytowano");
                 context.SaveChanges();
                 int ile = 0;
                 //=======================Doplaty====================================
                 //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
-                foreach (var item in context.Wypozyczenia.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.oplataZa7Dni }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
+                foreach (var item in context.Wypozyczenia.Where(x=>x.idWypozyczenia==idWypozyczenia).Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.oplataZa7Dni }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
                 {
                     DateConv dateC = new DateConv(item.dataWypozyczenia, (DateTime)item.dataZwrotu);
                     ile = dateC.IleDni - 30;
@@ -233,13 +237,22 @@ namespace ProjektBiblioteka
                     var doplataZaRodzaj = (decimal)item.oplataZa7Dni;
                     decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ile;
                     //tworze nowa doplate na podstawie wyzej obliczonych danych
-                    foreach (var doplata in context.Doplaty.Where(x=>x.idWypozyczenia==idWypozyczenia))
-                    {
-                        if (doplata != null)
+                 
+                        bool exists = context.Doplaty.Any(t => t.idWypozyczenia == item.idWypozyczenia);
+                        if (exists == true)
                         {
-                            doplata.doplata = doZaplatyObliczone;
+                        foreach (var doplata in context.Doplaty.Where(x=>x.idWypozyczenia==item.idWypozyczenia))
+                        {
+
+                        
+                            if (doplata.doplata == null || doplata.doplata!= doZaplatyObliczone)
+                            {
+                                doplata.doplata = doZaplatyObliczone;
+
+                            }
                         }
-                        else
+                    }
+                    else
                         {
                             var doplataNowa = new Doplaty()
                             {
@@ -249,15 +262,19 @@ namespace ProjektBiblioteka
                             };
                             context.Doplaty.Add(doplataNowa);
                         }
-                    }
+                    
+
                    
-           
                 }
                 context.SaveChanges();
 
             }
+           
 
         }
+
+            
+
 
        
 
@@ -1075,24 +1092,7 @@ namespace ProjektBiblioteka
 
 
         }
-        protected Checked state = Checked.not_check;
-        public Checked GetState() => state;
 
-        public void NotCheck()
-        {
-            state = Checked.not_check;
-
-        }
-
-        public void Check()
-        {
-            state = Checked.check;
-        }
-
-        public void NoCheck()
-        {
-            state = Checked.not_check;
-        }
 
         private void UserButton_Checked(object sender, RoutedEventArgs e)
         {

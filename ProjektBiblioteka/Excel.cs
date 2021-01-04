@@ -17,7 +17,6 @@ namespace ProjektBiblioteka
         public string tytulKsiazki { get; set; }
         public int Count { get; set; }
         public DateTime dataWypozyczenia { get; set; }
-        public DateTime dataZwrotu { get; set; }
 
         public override string ToString()
         {
@@ -71,30 +70,118 @@ namespace ProjektBiblioteka
                 var bestBookOctober = package.Workbook.Worksheets.Add("October");
                 var bestBookNovember = package.Workbook.Worksheets.Add("November");
                 var bestBookDecember = package.Workbook.Worksheets.Add("December");
-                bestBookWorksheet.Cells["A1"].Value = "Id";
-                bestBookWorksheet.Cells["B1"].Value = "OrderCount";
-                bestBookWorksheet.Cells["A1:B1"].Style.Font.Bold = true;
-                bestBookWorksheet.Cells["A1:B1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                bestBookWorksheet.Column(1).Width = 20;
-                bestBookWorksheet.Column(2).Width = 15;
 
+                foreach (var item in package.Workbook.Worksheets)
+                {
+                    Headers(item);
+                 
+                }
+                bestBookWorksheet.Cells["C1"].Value = "Date";
+                bestBookWorksheet.Cells["A1:C1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                bestBookWorksheet.Column(3).Width = 20;
+               
+
+
+                #region Populate Main Worksheet
                 //populate
                 int currentRow = 2;
-                foreach (var item in lists.OrderByDescending(x=>x.Count))
-                {
-                    bestBookWorksheet.Cells["A" + currentRow.ToString()].Value = item.tytulKsiazki;
-                    bestBookWorksheet.Cells["B" + currentRow.ToString()].Value = item.Count;
-                    currentRow++;
-                }
-                //Jan
-                currentRow = 2;
-                foreach (var item in lists.OrderByDescending(x => x.Count))
-                {
-                    bestBookWorksheet.Cells["A" + currentRow.ToString()].Value = item.tytulKsiazki;
-                    bestBookWorksheet.Cells["B" + currentRow.ToString()].Value = item.Count;
-                    currentRow++;
-                }
+                int currentRowJanuary = 2;
+                int currentRowFebruary = 2;
+                int currentRowMarch = 2;
+                int currentRowApril = 2;
+                int currentRowMay = 2; int currentRowJune = 2;
+                int currentRowJuly = 2;
+                int currentRowAugust = 2;
+                int currentRowSeptember = 2;
+                int currentRowOctober = 2;
+                int currentRowNovember = 2;
+                int currentRowDecember = 2;
 
+                //sortowane po count malejaco i po dacie malejaco
+                foreach (var item in lists.OrderByDescending(x => x.Count).OrderByDescending(x=>x.dataWypozyczenia))
+                {
+                    switch (item.dataWypozyczenia.Month)
+                    {
+                        case 1:
+                            bestBookJanuary.Cells["A" + currentRowJanuary.ToString()].Value = item.tytulKsiazki;
+                            bestBookJanuary.Cells["B" + currentRowJanuary.ToString()].Value = item.Count;
+                     
+                            currentRowJanuary++;
+                            break;
+                        case 2:
+                            bestBookFebruary.Cells["A" + bestBookFebruary.ToString()].Value = item.tytulKsiazki;
+                            bestBookFebruary.Cells["B" + bestBookFebruary.ToString()].Value = item.Count;
+                        
+                            currentRowFebruary++;
+                            break;
+                        case 3:
+                            bestBookMarch.Cells["A" + bestBookMarch.ToString()].Value = item.tytulKsiazki;
+                            bestBookMarch.Cells["B" + bestBookMarch.ToString()].Value = item.Count;
+          
+                            currentRowMarch++;
+                            break;
+                        case 4:
+                            bestBookApril.Cells["A" + bestBookApril.ToString()].Value = item.tytulKsiazki;
+                            bestBookApril.Cells["B" + bestBookApril.ToString()].Value = item.Count;
+               
+                            currentRowApril++;
+                            break;
+                        case 5:
+                            bestBookMay.Cells["A" + bestBookMay.ToString()].Value = item.tytulKsiazki;
+                            bestBookMay.Cells["B" + bestBookMay.ToString()].Value = item.Count;
+            
+                            currentRowMay++;
+                            break;
+                        case 6:
+                            bestBookJune.Cells["A" + currentRowJune.ToString()].Value = item.tytulKsiazki;
+                            bestBookJune.Cells["B" + currentRowJune.ToString()].Value = item.Count;
+   
+                            currentRowJune++;
+                            break;
+                        case 7:
+                            bestBookJuly.Cells["A" + currentRowJuly.ToString()].Value = item.tytulKsiazki;
+                            bestBookJuly.Cells["B" + currentRowJuly.ToString()].Value = item.Count;
+
+                            currentRowJuly++;
+                            break;
+                        case 8:
+                            bestBookAugust.Cells["A" + currentRowAugust.ToString()].Value = item.tytulKsiazki;
+                            bestBookAugust.Cells["B" + currentRowAugust.ToString()].Value = item.Count;
+
+                            currentRowAugust++;
+                            break;
+                        case 9:
+                            bestBookSeptember.Cells["A" + currentRowSeptember.ToString()].Value = item.tytulKsiazki;
+                            bestBookSeptember.Cells["B" + currentRowSeptember.ToString()].Value = item.Count;
+
+                            currentRowSeptember++;
+                            break;
+                        case 10:
+                            bestBookOctober.Cells["A" + currentRowOctober.ToString()].Value = item.tytulKsiazki;
+                            bestBookOctober.Cells["B" + currentRowOctober.ToString()].Value = item.Count;
+
+                            currentRowOctober++;
+                            break;
+                        case 11:
+                            bestBookNovember.Cells["A" + currentRowNovember.ToString()].Value = item.tytulKsiazki;
+                            bestBookNovember.Cells["B" + currentRowNovember.ToString()].Value = item.Count;
+
+                            currentRowNovember++;
+                            break;
+                        case 12:
+                            bestBookDecember.Cells["A" + currentRowDecember.ToString()].Value = item.tytulKsiazki;
+                            bestBookDecember.Cells["B" + currentRowDecember.ToString()].Value = item.Count;
+
+                            currentRowDecember++;
+                            break;
+                    }
+                    bestBookWorksheet.Cells["A" + currentRowDecember.ToString()].Value = item.tytulKsiazki;
+                    bestBookWorksheet.Cells["B" + currentRowDecember.ToString()].Value = item.Count;
+                    bestBookWorksheet.Cells["C" + currentRowDecember.ToString()].Value = item.dataWypozyczenia;
+                    currentRow++;
+
+                }
+                bestBookWorksheet.Cells["C2:C" + currentRow].Style.Numberformat.Format = "mm-yyyy";
 
                 //create a new piechart of type Line
                 ExcelLineChart lineChart = bestBookWorksheet.Drawings.AddChart("lineChart", eChartType.Line) as ExcelLineChart;
@@ -103,23 +190,21 @@ namespace ProjektBiblioteka
                 lineChart.Title.Text = "Best Book chart";
 
                 //create the ranges for the chart
-                var rangeLabel = bestBookWorksheet.Cells["A1:B1"];
+                var rangeLabel = bestBookWorksheet.Cells["A1:C1"];
                 for (int i = 2; i < lists.Count; i++)
                 {
                     var range = bestBookWorksheet.Cells[$"A{i}:B{i}"];
                     lineChart.Series.Add(range, rangeLabel);
                     i++;
-                  
+
                 }
 
-              
-                //add the ranges to the chart
-               
-              
 
+                //add the ranges to the chart
                 //set the names of the legend
-                lineChart.Series[0].Header = bestBookWorksheet.Cells["A2"].Value.ToString();
-                lineChart.Series[1].Header = bestBookWorksheet.Cells["A3"].Value.ToString();
+                lineChart.Series[0].Header = bestBookWorksheet.Cells["A1"].Value.ToString();
+                lineChart.Series[1].Header = bestBookWorksheet.Cells["B1"].Value.ToString();
+               // lineChart.Series[2].Header = bestBookWorksheet.Cells["C1"].Value.ToString();
 
                 //position of the legend
                 lineChart.Legend.Position = eLegendPosition.Right;
@@ -131,125 +216,54 @@ namespace ProjektBiblioteka
                 lineChart.SetPosition(5, 0, 1, 0);
 
 
-
-
+                #endregion
                 package.SaveAs(spreadsheetInfo);
             }
+        }
 
-
-            //populate
+        private static void Headers(ExcelWorksheet worksheet)
+        {
+            worksheet.Cells["A1"].Value = "Id";
+            worksheet.Cells["B1"].Value = "OrderCount";
+            worksheet.Cells["A1:B1"].Style.Font.Bold = true;
+            worksheet.Cells["A1:B1"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            worksheet.Column(1).Width = 20;
+            worksheet.Column(2).Width = 15;
+          
 
         }
 
+
+
         private List<Report> TheMostPopularBook()
         {
-            //nowe
-            List<int> temp2 = new List<int>();
-            foreach (var line in context.Wypozyczenia.GroupBy(info => info.idEgzemplarza)
-                        .Select(group => new
-                        {
-                            IdEgzemplarza = group.Key,
-                            Count = group.Count()
-                        })
-                        .OrderByDescending(x => x.Count))
-            {
-                temp2.Add(line.IdEgzemplarza);
-                temp2.Add(line.Count);
-            }
-
-
-         
-               
-
-            var query=context.Wypozyczenia.GroupBy(info => info.idEgzemplarza)
-                        .Select(group => new
-                        {
-                            IdEgzemplarza = group.Key,
-                            Count = group.Count()
-                        })
-                        .OrderBy(x => x.Count);
 
             var listaRaportu = new List<Report>();
-         
-            foreach (var item in query)
-            {
-              // listaRaportu.Add(new Report() { idEgzemplarza = item.IdEgzemplarza, Count = item.Count });
-            
-            }
-            //  select ks.tytulKsiazki,Count(ks.idKsiazki) as Ile from Wypozyczenia w join Egzemplarze
-            // e on e.idEgzemplarza=w.idEgzemplarza join Ksiazki ks on ks.idKsiazki=e.idKsiazki  group by ks.idKsiazki,ks.tytulKsiazki;
-
-
+            //zapytanie SQL do ktorego dazymy:
+            //  select Month(w.dataWypozyczenia) as MiesiacWypozyczenia,k.tytulKsiazki, count(w.idEgzemplarza)
+            //as WypozyczeniaIlosciowo from Wypozyczenia w join Egzemplarze e on e.idEgzemplarza=w.idEgzemplarza join Ksiazki k on e.idKsiazki=k.idKsiazki group by k.tytulKsiazki,Month(w.dataWypozyczenia);
             var noweQuery = from k in context.Ksiazki
                             join e in context.Egzemplarze on k.idKsiazki equals e.idKsiazki
                             join w in context.Wypozyczenia on e.idEgzemplarza equals w.idEgzemplarza
-
-                            group k by k.tytulKsiazki into g
+                            group k by new {  w.dataWypozyczenia, k.tytulKsiazki } into g
                             select new
                             {
-                                TytulKsiazki = g.Key,
+                                data = g.Key.dataWypozyczenia,
+                                TytulKsiazki = g.Key.tytulKsiazki,
                                 Count = g.Count(),
                             };
             foreach (var item in noweQuery)
             {
-                listaRaportu.Add(new Report() { tytulKsiazki = item.TytulKsiazki, Count = item.Count });
+
+                listaRaportu.Add(new Report() { tytulKsiazki = item.TytulKsiazki, Count = item.Count,dataWypozyczenia=item.data });
             }
             return listaRaportu;
-
-
-            //    //var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
-            //    //c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
-            //    var query2 = context.Wypozyczenia.Select(x => new { Count = context.Wypozyczenia.Select(w => w.idWypozyczenia).Distinct().Count() }).OrderByDescending(y => y.Count).ToList();
-            //var lista3 = new List<int>();
-            //var lista = new List<Report>();
-
-            //var query = from e in context.Egzemplarze
-            //            join wyp in context.Wypozyczenia on e.idEgzemplarza equals wyp.idEgzemplarza
-            //            select new { e.idEgzemplarza, count = e.idEgzemplarza };
-            //List<string> nowa = new List<string>();
-            //foreach (var item in query)
-            //{
-            //    nowa.Add(item.idEgzemplarza.ToString() + item.count.ToString());
-            //}
-            //foreach (var item in nowa)
-            //{
-            //    MessageBox.Show(item);
-            //}      
-
-            //foreach (var item in query2)
-            //{
-            //    lista3.Add(item.Count);
-            //}
+           
 
 
 
         }
     }
-    //{
-    //    public Excel()
-    //    {
-    //        using (ExcelPackage excel = new ExcelPackage())
-    //        {
-    //            excel.Workbook.Worksheets.Add("Month report");
-               
-    //            var excelWorksheet = excel.Workbook.Worksheets["Worksheet1"];
-    //            var headerRow = new List<string[]>() {
-    //            new string[] { "Book id", "Book title", "How many times borrowed", "Data wypożyczenia" } };
-    //            string headerRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + 1;
-    //            var worksheet = excel.Workbook.Worksheets["Worksheet1"];
-
-    //            // Popular header row data
-    //            worksheet.Cells[headerRange].LoadFromArrays(headerRow);
-
-    //            FileInfo excelFile = new FileInfo("test.xlsx");
-    //            excel.SaveAs(excelFile);
-             
-
-    //        }
-            
-        //}
-        //}
-
-
-    }
+ 
+}
 
