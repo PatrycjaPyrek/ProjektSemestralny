@@ -235,24 +235,27 @@ namespace ProjektBiblioteka
                     ile = dateC.IleDni - 30;
 
                     var doplataZaRodzaj = (decimal)item.oplataZa7Dni;
-                    decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ile;
-                    //tworze nowa doplate na podstawie wyzej obliczonych danych
-                 
+                    decimal doZaplatyObliczone = Math.Round((doplataZaRodzaj / 7) * ile,2);
+                    if (doZaplatyObliczone != 0)
+                    {
+                        //tworze nowa doplate na podstawie wyzej obliczonych danych
+
                         bool exists = context.Doplaty.Any(t => t.idWypozyczenia == item.idWypozyczenia);
                         if (exists == true)
                         {
-                        foreach (var doplata in context.Doplaty.Where(x=>x.idWypozyczenia==item.idWypozyczenia))
-                        {
-
-                        
-                            if (doplata.doplata == null || doplata.doplata!= doZaplatyObliczone)
+                            foreach (var doplata in context.Doplaty.Where(x => x.idWypozyczenia == item.idWypozyczenia))
                             {
-                                doplata.doplata = doZaplatyObliczone;
 
+
+                                if (doplata.doplata == null || doplata.doplata != doZaplatyObliczone)
+                                {
+                                    doplata.doplata = doZaplatyObliczone;
+                                    MessageBox.Show($"Zamieniono doplate na{doZaplatyObliczone.ToString()}");
+
+                                }
                             }
                         }
-                    }
-                    else
+                        else
                         {
                             var doplataNowa = new Doplaty()
                             {
@@ -261,8 +264,9 @@ namespace ProjektBiblioteka
 
                             };
                             context.Doplaty.Add(doplataNowa);
+                            MessageBox.Show($"Dodano dopłatę{doZaplatyObliczone.ToString()}");
                         }
-                    
+                    }
 
                    
                 }
