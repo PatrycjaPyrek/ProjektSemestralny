@@ -201,6 +201,7 @@ namespace ProjektBiblioteka
             {
                 foreach (var i in context.Egzemplarze.Where(x=>x.idKsiazki==item.idKsiazki).GroupBy(x=>new { item.tytulKsiazki}).Select(g=>new { g.Key.tytulKsiazki,MyCount=g.Count()}))
                 {
+                   
                     l.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {i.MyCount} examples\n");
                 }
             }   
@@ -217,15 +218,69 @@ namespace ProjektBiblioteka
         private void ShowAllTitles()
         {
 
-            var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals  ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
+            var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
             c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
-            foreach (var item in c.GroupBy(x => new { x.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
+            var noweQuery = from k in context.Ksiazki
+                            join e in context.Egzemplarze on k.idKsiazki equals e.idKsiazki
+                            join w in context.Wypozyczenia on e.idEgzemplarza equals w.idEgzemplarza
+                            group k by new { w.dataZwrotu, k.tytulKsiazki } into g
+                            select new
+                            {
+                                DataZwrotu = g.Key.dataZwrotu,
+                                TytulKsiazki = g.Key.tytulKsiazki,
+                                Count = g.Count(),
+                            };
+            var lista = noweQuery.ToList();
+            var dictionary = new Dictionary<string, int>();
+
+            foreach (var p in c.Select(y => y.tytulKsiazki))
             {
-                bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
-            }
-            booksList.ItemsSource = bookList;
-           
-        }
+
+
+                foreach (var item in lista.Where(x => x.TytulKsiazki == p))
+                {
+
+                    if (item.DataZwrotu == null)
+                    {
+                        if (dictionary.ContainsKey(item.TytulKsiazki) == true)
+                        {
+                            dictionary[item.TytulKsiazki] -= 1;
+                        }
+                        else
+                        {
+
+                            dictionary.Add(item.TytulKsiazki, item.Count - 1);
+                        }
+                    }
+                    else
+                    {
+                        if (dictionary.ContainsKey(item.TytulKsiazki) == true)
+                        {
+                            dictionary[item.TytulKsiazki] += 1;
+                        }
+                        else
+                        {
+
+                            dictionary.Add(item.TytulKsiazki, item.Count);
+                        }
+
+                    }
+                }
+                foreach (var element in dictionary)
+                {
+                    MessageBox.Show(element.Key + element.Key.ToString());
+                }
+
+                foreach (var item in c.GroupBy(x => new { x.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
+                {
+
+                    bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
+
+                }
+                booksList.ItemsSource = bookList;
+
+
+            } }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -329,9 +384,38 @@ namespace ProjektBiblioteka
 
         private void UserButton_Checked(object sender, RoutedEventArgs e)
         {
-            LoginScreen login = new LoginScreen();
-            login.Show();
-            this.Close();
+
+            ShowContextMenu();
+
+            // contentMenu.IsVisible=true;
+
+
+        }
+
+        private void ShowContextMenu()
+        {
+            var contextMenu = Resources["contentMenu"] as ContextMenu;
+            contentMenu.IsOpen = true;
+
+        }
+
+        private void ContentMenuClick(object sender, RoutedEventArgs e)
+        {
+
+            var item = e.OriginalSource as MenuItem;
+            if (item.Header.ToString() == "Log Out")
+            {
+                this.Close();
+                LoginScreen login = new LoginScreen();
+                login.Show();
+            }
+            if (item.Header.ToString() == "New User")
+            {
+                AddUser addUser = new AddUser();
+
+                addUser.Show();
+
+            }
         }
     }
 

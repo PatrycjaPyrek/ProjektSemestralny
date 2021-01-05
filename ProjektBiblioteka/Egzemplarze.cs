@@ -26,5 +26,6 @@ namespace ProjektBiblioteka
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenia> Wypozyczenia { get; set; }
         public virtual Ksiazki Ksiazki { get; set; }
+        
     }
 }

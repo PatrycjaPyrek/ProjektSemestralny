@@ -28,6 +28,15 @@
 
                         <ToolTip Placement="Mouse" >Login using different account</ToolTip>
                     </ToggleButton.ToolTip>
+                    
+
+                    <ToggleButton.ContextMenu>
+                        <ContextMenu x:Name="contentMenu" MenuItem.Click="ContentMenuClick">
+                            <MenuItem Header="Log Out" />
+                            <MenuItem Header="New User" />
+                            <MenuItem Header="Delete User" />
+                        </ContextMenu>
+                    </ToggleButton.ContextMenu>
                     <ToggleButton.Style>
 
                         <Style>

@@ -342,6 +342,7 @@ namespace ProjektBiblioteka
             ListBox list = new ListBox();
             list.SelectionMode = SelectionMode.Multiple;
             list.ItemsSource = context.gatunki.Select(x=>x.gatunek).ToList();
+            list.MaxHeight = 150;
             panel1.Children.Add(list);
             //foreach (var item in list.items)
             //{
@@ -831,26 +832,50 @@ namespace ProjektBiblioteka
 
         private void UsuwanieKlientowFormularz()
         {
-
+            
             panel1.Children.Clear();
+
+            Label listaLabel = new Label();
+            listaLabel.Content = "List of clients. It's read-only!";
+            listaLabel.FontSize = 15;
+            panel1.Children.Add(listaLabel);
+            List<Klienci> klienci = new List<Klienci>();
+
+            foreach (var item in context.Klienci)
+            {
+                klienci.Add(item);
+            }
+            ComboBox listaCombo = new ComboBox();
+            listaCombo.ItemsSource = klienci;
+            listaCombo.IsReadOnly = true;
+            listaCombo.SelectedIndex = 1;
+            panel1.Children.Add(listaCombo);
+
+
             Label nowyKlient = new Label();
             nowyKlient.Content = "Input id";
             nowyKlient.FontSize = 15;
             panel1.Children.Add(nowyKlient);
             TextBox id = new TextBox();
             Thickness m = id.Margin;
-            m.Top = -30;
+            m.Top = -20;
             m.Left = -70;
             id.Margin = m;
             id.Width = 200;
             id.Height = 25;
             panel1.Children.Add(id);
 
-
+            Thickness n = id.Margin;
+            n.Left = -70;
+            n.Top = 10;
+           
             Button submit2 = new Button();
-
-            submit2.Width = 80;
-            submit2.Height = 20;
+            submit2.Margin = n;
+            submit2.Width = 120;
+            submit2.Height = 30;
+            var bc = new BrushConverter();
+            submit2.Background = (Brush)bc.ConvertFrom("#FF12427C");
+           submit2.Foreground=(Brush)bc.ConvertFrom("#FFFFFF");
             submit2.Content = "Submit";
             panel1.Children.Add(submit2);
 
@@ -899,6 +924,19 @@ namespace ProjektBiblioteka
         private void DodawanieUzytkownikowFormularz()
         {
             panel1.Children.Clear();
+
+            //readOnly lista klientow juz w bazie
+            List<Klienci> klienci = new List<Klienci>();
+
+            foreach (var item in context.Klienci)
+            {
+                klienci.Add(item);
+            }
+            ComboBox listaCombo = new ComboBox();
+            listaCombo.ItemsSource = klienci;
+            listaCombo.IsReadOnly = true;
+            listaCombo.SelectedIndex = 1;
+            panel1.Children.Add(listaCombo);
             //id
             Label nowyKlient = new Label();
             nowyKlient.Content = "Input id";
@@ -915,7 +953,7 @@ namespace ProjektBiblioteka
 
             //dowod
             Label dowodLabel = new Label();
-            dowodLabel.Content = "Input id";
+            dowodLabel.Content = "Input id card";
             dowodLabel.FontSize = 15;
             panel1.Children.Add(dowodLabel);
             TextBox dowod = new TextBox();
@@ -1100,11 +1138,41 @@ namespace ProjektBiblioteka
 
         private void UserButton_Checked(object sender, RoutedEventArgs e)
         {
-            LoginScreen login = new LoginScreen();
-            login.Show();
-            this.Close();
+
+            ShowContextMenu();
+
+            // contentMenu.IsVisible=true;
+
+
         }
-    }
+
+        private void ShowContextMenu()
+        {
+            var contextMenu = Resources["contentMenu"] as ContextMenu;
+            contentMenu.IsOpen = true;
+
+        }
+
+        private void ContentMenuClick(object sender, RoutedEventArgs e)
+        {
+
+            var item = e.OriginalSource as MenuItem;
+            if (item.Header.ToString() == "Log Out")
+            {
+                this.Close();
+                LoginScreen login = new LoginScreen();
+                login.Show();
+            }
+            if (item.Header.ToString() == "New User")
+            {
+                AddUser addUser = new AddUser();
+
+                addUser.Show();
+
+            }
+        }
+
+        }
 }
 
 

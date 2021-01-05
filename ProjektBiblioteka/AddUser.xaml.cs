@@ -35,7 +35,7 @@ namespace ProjektBiblioteka
             };
             foreach (var item in context.loginPass.Select(x=>x.username))
             {
-                if (item == usernametxt.Text)
+                if (item.ToLower() == usernametxt.Text.ToLower())
                 {
                     isFree = false;
                 }

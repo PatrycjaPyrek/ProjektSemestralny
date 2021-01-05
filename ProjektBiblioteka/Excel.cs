@@ -246,8 +246,9 @@ namespace ProjektBiblioteka
                 }
 
 
-             //   add the ranges to the chart
-            //    set the names of the legend
+                //   add the ranges to the chart
+                //    set the names of the legend
+              
                  lineChart.Series[0].Header = bestBookWorksheet.Cells["A1"].Value.ToString();
                 lineChart.Series[1].Header = bestBookWorksheet.Cells["B1"].Value.ToString();
                 // lineChart.Series[2].Header = bestBookWorksheet.Cells["C1"].Value.ToString();

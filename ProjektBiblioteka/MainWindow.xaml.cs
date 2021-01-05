@@ -65,19 +65,72 @@ namespace ProjektBiblioteka
            
         }
 
-       
+
 
         private void UserButton_Checked(object sender, RoutedEventArgs e)
         {
-            LoginScreen login = new LoginScreen();
-            login.Show();
-            this.Close();
+         
+            ShowContextMenu();
+   
+           // contentMenu.IsVisible=true;
+
+
+        }
+
+        private void ShowContextMenu()
+        {
+            var contextMenu = Resources["contentMenu"] as ContextMenu;
+            contentMenu.IsOpen = true;
+            
+        }
+
+        private void ContentMenuClick(object sender, RoutedEventArgs e)
+        {
+
+            var item = e.OriginalSource as MenuItem;
+            if(item.Header.ToString()=="Log Out")
+            {
+                this.Close();
+                LoginScreen login = new LoginScreen();
+                login.Show();
+            }
+            if(item.Header.ToString()=="New User")
+            {
+                AddUser addUser = new AddUser();
            
+                addUser.Show();
+               
+            }
+
+
+        }
+
+
+        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+
+                this.Close();
+                LoginScreen login = new LoginScreen();
+                login.Show();
+            
         }
 
         private void Raport_Click(object sender, RoutedEventArgs e)
         {
             Excel excel = new Excel(Excel.ReportType.TheMostPopularBook);
+        }
+
+        private void mouseDownToggler(object sender, MouseButtonEventArgs e)
+        {
+           
+                SolidColorBrush grayBrush = new SolidColorBrush(Colors.Gray);
+
+                grayBrush.Opacity = 0;
+
+
+                UserButton.Background = grayBrush;
+            
         }
     }
 }
