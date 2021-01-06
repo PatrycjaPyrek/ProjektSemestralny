@@ -268,7 +268,7 @@ namespace ProjektBiblioteka
                 }
                 foreach (var element in dictionary)
                 {
-                    MessageBox.Show(element.Key + element.Key.ToString());
+                    MessageBox.Show(element.Key + element.Value.ToString());
                 }
 
                 foreach (var item in c.GroupBy(x => new { x.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
