@@ -22,6 +22,8 @@ namespace ProjektBiblioteka
         libraryEntitiesDataSet context = new libraryEntitiesDataSet();
         public ExampleAdd()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
         }
 

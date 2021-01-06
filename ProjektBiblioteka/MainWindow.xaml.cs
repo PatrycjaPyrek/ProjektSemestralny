@@ -24,7 +24,8 @@ namespace ProjektBiblioteka
         {
             InitializeComponent();
             var dataSet = new libraryEntitiesDataSet();
-            
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
 
         }
 

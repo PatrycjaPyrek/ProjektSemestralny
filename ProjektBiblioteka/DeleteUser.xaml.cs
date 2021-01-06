@@ -21,6 +21,8 @@ namespace ProjektBiblioteka
     {
         public DeleteUser()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
         }
 

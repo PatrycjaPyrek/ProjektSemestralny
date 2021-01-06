@@ -22,6 +22,7 @@ namespace ProjektBiblioteka
         libraryEntitiesDataSet context = new libraryEntitiesDataSet();
         public AddAuthor()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
         bool available = true;
@@ -41,6 +42,20 @@ namespace ProjektBiblioteka
                     available = true;
                 }
             }
+            int? year = null;
+            if (notKnownYear.IsChecked==true)
+            {
+                year = null;
+            }
+            else
+            {
+                year = Convert.ToInt32(birthYear.Text);
+            }
+            if(notKnownYear.IsChecked==true && birthYear.Text != "")
+            {
+                MessageBox.Show("Please specify if a year is known.");
+            }
+            
             if (available == true)
             {
                 Tworcy tworca = new Tworcy()
@@ -48,7 +63,7 @@ namespace ProjektBiblioteka
                     idTworcy = id,
                     imieTworcy = firstName.Text,
                     nazwiskoTworcy = lastName.Text,
-                    rokUrodzenia = Convert.ToInt32(birthYear.Text)
+                    rokUrodzenia = year
                 };
                 context.Tworcy.Add(tworca);
                 context.SaveChanges();

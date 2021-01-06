@@ -24,8 +24,9 @@ namespace ProjektBiblioteka
         public LoginScreen()
         {
             var context = new libraryEntitiesDataSet();
-           
-           // context2.loginPass.Find();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+            // context2.loginPass.Find();
             InitializeComponent();
         }
         /// <summary>

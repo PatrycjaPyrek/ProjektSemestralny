@@ -24,11 +24,12 @@
                         <Label Content="Last Name" Foreground="#FF13306E" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
                         <TextBox x:Name="lastName" BorderThickness="2" Foreground="#FF0C0B0B" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FFC0C3C9" Background="White" SelectionTextBrush="Black"  />
                         <Label Content="Birth year" Foreground="#FF13306E" HorizontalAlignment="Left" Margin="20,10,0,2" FontSize="16" FontFamily="Arial" Height="34"/>
-                        <TextBox x:Name="birthYear" BorderThickness="2" Foreground="#FF0C0B0B" FontSize="18" Height="40" Margin="20,0,25,10"  BorderBrush="#FFC0C3C9" Background="White" SelectionTextBrush="Black"  />
-
+                        <TextBox x:Name="birthYear" BorderThickness="2" Foreground="#FF0C0B0B" FontSize="18" Height="40" Margin="20,0,204,10"  BorderBrush="#FFC0C3C9" Background="White" SelectionTextBrush="Black"  />
+                        <CheckBox x:Name="notKnownYear" Content="Not specified birth year" Margin="20,0,230,0"/>
                         <Border CornerRadius="10" Margin="10" Background="#FF0B102C" BorderBrush="#FFA49494" HorizontalAlignment="Center" BorderThickness="1">
                             <Button x:Name="addBtn" Click="buttonSubmit_Click"  Width="170" Height="40" Content="Add" FontSize="20" Foreground="#FFECEDF0" BorderBrush="{x:Null}" Background="{x:Null}" FontWeight="Bold" />
                         </Border>
+                      
 
 
                     </StackPanel>

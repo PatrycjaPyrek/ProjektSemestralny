@@ -1140,6 +1140,7 @@ namespace ProjektBiblioteka
         {
 
             ShowContextMenu();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             // contentMenu.IsVisible=true;
 
