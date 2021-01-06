@@ -71,11 +71,10 @@ namespace ProjektBiblioteka
             foreach (var item in context.Ksiazki.Where(x=>x.tytulKsiazki==tylkoTytulKsiazki).Select(x => x))
             {
                 ksiazkaWybrana = item;
-                
-               // szczegolyKsiazki.Add(item);
             }
             Tworcy tworcy = new Tworcy();
             int idTworcy = 1;
+
             foreach (var item in query)
             {
                 Console.WriteLine(item);
@@ -90,9 +89,9 @@ namespace ProjektBiblioteka
                 TworcyId.Add(idTworcy);
 
             }
-
+            //wyszukiwanie autorow o pasujacym id (w ksiazce)
             var autorzy = context.Tworcy.Where(t => TworcyId.Contains(t.idTworcy)).Select(x => x);
-
+            //pomocnicze dodawanie aautorow do listy
             foreach (var item in autorzy)
             {
 
@@ -100,6 +99,7 @@ namespace ProjektBiblioteka
                 listaTworcow.Add(item);
             }
             string listaTworcowString = "";
+            //przeszukiwanie listy autorow
             foreach (var item in listaTworcow)
             {
                 if (listaTworcow.Count >= 2)
@@ -116,12 +116,10 @@ namespace ProjektBiblioteka
                 listaTworcowString=listaTworcowString.Substring(0,listaTworcowString.Length-2);
             }
           
-
-
-            //  tworcy = queryTworcy;
-            // ksiazkaWybrana.Tworcy = query2.;
+          
+            //Wyswietlanie informacji szczegolowych o ksiazkach tytul, rodzaj, autorzy...
             MessageBox.Show(ksiazkaWybrana+"\nAUTORZY: "+listaTworcowString);
-           // MessageBox.Show(ksiazkaWybrana.ToString());
+
         }
         
         
@@ -161,9 +159,9 @@ namespace ProjektBiblioteka
         /// </summary>
         private void ShowTitlesFromAuthors()
         {
-            
 
 
+            booksList.Items.Clear();
             List<string> l = new List<string>();
             List<int> idKsiazek = new List<int>();
             if (Authors.SelectedItem == null)
@@ -217,8 +215,8 @@ namespace ProjektBiblioteka
         /// </summary>
         private void ShowAllTitles()
         {
-
-             var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
+            booksList.Items.Clear();
+            var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
             c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
 
             var dictionary = new Dictionary<string, int>();
@@ -370,7 +368,7 @@ namespace ProjektBiblioteka
         /// <param name="e"></param>
         private void AllTitles_Click(object sender, RoutedEventArgs e)
         {
-            bookList.Clear();
+            booksList.Items.Clear();
             ShowAllTitles();
             
         }
@@ -382,8 +380,8 @@ namespace ProjektBiblioteka
 
         private void checkByGenreBook()
         {
-          
 
+            booksList.Items.Clear();
 
             List<string> l = new List<string>();
             List<int> idKsiazek = new List<int>();
@@ -416,16 +414,71 @@ namespace ProjektBiblioteka
 
             }
             var ksiazkiGatunki = context.Ksiazki.Where(t => idKsiazek.Contains(t.idKsiazki)).Select(x => new { x.tytulKsiazki, x.idKsiazki }).ToList();
+            //Dictionary z egzemplarzami i ich iloscia
+            //dodane
+            var noweQuery = from k in context.Ksiazki
+                            join e in context.Egzemplarze on k.idKsiazki equals e.idKsiazki
+                            join w in context.Wypozyczenia on e.idEgzemplarza equals w.idEgzemplarza
+                            where w.dataZwrotu == null
+                            group k by new { k.tytulKsiazki, e.idEgzemplarza } into g
+                            select new
+                            {
+
+                                TytulKsiazki = g.Key.tytulKsiazki,
+                                Count = g.Count(),
+                            };
+
+            Dictionary<string, int> WypozyczonychEgzemplarzyIlosc = new Dictionary<string, int>();
+            foreach (var item in noweQuery.GroupBy(x => new { x.TytulKsiazki }).Select(g => new { g.Key.TytulKsiazki, Count = g.Count() }))
+            {
+                WypozyczonychEgzemplarzyIlosc.Add(item.TytulKsiazki, item.Count);
+            }
+            foreach (var item in WypozyczonychEgzemplarzyIlosc)
+            {
+                Console.WriteLine(item.Key + " " + item.Value);
+            }
+
+
 
             foreach (var item in ksiazkiGatunki)
             {
+
                 foreach (var i in context.Egzemplarze.Where(x => x.idKsiazki == item.idKsiazki).GroupBy(x => new { item.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
                 {
-                    l.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {i.MyCount} examples\n");
+                    
+                        foreach (var element in WypozyczonychEgzemplarzyIlosc.Where(x => x.Key == item.tytulKsiazki))
+                        {
+                            if (i.MyCount - element.Value == 0)
+                            {
+                                booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{i.tytulKsiazki}\" \nAvailable: {i.MyCount - element.Value}", Background = Brushes.Gray, Height = 55 });
+                            }
+                            else
+                                booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{i.tytulKsiazki}\" \nAvailable: {i.MyCount - element.Value}", Height = 55 });
+                            bookList.Add($"Title: \"{ item.tytulKsiazki}\" \n Available: {i.MyCount - element.Value} examples\n");
+
+                        }
+                        if (WypozyczonychEgzemplarzyIlosc.ContainsKey(i.tytulKsiazki) == false)
+                        {
+                            booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{i.tytulKsiazki}\" \nAvailable: {i.MyCount}", Height = 55 });
+                            // bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
+                        }
+                        if (WypozyczonychEgzemplarzyIlosc.ContainsKey(i.tytulKsiazki))
+                        {
+
+                        }
+
+
+                        //
+
+
+
+
+
+                       // l.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {i.MyCount} examples\n");
                 }
             }
 
-            booksList.ItemsSource = l;
+           // booksList.ItemsSource = l;
 
 
         }
