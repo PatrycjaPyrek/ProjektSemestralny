@@ -20,36 +20,36 @@ namespace ProjektBiblioteka
     public partial class CheckBooks : Window
     {
         string wynik = "";
-
+        
         List<string> bookList = new List<string>();
         List<string> authors = new List<string>();
         List<string> genres = new List<string>();
         libraryEntitiesDataSet context = new libraryEntitiesDataSet();
-
-
-
+       
+        
+        
 
         private void booksList_Click(object sender, EventArgs e)
         {
-
+          
             Ksiazki ksiazkaWybrana = new Ksiazki();
             Tworcy tworcaWybrany = new Tworcy();
             List<int> TworcyId = new List<int>();
             List<Tworcy> listaTworcow = new List<Tworcy>();
-
-            string tylkoTytulKsiazki = "";
-            string elementListy = booksList.SelectedItem.ToString().Replace("Title: \"", "").Replace("\"", "").Trim();
+         
+            string tylkoTytulKsiazki = ""; 
+            string elementListy = booksList.SelectedItem. ToString().Replace("System.Windows.Controls.ListBoxItem: Title: ", "").Replace("\"", "").Trim() ;
             int pozycjaNonwejLinii = elementListy.IndexOf("\n");
             if (pozycjaNonwejLinii >= 0)
             {
-                tylkoTytulKsiazki += elementListy.Substring(0, pozycjaNonwejLinii).Trim();
+                 tylkoTytulKsiazki +=  elementListy.Substring(0, pozycjaNonwejLinii).Trim();
             }
-            var queryIdKsiazki = context.Ksiazki.Where(x => x.tytulKsiazki == tylkoTytulKsiazki).Select(x => x.idKsiazki);
+            var queryIdKsiazki = context.Ksiazki.Where(x=>x.tytulKsiazki==tylkoTytulKsiazki).Select(x => x.idKsiazki);
             var query2 = context.Ksiazki.SelectMany(x => x.Tworcy, (x, tworcy2) => new { x.idKsiazki, tworcy = tworcy2.idTworcy }).Where(x => x.idKsiazki == queryIdKsiazki.FirstOrDefault()).ToList();
             var query1 = context.Ksiazki;
             var query = from k in context.Tworcy select k.Ksiazki;
             string s = "";
-
+    
 
 
 
@@ -68,11 +68,11 @@ namespace ProjektBiblioteka
                 nowy += item.ToString();
             }
 
-            foreach (var item in context.Ksiazki.Where(x => x.tytulKsiazki == tylkoTytulKsiazki).Select(x => x))
+            foreach (var item in context.Ksiazki.Where(x=>x.tytulKsiazki==tylkoTytulKsiazki).Select(x => x))
             {
                 ksiazkaWybrana = item;
-
-                // szczegolyKsiazki.Add(item);
+                
+               // szczegolyKsiazki.Add(item);
             }
             Tworcy tworcy = new Tworcy();
             int idTworcy = 1;
@@ -108,39 +108,39 @@ namespace ProjektBiblioteka
                 }
                 else
                 {
-                    listaTworcowString += item.imieTworcy + " " + item.nazwiskoTworcy;
+                    listaTworcowString += item.imieTworcy+" "+item.nazwiskoTworcy;
                 }
             }
-            if (listaTworcowString[listaTworcowString.Length - 2] == ',')
+            if (listaTworcowString[listaTworcowString.Length-2] == ',')
             {
-                listaTworcowString = listaTworcowString.Substring(0, listaTworcowString.Length - 2);
+                listaTworcowString=listaTworcowString.Substring(0,listaTworcowString.Length-2);
             }
-
+          
 
 
             //  tworcy = queryTworcy;
             // ksiazkaWybrana.Tworcy = query2.;
-            MessageBox.Show(ksiazkaWybrana + "\nAUTORZY: " + listaTworcowString);
-            // MessageBox.Show(ksiazkaWybrana.ToString());
+            MessageBox.Show(ksiazkaWybrana+"\nAUTORZY: "+listaTworcowString);
+           // MessageBox.Show(ksiazkaWybrana.ToString());
         }
-
-
+        
+        
         public CheckBooks()
         {
 
             InitializeComponent();
             //libraryEntitiesDataSet context = new libraryEntitiesDataSet();
             ShowAllTitles();
+           
 
 
-
-            foreach (var item in context.Tworcy.OrderBy(x => x.nazwiskoTworcy).Select(x => new { x.imieTworcy, x.nazwiskoTworcy }))
+            foreach (var item in context.Tworcy.OrderBy(x => x.nazwiskoTworcy).Select(x=> new { x.imieTworcy,x.nazwiskoTworcy }))
             {
-                authors.Add(item.imieTworcy + " " + item.nazwiskoTworcy);
+                authors.Add(item.imieTworcy+" "+item.nazwiskoTworcy);
             }
             Authors.ItemsSource = authors;
 
-            foreach (var item in context.gatunki.Select(x => x.gatunek).OrderBy(x => x))
+            foreach (var item in context.gatunki.Select(x=>x.gatunek).OrderBy(x=>x))
             {
                 genres.Add(item);
             }
@@ -161,7 +161,7 @@ namespace ProjektBiblioteka
         /// </summary>
         private void ShowTitlesFromAuthors()
         {
-
+            
 
 
             List<string> l = new List<string>();
@@ -171,12 +171,12 @@ namespace ProjektBiblioteka
                 MessageBox.Show("Musisz wybrać element!");
             }
             else { wynik = Authors.SelectedItem.ToString(); }
-
+          
             var autor = wynik;
 
             int idTworcy = 1;
             int idKsiazki = 1;
-            var AuthorIdQuery = context.Tworcy.Where(x => x.imieTworcy + " " + x.nazwiskoTworcy == autor).Select(x => x.idTworcy);
+            var AuthorIdQuery = context.Tworcy.Where(x => x.imieTworcy +" "+ x.nazwiskoTworcy == autor).Select(x => x.idTworcy);
             var query2 = context.Tworcy.SelectMany(x => x.Ksiazki, (x, ksiazki) => new { x.idTworcy, ksiazki = ksiazki.idKsiazki }).Where(x => x.idTworcy == AuthorIdQuery.FirstOrDefault()).ToList();
             var query1 = context.Tworcy;
             var query = from k in context.Ksiazki select k.Tworcy;
@@ -193,23 +193,23 @@ namespace ProjektBiblioteka
                 idTworcy = item.idTworcy;
                 idKsiazki = item.ksiazki;
                 idKsiazek.Add(idKsiazki);
-
+              
             }
-            var ksiazkiAutorow = context.Ksiazki.Where(t => idKsiazek.Contains(t.idKsiazki)).Select(x => new { x.tytulKsiazki, x.idKsiazki }).ToList();
+            var ksiazkiAutorow = context.Ksiazki.Where(t => idKsiazek.Contains(t.idKsiazki)).Select(x => new { x.tytulKsiazki,x.idKsiazki }).ToList();
 
             foreach (var item in ksiazkiAutorow)
             {
-                foreach (var i in context.Egzemplarze.Where(x => x.idKsiazki == item.idKsiazki).GroupBy(x => new { item.tytulKsiazki }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() }))
+                foreach (var i in context.Egzemplarze.Where(x=>x.idKsiazki==item.idKsiazki).GroupBy(x=>new { item.tytulKsiazki}).Select(g=>new { g.Key.tytulKsiazki,MyCount=g.Count()}))
                 {
-
+                   
                     l.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {i.MyCount} examples\n");
                 }
-            }
+            }   
 
-            booksList.ItemsSource = l;
-
+            booksList.ItemsSource = l ;
+       
             wynik = "";
-
+            
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace ProjektBiblioteka
         private void ShowAllTitles()
         {
 
-            var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
+             var c = from e in context.Ksiazki join ek in context.Egzemplarze on e.idKsiazki equals ek.idKsiazki orderby e.tytulKsiazki select new { ek.Ksiazki.tytulKsiazki, ek.idEgzemplarza };
             c.GroupBy(x => new { x.tytulKsiazki, x.idEgzemplarza }).Select(g => new { g.Key.tytulKsiazki, MyCount = g.Count() });
 
             var dictionary = new Dictionary<string, int>();
@@ -316,13 +316,18 @@ namespace ProjektBiblioteka
             { 
                 foreach (var element in WypozyczonychEgzemplarzyIlosc.Where(x => x.Key == item.tytulKsiazki))
                 {
-               
-                    bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount - element.Value} examples\n");
+                    if (item.MyCount - element.Value == 0)
+                    {
+                        booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{item.tytulKsiazki}\" \nAvailable: {item.MyCount - element.Value}", Background = Brushes.Gray, Height=55 });
+                    }else
+                        booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{item.tytulKsiazki}\" \nAvailable: {item.MyCount - element.Value}", Height = 55 });
+                    bookList.Add($"Title: \"{ item.tytulKsiazki}\" \n Available: {item.MyCount - element.Value} examples\n");
                     
                 }
                 if (WypozyczonychEgzemplarzyIlosc.ContainsKey(item.tytulKsiazki)==false)
                 {
-                    bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
+                    booksList.Items.Add(new ListBoxItem { Content = $"Title: \"{item.tytulKsiazki}\" \nAvailable: {item.MyCount}", Height = 55 });
+                   // bookList.Add($"Title: \"{ item.tytulKsiazki}\" \nWe have: {item.MyCount} examples\n");
                 }
                 if (WypozyczonychEgzemplarzyIlosc.ContainsKey(item.tytulKsiazki))
                 {
@@ -330,23 +335,7 @@ namespace ProjektBiblioteka
                 }
 
             }
-        
-            booksList.ItemsSource = bookList;
-
-        
-
-
-          //  booksList.ItemsSource = bookList;
-            //foreach (var item in noweQuery)
-            //{
-            //    bookList.Add($"Title: \"{ item.TytulKsiazki}\" \nWe have: {item.Count} examples\n");
-            //}
-            //   
-
-
-
-
-        }
+            } 
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -482,6 +471,11 @@ namespace ProjektBiblioteka
                 addUser.Show();
 
             }
+        }
+
+        private void booksList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 
