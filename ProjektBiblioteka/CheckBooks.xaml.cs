@@ -129,8 +129,8 @@ namespace ProjektBiblioteka
             InitializeComponent();
             //libraryEntitiesDataSet context = new libraryEntitiesDataSet();
             ShowAllTitles();
-           
 
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             foreach (var item in context.Tworcy.OrderBy(x => x.nazwiskoTworcy).Select(x=> new { x.imieTworcy,x.nazwiskoTworcy }))
             {

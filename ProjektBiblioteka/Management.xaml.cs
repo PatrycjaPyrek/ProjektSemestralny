@@ -33,6 +33,7 @@ namespace ProjektBiblioteka
 
         public Management()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             DataContext = new ComboBoxViewModel();
         }
@@ -188,7 +189,7 @@ namespace ProjektBiblioteka
 
 
 
-                //id klienta z listy
+              
 
 
 

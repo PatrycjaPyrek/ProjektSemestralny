@@ -29,23 +29,26 @@ namespace ProjektBiblioteka
             InitializeComponent();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+ 
             dispatcherTimer.Start();
 
+            Metoda();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
 
 
         }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+
+        private void Metoda()
         {
-            //code
-            //var godz = DateTime.Now.Hour;
-            //var minuta = DateTime.Now.Minute;
-            //var sekunda = DateTime.Now.Second;
-            //var data = DateTime.Now.Date;
             string dataigodzina = $"{DateTime.Now.ToLongDateString()}\t{ DateTime.Now.Hour:00}:{ DateTime.Now.Minute:00}:{DateTime.Now.Second:00}";
             dateAndTime_label.Content = dataigodzina;
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            Metoda();
         }
 
 
@@ -114,7 +117,7 @@ namespace ProjektBiblioteka
                 ksiazkaInfo.Add(item.tytulKsiazki.ToString());
                 ksiazkaInfo.Add(item.rodzajKsiazki.ToString());
                 ksiazkaInfo.Add(item.dataWypozyczenia.Date.ToString());
-                ksiazkaInfo.Add(DateTime.Now.Date.ToString());
+                ksiazkaInfo.Add(DateTime.Now.Date.ToString("d"));
          
                 idWypozyczeniaWybranego = item.idWypozyczenia;
             }
@@ -123,16 +126,18 @@ namespace ProjektBiblioteka
             TypeBorrowed.Content = ksiazkaInfo[2];
 
             DateBorrowed.Content = ksiazkaInfo[3].Replace("00:00:00","") + " - " + ksiazkaInfo[4].Replace("00:00:00","");
-            int ile = 0;
+           // int ile = 0;
             //=======================Doplaty====================================
             //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
             foreach (var item in ksiazkaInformacje.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.rodzajKsiazki }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
             {
-                DateConv dateC = new DateConv(item.dataWypozyczenia, DateTime.Now);
-                 ile=dateC.IleDni-30;
+                int ileDni = DbFunctions.DiffDays(item.dataWypozyczenia, item.dataZwrotu) ?? 0;
+                ileDni -= 30;
+               // DateConv dateC = new DateConv(item.dataWypozyczenia, DateTime.Now);
+               //  ile=dateC.IleDni-30;
                 
                 var doplataZaRodzaj = context.Cennik.Where(x => x.rodzajKsiazki == item.rodzajKsiazki).Select(x => x.oplataZa7Dni).FirstOrDefault();
-                decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ile;
+                decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ileDni;
                 //tworze nowa doplate na podstawie wyzej obliczonych danych
                 var doplataNowa = new Doplaty()
                 {
@@ -149,7 +154,7 @@ namespace ProjektBiblioteka
             var czyJestDoplata = context.Doplaty.Where(x => x.idWypozyczenia == idWypozyczeniaWybranego).Select(x => x.doplata.Value);
             foreach (var item in context.Doplaty.Where(x=>x.idWypozyczenia==idWypozyczeniaWybranego).Select(x=>x.doplata))
             {
-               
+              
                 ToPay.Content = item.Value.ToString();
             }
            

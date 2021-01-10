@@ -24,10 +24,10 @@ namespace ProjektBiblioteka
         public LoginScreen()
         {
             var context = new libraryEntitiesDataSet();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             // context2.loginPass.Find();
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
         /// <summary>
         /// Przycisk LogIn umożliwiający logowaniu. Po poprawnym podaniu 

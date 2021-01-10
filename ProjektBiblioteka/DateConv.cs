@@ -4,20 +4,19 @@ namespace ProjektBiblioteka
 {
     internal class DateConv
     {
-        private DateTime dataWypozyczenia;
-        private DateTime dataZwrotu;
-        public DateTime DataWypozyczenia => dataWypozyczenia;
-        public DateTime DataZwrotu => dataZwrotu;
+        private int ileDni;
+
        // int ileDni;
-        public int IleDni => Zwroc(dataZwrotu-DataWypozyczenia);
+        public int IleDni => ileDni;
 
         public DateConv(DateTime dataWypozyczenia, DateTime dataZwrotu)
         {
-           this.dataWypozyczenia = dataWypozyczenia;
-           this.dataZwrotu = dataZwrotu;
-           Zwroc(this.dataZwrotu - this.dataWypozyczenia);
+
+            TimeSpan roznica = dataWypozyczenia - dataZwrotu;
+            ileDni = (int)roznica.TotalDays;
+            //Zwroc(this.dataZwrotu - this.dataWypozyczenia);
         }
 
-        private int Zwroc(TimeSpan timeSpan) => (int)timeSpan.TotalDays;
+       // private int Zwroc(TimeSpan timeSpan) => (int)timeSpan.TotalDays;
     }
 }
