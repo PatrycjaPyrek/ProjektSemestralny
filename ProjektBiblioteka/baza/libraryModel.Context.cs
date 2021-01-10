@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Data.Entity;

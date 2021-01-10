@@ -7,36 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Klienci
+    public partial class Egzemplarze
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Klienci()
+        public Egzemplarze()
         {
             this.Wypozyczenia = new HashSet<Wypozyczenia>();
         }
     
-        public int idKlienta { get; set; }
-        public string NrDowodu { get; set; }
-        public string nazwiskoKlienta { get; set; }
-        public string imieKlienta { get; set; }
-        public string plec { get; set; }
-        public Nullable<System.DateTime> dataUrodzenia { get; set; }
-        public string ulica { get; set; }
-        public string kodPocztowy { get; set; }
-        public string Miejscowosc { get; set; }
-        public Nullable<System.DateTime> dataWprowadzenia { get; set; }
+        public int idEgzemplarza { get; set; }
+        public int idKsiazki { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenia> Wypozyczenia { get; set; }
-
-        public override string ToString()
-        {
-            return $"Id: {idKlienta} \n Name: {imieKlienta} {nazwiskoKlienta} Id card: {NrDowodu} City: {Miejscowosc}";
-        }
+        public virtual Ksiazki Ksiazki { get; set; }
     }
 }

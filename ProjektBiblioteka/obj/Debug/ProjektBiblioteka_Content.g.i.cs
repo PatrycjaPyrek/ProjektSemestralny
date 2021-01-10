@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("librarymodel.context.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("librarymodel.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("model1.context.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("model1.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("modelloginbase.context.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("modelloginbase.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/librarymodel.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/librarymodel.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/model1.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/model1.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/modelloginbase.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("baza/modelloginbase.tt")]
 
 

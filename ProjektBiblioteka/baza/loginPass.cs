@@ -7,16 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Doplaty
+    public partial class loginPass
     {
-        public int idWypozyczenia { get; set; }
-        public Nullable<decimal> doplata { get; set; }
-    
-        public virtual Wypozyczenia Wypozyczenia { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

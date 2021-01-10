@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LoginBaseEntities : DbContext
+    public partial class libraryEntities : DbContext
     {
-        public LoginBaseEntities()
-            : base("name=LoginBaseEntities")
+        public libraryEntities()
+            : base("name=libraryEntities")
         {
         }
     
@@ -25,6 +25,13 @@ namespace ProjektBiblioteka
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<loginPass> loginPass { get; set; }
+        public virtual DbSet<Cennik> Cennik { get; set; }
+        public virtual DbSet<Doplaty> Doplaty { get; set; }
+        public virtual DbSet<Egzemplarze> Egzemplarze { get; set; }
+        public virtual DbSet<gatunki> gatunki { get; set; }
+        public virtual DbSet<Klienci> Klienci { get; set; }
+        public virtual DbSet<Ksiazki> Ksiazki { get; set; }
+        public virtual DbSet<Tworcy> Tworcy { get; set; }
+        public virtual DbSet<Wypozyczenia> Wypozyczenia { get; set; }
     }
 }

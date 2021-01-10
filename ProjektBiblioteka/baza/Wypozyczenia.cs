@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
@@ -24,10 +24,5 @@ namespace ProjektBiblioteka
         public virtual Doplaty Doplaty { get; set; }
         public virtual Egzemplarze Egzemplarze { get; set; }
         public virtual Klienci Klienci { get; set; }
-
-        public override string ToString()
-        {
-            return $"Order id: {idWypozyczenia} Book(example) id: {idEgzemplarza} Client id: {idKlienta}";
-        }
     }
 }

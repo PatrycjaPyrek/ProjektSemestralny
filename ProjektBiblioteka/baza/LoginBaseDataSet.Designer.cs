@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace ProjektBiblioteka {
+namespace ProjektBiblioteka.baza {
     
     
     /// <summary>
@@ -619,7 +619,7 @@ namespace ProjektBiblioteka {
         }
     }
 }
-namespace ProjektBiblioteka.LoginBaseDataSetTableAdapters {
+namespace ProjektBiblioteka.baza.LoginBaseDataSetTableAdapters {
     
     
     /// <summary>

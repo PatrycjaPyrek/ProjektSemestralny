@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class loginPass
-    { 
-        [Required(AllowEmptyStrings = false, ErrorMessage ="Username is required!")]
-        public string username { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required!")]
-        public string password { get; set; }
+    
+    public partial class sysdiagrams
+    {
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

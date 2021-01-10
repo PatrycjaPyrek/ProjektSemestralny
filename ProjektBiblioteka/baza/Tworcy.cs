@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
@@ -27,15 +27,5 @@ namespace ProjektBiblioteka
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ksiazki> Ksiazki { get; set; }
-
-        public override string ToString()
-        {
-            if (rokUrodzenia == null)
-            {
-                return $"{idTworcy} {imieTworcy} {nazwiskoTworcy} (rok urodzenia nieznany)";
-            }
-            return $"{idTworcy} {imieTworcy} {nazwiskoTworcy} (urodzony {rokUrodzenia})";
-        }
-
     }
 }

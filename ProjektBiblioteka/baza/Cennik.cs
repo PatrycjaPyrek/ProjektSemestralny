@@ -7,25 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjektBiblioteka
+namespace ProjektBiblioteka.baza
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Egzemplarze
+    public partial class Cennik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Egzemplarze()
+        public Cennik()
         {
-            this.Wypozyczenia = new HashSet<Wypozyczenia>();
+            this.Ksiazki = new HashSet<Ksiazki>();
         }
     
-        public int idEgzemplarza { get; set; }
-        public int idKsiazki { get; set; }
+        public string rodzajKsiazki { get; set; }
+        public decimal oplataZa7Dni { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wypozyczenia> Wypozyczenia { get; set; }
-        public virtual Ksiazki Ksiazki { get; set; }
-        
+        public virtual ICollection<Ksiazki> Ksiazki { get; set; }
     }
 }

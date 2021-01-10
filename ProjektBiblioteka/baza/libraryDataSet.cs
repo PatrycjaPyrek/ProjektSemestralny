@@ -1,4 +1,4 @@
-﻿namespace ProjektBiblioteka
+﻿namespace ProjektBiblioteka.baza
 {
 
 
