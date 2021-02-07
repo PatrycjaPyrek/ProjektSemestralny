@@ -123,104 +123,6 @@ namespace ProjektBiblioteka
 
                 }
 
-                //    switch (item.dataWypozyczenia.Month)
-                //    {
-                //        case 1:
-                            
-                //            bestBookJanuary.Cells["A" + currentRowJanuary.ToString()].Value = item.tytulKsiazki;
-                //            bestBookJanuary.Cells["B" + currentRowJanuary.ToString()].Value = item.Count;
-                //            bestBookJanuary.Cells["C" + currentRowJanuary.ToString()].Value = item.dataWypozyczenia;
-                //            bestBookJanuary.Cells["C2:C" + currentRowJanuary].Style.Numberformat.Format = "mm-yyyy";
-
-
-                //            currentRowJanuary++;
-                //            break;
-                //        case 2:
-                //            bestBookFebruary.Cells["A" + bestBookFebruary.ToString()].Value = item.tytulKsiazki;
-                //            bestBookFebruary.Cells["B" + bestBookFebruary.ToString()].Value = item.Count;
-                //            bestBookFebruary.Cells["C" + bestBookFebruary.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowFebruary++;
-                //            bestBookFebruary.Cells["C2:C" + bestBookFebruary].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 3:
-                //            bestBookMarch.Cells["A" + bestBookMarch.ToString()].Value = item.tytulKsiazki;
-                //            bestBookMarch.Cells["B" + bestBookMarch.ToString()].Value = item.Count;
-                //            bestBookMarch.Cells["C" + bestBookMarch.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowMarch++;
-                //            bestBookMarch.Cells["C2:C" + bestBookMarch].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 4:
-                //            bestBookApril.Cells["A" + bestBookApril.ToString()].Value = item.tytulKsiazki;
-                //            bestBookApril.Cells["B" + bestBookApril.ToString()].Value = item.Count;
-                //            bestBookApril.Cells["C" + bestBookApril.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowApril++;
-                //            bestBookApril.Cells["C2:C" + bestBookApril].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 5:
-                //            bestBookMay.Cells["A" + bestBookMay.ToString()].Value = item.tytulKsiazki;
-                //            bestBookMay.Cells["B" + bestBookMay.ToString()].Value = item.Count;
-                //            bestBookMay.Cells["C" + bestBookMay.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowMay++;
-                //            bestBookMay.Cells["C2:C" + bestBookMay].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 6:
-                //            bestBookJune.Cells["A" + currentRowJune.ToString()].Value = item.tytulKsiazki;
-                //            bestBookJune.Cells["B" + currentRowJune.ToString()].Value = item.Count;
-                //            bestBookJune.Cells["C" + currentRowJune.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowJune++;
-                //            bestBookJune.Cells["C2:C" + currentRowJune].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 7:
-                //            bestBookJuly.Cells["A" + currentRowJuly.ToString()].Value = item.tytulKsiazki;
-                //            bestBookJuly.Cells["B" + currentRowJuly.ToString()].Value = item.Count;
-                //            bestBookJuly.Cells["C" + currentRowJuly.ToString()].Value = item.dataWypozyczenia;
-                //            bestBookJuly.Cells["C2:C" + currentRowJuly].Style.Numberformat.Format = "mm-yyyy";
-
-
-                //            currentRowJuly++;
-                //            break;
-                //        case 8:
-                //            bestBookAugust.Cells["A" + currentRowAugust.ToString()].Value = item.tytulKsiazki;
-                //            bestBookAugust.Cells["B" + currentRowAugust.ToString()].Value = item.Count;
-                //            bestBookAugust.Cells["C" + currentRowAugust.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowAugust++;
-                //            bestBookAugust.Cells["C2:C" + currentRowAugust].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 9:
-                //            bestBookSeptember.Cells["A" + currentRowSeptember.ToString()].Value = item.tytulKsiazki;
-                //            bestBookSeptember.Cells["B" + currentRowSeptember.ToString()].Value = item.Count;
-                //            bestBookSeptember.Cells["C" + currentRowSeptember.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowSeptember++;
-                //            bestBookSeptember.Cells["C2:C" + currentRowSeptember].Style.Numberformat.Format = "mm-yyyy";
-
-                //            break;
-                //        case 10:
-                //            bestBookOctober.Cells["A" + currentRowOctober.ToString()].Value = item.tytulKsiazki;
-                //            bestBookOctober.Cells["B" + currentRowOctober.ToString()].Value = item.Count;
-                //            bestBookOctober.Cells["C" + currentRowOctober.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowOctober++;
-                //            bestBookOctober.Cells["C2:C" + currentRowOctober].Style.Numberformat.Format = "mm-yyyy";
-                //            break;
-                //        case 11:
-                //            bestBookNovember.Cells["A" + currentRowNovember.ToString()].Value = item.tytulKsiazki;
-                //            bestBookNovember.Cells["B" + currentRowNovember.ToString()].Value = item.Count;
-                //            bestBookNovember.Cells["C" + currentRowNovember.ToString()].Value = item.dataWypozyczenia;
-                //            currentRowNovember++;
-                //            bestBookNovember.Cells["C2:C" + currentRowNovember].Style.Numberformat.Format = "mm-yyyy";
-
-                //            break;
-                //        case 12:
-                //            bestBookDecember.Cells["A" + currentRowDecember.ToString()].Value = item.tytulKsiazki;
-                //            bestBookDecember.Cells["B" + currentRowDecember.ToString()].Value = item.Count;
-                //            bestBookDecember.Cells["C" + currentRowDecember.ToString()].Value = item.dataWypozyczenia;
-
-                //            currentRowDecember++;
-                //            bestBookDecember.Cells["C2:C" + currentRowDecember].Style.Numberformat.Format = "mm-yyyy";
-
-                //            break;
-                //    }
-                    
-                //}
 
                 int currentRow = 2;
                 foreach (var item in listaRaportu.OrderByDescending(x=>x.Count))
@@ -235,39 +137,39 @@ namespace ProjektBiblioteka
                
                 bestBookWorksheet.Column(3).Hidden = true;
 
+                //chart
+               //// create a new piechart of type Line
+               // ExcelLineChart lineChart = bestBookWorksheet.Drawings.AddChart("lineChart", eChartType.Line) as ExcelLineChart;
 
-               // create a new piechart of type Line
-                ExcelLineChart lineChart = bestBookWorksheet.Drawings.AddChart("lineChart", eChartType.Line) as ExcelLineChart;
+               // //set the title
+               // lineChart.Title.Text = "Best Book chart";
 
-                //set the title
-                lineChart.Title.Text = "Best Book chart";
+               // //create the ranges for the chart
+               // var rangeLabel = bestBookWorksheet.Cells["A1:B1"];
+               // for (int i = 2; i < lists.Count; i++)
+               // {
+               //     var range = bestBookWorksheet.Cells[$"A{i}:B{i}"];
+               //     lineChart.Series.Add(range, rangeLabel);
+               //     i++;
 
-                //create the ranges for the chart
-                var rangeLabel = bestBookWorksheet.Cells["A1:B1"];
-                for (int i = 2; i < lists.Count; i++)
-                {
-                    var range = bestBookWorksheet.Cells[$"A{i}:B{i}"];
-                    lineChart.Series.Add(range, rangeLabel);
-                    i++;
-
-                }
+               // }
 
 
-                //   add the ranges to the chart
-                //    set the names of the legend
+               // //   add the ranges to the chart
+               // //    set the names of the legend
               
-                 lineChart.Series[0].Header = bestBookWorksheet.Cells["A1"].Value.ToString();
-                lineChart.Series[1].Header = bestBookWorksheet.Cells["B1"].Value.ToString();
-                // lineChart.Series[2].Header = bestBookWorksheet.Cells["C1"].Value.ToString();
+               //  lineChart.Series[0].Header = bestBookWorksheet.Cells["A1"].Value.ToString();
+               // lineChart.Series[1].Header = bestBookWorksheet.Cells["B1"].Value.ToString();
+               // // lineChart.Series[2].Header = bestBookWorksheet.Cells["C1"].Value.ToString();
 
-                //position of the legend
-                lineChart.Legend.Position = eLegendPosition.Right;
+               // //position of the legend
+               // lineChart.Legend.Position = eLegendPosition.Right;
 
-                //size of the chart
-                lineChart.SetSize(600, 300);
+               // //size of the chart
+               // lineChart.SetSize(600, 300);
 
-                //add the chart at cell B6
-                lineChart.SetPosition(8, 0, 1, 0);
+               // //add the chart at cell B6
+               // lineChart.SetPosition(8, 0, 1, 0);
 
 
                 #endregion

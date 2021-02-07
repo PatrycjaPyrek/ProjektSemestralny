@@ -24,5 +24,10 @@ namespace ProjektBiblioteka.baza
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ksiazki> Ksiazki { get; set; }
+
+        public override string ToString()
+        {
+            return $"{gatunek}";
+        }
     }
 }

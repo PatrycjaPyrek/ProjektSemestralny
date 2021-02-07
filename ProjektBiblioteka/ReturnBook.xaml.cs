@@ -127,18 +127,19 @@ namespace ProjektBiblioteka
             TypeBorrowed.Content = ksiazkaInfo[2];
 
             DateBorrowed.Content = ksiazkaInfo[3].Replace("00:00:00","") + " - " + ksiazkaInfo[4].Replace("00:00:00","");
-           // int ile = 0;
+            int ile = 0;
             //=======================Doplaty====================================
             //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
             foreach (var item in ksiazkaInformacje.Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.rodzajKsiazki }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
             {
-                int ileDni = DbFunctions.DiffDays(item.dataWypozyczenia, item.dataZwrotu) ?? 0;
-                ileDni -= 30;
-               // DateConv dateC = new DateConv(item.dataWypozyczenia, DateTime.Now);
-               //  ile=dateC.IleDni-30;
-                
-                var doplataZaRodzaj = context.Cennik.Where(x => x.rodzajKsiazki == item.rodzajKsiazki).Select(x => x.oplataZa7Dni).FirstOrDefault();
-                decimal doZaplatyObliczone = (doplataZaRodzaj / 7) * ileDni;
+                DateConv dateC = new DateConv((DateTime)item.dataZwrotu, item.dataWypozyczenia);
+                ile = dateC.IleDni - 30;
+                // DateConv dateC = new DateConv(item.dataWypozyczenia, DateTime.Now);
+                //  ile=dateC.IleDni-30;
+
+
+                var doplataZaRodzaj = (decimal)context.Cennik.Where(x => x.rodzajKsiazki == item.rodzajKsiazki).Select(x => x.oplataZa7Dni).FirstOrDefault();
+                decimal doZaplatyObliczone = Math.Round((doplataZaRodzaj / 7) * ile, 2);
                 //tworze nowa doplate na podstawie wyzej obliczonych danych
                 var doplataNowa = new Doplaty()
                 {

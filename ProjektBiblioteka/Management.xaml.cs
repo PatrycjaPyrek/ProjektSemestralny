@@ -233,7 +233,7 @@ namespace ProjektBiblioteka
                 //Doplata liczona jesli ktos przetrzyma ksiazke (wiecej niz 30 dni!)
                 foreach (var item in context.Wypozyczenia.Where(x=>x.idWypozyczenia==idWypozyczenia).Select(x => new { x.idWypozyczenia, x.dataWypozyczenia, x.dataZwrotu, x.oplataZa7Dni }).Where(x => DbFunctions.DiffDays(x.dataWypozyczenia, x.dataZwrotu) > 30))
                 {
-                    DateConv dateC = new DateConv(item.dataWypozyczenia, (DateTime)item.dataZwrotu);
+                    DateConv dateC = new DateConv((DateTime)item.dataZwrotu, item.dataWypozyczenia );
                     ile = dateC.IleDni - 30;
 
                     var doplataZaRodzaj = (decimal)item.oplataZa7Dni;
